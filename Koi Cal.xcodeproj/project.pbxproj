@@ -1,0 +1,593 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		936B80DE2CE68B4D00F668CD /* Koi_CalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80DD2CE68B4D00F668CD /* Koi_CalApp.swift */; };
+		936B80E02CE68B4D00F668CD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80DF2CE68B4D00F668CD /* ContentView.swift */; };
+		936B80E22CE68B4E00F668CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 936B80E12CE68B4E00F668CD /* Assets.xcassets */; };
+		936B80E52CE68B4E00F668CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 936B80E42CE68B4E00F668CD /* Preview Assets.xcassets */; };
+		936B80EF2CE68B4E00F668CD /* Koi_CalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80EE2CE68B4E00F668CD /* Koi_CalTests.swift */; };
+		936B80F92CE68B4E00F668CD /* Koi_CalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80F82CE68B4E00F668CD /* Koi_CalUITests.swift */; };
+		936B80FB2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80FA2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		936B80EB2CE68B4E00F668CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 936B80D22CE68B4D00F668CD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 936B80D92CE68B4D00F668CD;
+			remoteInfo = "Koi Cal";
+		};
+		936B80F52CE68B4E00F668CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 936B80D22CE68B4D00F668CD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 936B80D92CE68B4D00F668CD;
+			remoteInfo = "Koi Cal";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		936B80DA2CE68B4D00F668CD /* Koi Cal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Koi Cal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		936B80DD2CE68B4D00F668CD /* Koi_CalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalApp.swift; sourceTree = "<group>"; };
+		936B80DF2CE68B4D00F668CD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		936B80E12CE68B4E00F668CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		936B80E42CE68B4E00F668CD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		936B80EA2CE68B4E00F668CD /* Koi CalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Koi CalTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		936B80EE2CE68B4E00F668CD /* Koi_CalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalTests.swift; sourceTree = "<group>"; };
+		936B80F42CE68B4E00F668CD /* Koi CalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Koi CalUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		936B80F82CE68B4E00F668CD /* Koi_CalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalUITests.swift; sourceTree = "<group>"; };
+		936B80FA2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		936B80D72CE68B4D00F668CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80E72CE68B4E00F668CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80F12CE68B4E00F668CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		936B80D12CE68B4D00F668CD = {
+			isa = PBXGroup;
+			children = (
+				936B80DC2CE68B4D00F668CD /* Koi Cal */,
+				936B80ED2CE68B4E00F668CD /* Koi CalTests */,
+				936B80F72CE68B4E00F668CD /* Koi CalUITests */,
+				936B80DB2CE68B4D00F668CD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		936B80DB2CE68B4D00F668CD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				936B80DA2CE68B4D00F668CD /* Koi Cal.app */,
+				936B80EA2CE68B4E00F668CD /* Koi CalTests.xctest */,
+				936B80F42CE68B4E00F668CD /* Koi CalUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		936B80DC2CE68B4D00F668CD /* Koi Cal */ = {
+			isa = PBXGroup;
+			children = (
+				936B80DD2CE68B4D00F668CD /* Koi_CalApp.swift */,
+				936B80DF2CE68B4D00F668CD /* ContentView.swift */,
+				936B80E12CE68B4E00F668CD /* Assets.xcassets */,
+				936B80E32CE68B4E00F668CD /* Preview Content */,
+			);
+			path = "Koi Cal";
+			sourceTree = "<group>";
+		};
+		936B80E32CE68B4E00F668CD /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				936B80E42CE68B4E00F668CD /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		936B80ED2CE68B4E00F668CD /* Koi CalTests */ = {
+			isa = PBXGroup;
+			children = (
+				936B80EE2CE68B4E00F668CD /* Koi_CalTests.swift */,
+			);
+			path = "Koi CalTests";
+			sourceTree = "<group>";
+		};
+		936B80F72CE68B4E00F668CD /* Koi CalUITests */ = {
+			isa = PBXGroup;
+			children = (
+				936B80F82CE68B4E00F668CD /* Koi_CalUITests.swift */,
+				936B80FA2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift */,
+			);
+			path = "Koi CalUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		936B80D92CE68B4D00F668CD /* Koi Cal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 936B80FE2CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi Cal" */;
+			buildPhases = (
+				936B80D62CE68B4D00F668CD /* Sources */,
+				936B80D72CE68B4D00F668CD /* Frameworks */,
+				936B80D82CE68B4D00F668CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Koi Cal";
+			productName = "Koi Cal";
+			productReference = 936B80DA2CE68B4D00F668CD /* Koi Cal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		936B80E92CE68B4E00F668CD /* Koi CalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 936B81012CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi CalTests" */;
+			buildPhases = (
+				936B80E62CE68B4E00F668CD /* Sources */,
+				936B80E72CE68B4E00F668CD /* Frameworks */,
+				936B80E82CE68B4E00F668CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				936B80EC2CE68B4E00F668CD /* PBXTargetDependency */,
+			);
+			name = "Koi CalTests";
+			productName = "Koi CalTests";
+			productReference = 936B80EA2CE68B4E00F668CD /* Koi CalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		936B80F32CE68B4E00F668CD /* Koi CalUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 936B81042CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi CalUITests" */;
+			buildPhases = (
+				936B80F02CE68B4E00F668CD /* Sources */,
+				936B80F12CE68B4E00F668CD /* Frameworks */,
+				936B80F22CE68B4E00F668CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				936B80F62CE68B4E00F668CD /* PBXTargetDependency */,
+			);
+			name = "Koi CalUITests";
+			productName = "Koi CalUITests";
+			productReference = 936B80F42CE68B4E00F668CD /* Koi CalUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		936B80D22CE68B4D00F668CD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					936B80D92CE68B4D00F668CD = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					936B80E92CE68B4E00F668CD = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 936B80D92CE68B4D00F668CD;
+					};
+					936B80F32CE68B4E00F668CD = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 936B80D92CE68B4D00F668CD;
+					};
+				};
+			};
+			buildConfigurationList = 936B80D52CE68B4D00F668CD /* Build configuration list for PBXProject "Koi Cal" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 936B80D12CE68B4D00F668CD;
+			productRefGroup = 936B80DB2CE68B4D00F668CD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				936B80D92CE68B4D00F668CD /* Koi Cal */,
+				936B80E92CE68B4E00F668CD /* Koi CalTests */,
+				936B80F32CE68B4E00F668CD /* Koi CalUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		936B80D82CE68B4D00F668CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				936B80E52CE68B4E00F668CD /* Preview Assets.xcassets in Resources */,
+				936B80E22CE68B4E00F668CD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80E82CE68B4E00F668CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80F22CE68B4E00F668CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		936B80D62CE68B4D00F668CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				936B80E02CE68B4D00F668CD /* ContentView.swift in Sources */,
+				936B80DE2CE68B4D00F668CD /* Koi_CalApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80E62CE68B4E00F668CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				936B80EF2CE68B4E00F668CD /* Koi_CalTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80F02CE68B4E00F668CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				936B80F92CE68B4E00F668CD /* Koi_CalUITests.swift in Sources */,
+				936B80FB2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		936B80EC2CE68B4E00F668CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 936B80D92CE68B4D00F668CD /* Koi Cal */;
+			targetProxy = 936B80EB2CE68B4E00F668CD /* PBXContainerItemProxy */;
+		};
+		936B80F62CE68B4E00F668CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 936B80D92CE68B4D00F668CD /* Koi Cal */;
+			targetProxy = 936B80F52CE68B4E00F668CD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		936B80FC2CE68B4E00F668CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		936B80FD2CE68B4E00F668CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		936B80FF2CE68B4E00F668CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Koi Cal/Preview Content\"";
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.designoverhaul.Koi-Cal";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		936B81002CE68B4E00F668CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Koi Cal/Preview Content\"";
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.designoverhaul.Koi-Cal";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		936B81022CE68B4E00F668CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.designoverhaul.Koi-CalTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Koi Cal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Koi Cal";
+			};
+			name = Debug;
+		};
+		936B81032CE68B4E00F668CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.designoverhaul.Koi-CalTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Koi Cal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Koi Cal";
+			};
+			name = Release;
+		};
+		936B81052CE68B4E00F668CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.designoverhaul.Koi-CalUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Koi Cal";
+			};
+			name = Debug;
+		};
+		936B81062CE68B4E00F668CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.designoverhaul.Koi-CalUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Koi Cal";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		936B80D52CE68B4D00F668CD /* Build configuration list for PBXProject "Koi Cal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				936B80FC2CE68B4E00F668CD /* Debug */,
+				936B80FD2CE68B4E00F668CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		936B80FE2CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi Cal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				936B80FF2CE68B4E00F668CD /* Debug */,
+				936B81002CE68B4E00F668CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		936B81012CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi CalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				936B81022CE68B4E00F668CD /* Debug */,
+				936B81032CE68B4E00F668CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		936B81042CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi CalUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				936B81052CE68B4E00F668CD /* Debug */,
+				936B81062CE68B4E00F668CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 936B80D22CE68B4D00F668CD /* Project object */;
+}
