@@ -5,6 +5,7 @@ struct FeedingEntry: Identifiable {
     let date: Date
     let feedingNumber: Int
     let foodType: String
+    let isHistoricalEntry: Bool
 }
 
 class FeedingData: ObservableObject {
@@ -15,22 +16,29 @@ class FeedingData: ObservableObject {
     func toggleFeeding(for date: Date) {
         let calendar = Calendar.current
         let normalizedDate = calendar.startOfDay(for: date)
+        let isHistoricalEntry = !calendar.isDateInToday(date)
+        
+        let entryDate = isHistoricalEntry ? 
+            calendar.date(bySettingHour: 12, minute: 0, second: 0, of: date)! :
+            Date()
         
         if let currentCount = feedings[normalizedDate] {
             if currentCount < 3 {
                 feedings[normalizedDate] = currentCount + 1
                 feedingEntries.append(FeedingEntry(
-                    date: Date(),
+                    date: entryDate,
                     feedingNumber: currentCount + 1,
-                    foodType: currentFoodType
+                    foodType: currentFoodType,
+                    isHistoricalEntry: isHistoricalEntry
                 ))
             }
         } else {
             feedings[normalizedDate] = 1
             feedingEntries.append(FeedingEntry(
-                date: Date(),
+                date: entryDate,
                 feedingNumber: 1,
-                foodType: currentFoodType
+                foodType: currentFoodType,
+                isHistoricalEntry: isHistoricalEntry
             ))
         }
     }
@@ -55,5 +63,12 @@ class FeedingData: ObservableObject {
         let calendar = Calendar.current
         let normalizedDate = calendar.startOfDay(for: date)
         return feedings[normalizedDate] ?? 0
+    }
+    
+    func getEntries(for date: Date) -> [FeedingEntry] {
+        let calendar = Calendar.current
+        return feedingEntries.filter { entry in
+            calendar.isDate(entry.date, inSameDayAs: date)
+        }
     }
 } 

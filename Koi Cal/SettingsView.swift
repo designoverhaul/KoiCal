@@ -78,7 +78,6 @@ struct SettingsView: View {
                     temperature: weatherManager.currentTemperature ?? 70,
                     fishAge: selectedAgeGroup,
                     objective: selectedObjective,
-                    foodType: feedingData.currentFoodType,
                     location: "Atlanta, Georgia"
                 )
             } catch {

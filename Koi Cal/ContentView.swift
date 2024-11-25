@@ -84,6 +84,13 @@ struct ContentView: View {
                         await weatherManager.getTemperature(for: newLocation)
                     }
                 }
+                .onChange(of: weatherManager.currentTemperature) { _, newTemp in
+                    if newTemp != nil {
+                        Task {
+                            await getRecommendation()
+                        }
+                    }
+                }
                 
                 // Add recommendation view below the top bar
                 recommendationView
@@ -128,7 +135,7 @@ struct ContentView: View {
                 
                 ScrollView {
                     LazyVStack(spacing: 0) {
-                        ForEach(feedingData.feedingEntries.sorted(by: { $0.date > $1.date })) { entry in
+                        ForEach(feedingData.getEntries(for: selectedDate).sorted(by: { $0.date > $1.date })) { entry in
                             FeedingEntryView(entry: entry) {
                                 feedingData.deleteEntry(entry)
                             }
@@ -211,10 +218,8 @@ struct ContentView: View {
                 temperature: temperature,
                 fishAge: selectedAgeGroup,
                 objective: selectedObjective,
-                foodType: feedingData.currentFoodType,
                 location: "Atlanta, Georgia"
             )
-            
             await MainActor.run {
                 recommendationState = .success(recommendation)
             }
@@ -231,8 +236,24 @@ struct ContentView: View {
         let lastDate = Date(timeIntervalSince1970: lastRecommendationDate)
         if !calendar.isDate(lastDate, inSameDayAs: Date()) {
             Task {
-                await getRecommendation()
-                lastRecommendationDate = Date().timeIntervalSince1970
+                do {
+                    recommendationState = .loading
+                    let recommendation = try await xaiService.getRecommendation(
+                        temperature: weatherManager.currentTemperature ?? 70,
+                        fishAge: selectedAgeGroup,
+                        objective: selectedObjective,
+                        location: "Atlanta, Georgia"
+                    )
+                    await MainActor.run {
+                        recommendationState = .success(recommendation)
+                        lastRecommendationDate = Date().timeIntervalSince1970
+                    }
+                } catch {
+                    print("Error getting recommendation: \(error)")
+                    await MainActor.run {
+                        recommendationState = .error("Unable to get feeding recommendation")
+                    }
+                }
             }
         }
     }
