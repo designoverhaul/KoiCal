@@ -92,39 +92,61 @@ struct ContentView: View {
                     }
                 }
                 
-                // Add recommendation view below the top bar
-                recommendationView
-                    .padding(.vertical, 5)
-                
                 // Food Image (stable position)
                 VStack(spacing: 12) {
-                    Image("fishsFood")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: 240)
-                        .onTapGesture {
-                            print("Food tapped")
-                            feedingData.toggleFeeding(for: selectedDate)
-                            let animationId = UUID()
-                            print("Adding animation: \(animationId)")
-                            animations.append(animationId)
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                                print("Removing animation: \(animationId)")
-                                animations.removeAll { $0 == animationId }
-                            }
-                        }
-                    
-                    if case .success(let recommendation) = recommendationState {
-                        Text(recommendation)
-                            .font(.headline)
-                    } else if case .loading = recommendationState {
-                        ProgressView()
-                    } else {
-                        Text("Loading feeding recommendation...")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
+                    GeometryReader { geometry in
+                        Image("fishsFood")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geometry.size.width / 3)  // Set to 1/3 of screen width
+                            .frame(maxWidth: .infinity)  // Center the image
                     }
+                    .frame(height: 200)  // Give the GeometryReader a fixed height
+                    .onTapGesture {
+                        print("Food tapped")
+                        feedingData.toggleFeeding(for: selectedDate)
+                        let animationId = UUID()
+                        print("Adding animation: \(animationId)")
+                        animations.append(animationId)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                            print("Removing animation: \(animationId)")
+                            animations.removeAll { $0 == animationId }
+                        }
+                    }
+                    
+                    VStack(spacing: 8) {
+                        Text(selectedDate.formatted(.dateTime.month(.wide).day().year()))
+                            .font(.caption)
+                            .foregroundColor(Color.koiOrange)
+                            .textCase(.uppercase)
+                            .kerning(2)
+                        
+                        if case .success(let recommendation) = recommendationState {
+                            HStack(alignment: .top, spacing: 4) {
+                                Image(systemName: "sparkles")
+                                    .foregroundColor(Color.koiOrange)
+                                
+                                Text(recommendation)
+                                    .font(.subheadline)
+                                    .multilineTextAlignment(.center)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color(.systemGray6))
+                            .cornerRadius(8)
+                        } else if case .loading = recommendationState {
+                            ProgressView()
+                                .padding()
+                        } else {
+                            Text("Loading feeding recommendation...")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                                .padding()
+                        }
+                    }
+                    .padding(.horizontal)
                 }
                 .padding(.horizontal)
                 .padding(.top, -10)
@@ -255,46 +277,6 @@ struct ContentView: View {
                     }
                 }
             }
-        }
-    }
-    
-    var recommendationView: some View {
-        switch recommendationState {
-        case .loading:
-            return AnyView(
-                ProgressView()
-                    .padding(.vertical)
-            )
-        case .success(let recommendation):
-            return AnyView(
-                Text(recommendation)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .padding(.horizontal)
-                    .multilineTextAlignment(.center)
-            )
-        case .error(let message):
-            return AnyView(
-                VStack(spacing: 4) {
-                    Text(message)
-                        .font(.subheadline)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-                    
-                    Button(action: {
-                        Task {
-                            await getRecommendation()
-                        }
-                    }) {
-                        Label("Try Again", systemImage: "arrow.clockwise")
-                            .font(.caption)
-                            .foregroundColor(.blue)
-                    }
-                }
-                .padding(.horizontal)
-            )
-        case .none:
-            return AnyView(EmptyView())
         }
     }
 }

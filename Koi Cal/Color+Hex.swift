@@ -6,6 +6,7 @@ extension Color {
     static let firstFeeding = Color(hex: "F1DBC4")
     static let secondFeeding = Color(hex: "C0A681")
     static let thirdFeeding = Color(hex: "58411F")
+    static let koiOrange = Color(hex: "E26935")
     
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)

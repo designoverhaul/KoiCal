@@ -24,19 +24,20 @@ struct CustomCalendarView: View {
     
     var body: some View {
         VStack(spacing: 15) {
-            // Month header
-            Text(monthYearString(from: displayedMonth))
-                .font(.caption)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom, 5)
+            // Month header - only show for previous months
+            if !calendar.isDate(displayedMonth, equalTo: Date(), toGranularity: .month) {
+                Text(monthYearString(from: displayedMonth))
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, 5)
+            }
             
             // Days of week header
             HStack {
                 ForEach(daysOfWeek, id: \.self) { day in
                     Text(day)
-                        .frame(maxWidth: .infinity)
                         .font(.caption)
-                        .foregroundColor(.gray)
+                        .frame(maxWidth: .infinity)
                 }
             }
             
