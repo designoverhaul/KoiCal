@@ -7,24 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		936B80DE2CE68B4D00F668CD /* Koi_CalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80DD2CE68B4D00F668CD /* Koi_CalApp.swift */; };
-		936B80E02CE68B4D00F668CD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80DF2CE68B4D00F668CD /* ContentView.swift */; };
+		9355BEEC2CF4EEEA007B1A78 /* FeedingGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE22CF4EEEA007B1A78 /* FeedingGuideView.swift */; };
+		9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */; };
+		9355BEEE2CF4EEEA007B1A78 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */; };
+		9355BEEF2CF4EEEA007B1A78 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */; };
+		9355BEF02CF4EEEA007B1A78 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */; };
+		9355BEF32CF4EEEA007B1A78 /* FallingPelletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */; };
+		9355BEF42CF4EEEA007B1A78 /* FeedingEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */; };
+		9355BEF52CF4EEEA007B1A78 /* Koi_CalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */; };
+		9355BEF62CF4EEEA007B1A78 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */; };
+		9355BEF72CF4EEEA007B1A78 /* FeedingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */; };
+		9355BEFC2CF4F019007B1A78 /* XAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEFB2CF4F019007B1A78 /* XAIService.swift */; };
+		9355BEFE2CF4F019007B1A78 /* XAIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEFA2CF4F019007B1A78 /* XAIConfig.swift */; };
+		9355BF022CF4F042007B1A78 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BF002CF4F042007B1A78 /* WeatherManager.swift */; };
 		936B80E22CE68B4E00F668CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 936B80E12CE68B4E00F668CD /* Assets.xcassets */; };
 		936B80E52CE68B4E00F668CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 936B80E42CE68B4E00F668CD /* Preview Assets.xcassets */; };
 		936B80EF2CE68B4E00F668CD /* Koi_CalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80EE2CE68B4E00F668CD /* Koi_CalTests.swift */; };
 		936B80F92CE68B4E00F668CD /* Koi_CalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80F82CE68B4E00F668CD /* Koi_CalUITests.swift */; };
 		936B80FB2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80FA2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift */; };
-		937ED62C2CECCA00004508E3 /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED62B2CECCA00004508E3 /* CustomCalendarView.swift */; };
-		937ED6302CECD12D004508E3 /* FallingPelletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED62D2CECD12D004508E3 /* FallingPelletView.swift */; };
-		937ED6312CECD12D004508E3 /* FeedingGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED62E2CECD12D004508E3 /* FeedingGuideView.swift */; };
-		937ED6322CECD12D004508E3 /* FeedingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED62F2CECD12D004508E3 /* FeedingData.swift */; };
-		937ED6342CED20A8004508E3 /* FeedingEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED6332CED20A8004508E3 /* FeedingEntryView.swift */; };
-		937ED6362CED22DF004508E3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED6352CED22DF004508E3 /* SettingsView.swift */; };
-		937ED63A2CED2AEF004508E3 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED6382CED2AEF004508E3 /* SettingsManager.swift */; };
-		937ED63B2CED2AEF004508E3 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED6392CED2AEF004508E3 /* WeatherManager.swift */; };
-		937ED63E2CED3307004508E3 /* XAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED63C2CED3307004508E3 /* XAIService.swift */; };
-		937ED63F2CED3307004508E3 /* XAIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED63D2CED3307004508E3 /* XAIConfig.swift */; };
-		937ED6412CED3678004508E3 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937ED6402CED3678004508E3 /* LocationManager.swift */; };
+		93C5903A2CF545D5006986A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C590392CF545D5006986A2 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,9 +46,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarView.swift; sourceTree = "<group>"; };
+		9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallingPelletView.swift; sourceTree = "<group>"; };
+		9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingData.swift; sourceTree = "<group>"; };
+		9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingEntryView.swift; sourceTree = "<group>"; };
+		9355BEE22CF4EEEA007B1A78 /* FeedingGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingGuideView.swift; sourceTree = "<group>"; };
+		9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalApp.swift; sourceTree = "<group>"; };
+		9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		9355BEEA2CF4EEEA007B1A78 /* XAIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIConfig.swift; sourceTree = "<group>"; };
+		9355BEEB2CF4EEEA007B1A78 /* XAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIService.swift; sourceTree = "<group>"; };
+		9355BEF92CF4F019007B1A78 /* FeedingEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingEntryView.swift; sourceTree = "<group>"; };
+		9355BEFA2CF4F019007B1A78 /* XAIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIConfig.swift; sourceTree = "<group>"; };
+		9355BEFB2CF4F019007B1A78 /* XAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIService.swift; sourceTree = "<group>"; };
+		9355BEFF2CF4F042007B1A78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9355BF002CF4F042007B1A78 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		9355BF032CF4F214007B1A78 /* koical.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = koical.entitlements; sourceTree = "<group>"; };
 		936B80DA2CE68B4D00F668CD /* Koi Cal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Koi Cal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		936B80DD2CE68B4D00F668CD /* Koi_CalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalApp.swift; sourceTree = "<group>"; };
-		936B80DF2CE68B4D00F668CD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		936B80E12CE68B4E00F668CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		936B80E42CE68B4E00F668CD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		936B80EA2CE68B4E00F668CD /* Koi CalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Koi CalTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,18 +72,7 @@
 		936B80F42CE68B4E00F668CD /* Koi CalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Koi CalUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		936B80F82CE68B4E00F668CD /* Koi_CalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalUITests.swift; sourceTree = "<group>"; };
 		936B80FA2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		937ED62B2CECCA00004508E3 /* CustomCalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarView.swift; sourceTree = "<group>"; };
-		937ED62D2CECD12D004508E3 /* FallingPelletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallingPelletView.swift; sourceTree = "<group>"; };
-		937ED62E2CECD12D004508E3 /* FeedingGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedingGuideView.swift; sourceTree = "<group>"; };
-		937ED62F2CECD12D004508E3 /* FeedingData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedingData.swift; sourceTree = "<group>"; };
-		937ED6332CED20A8004508E3 /* FeedingEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedingEntryView.swift; path = "Koi Cal/FeedingEntryView.swift"; sourceTree = "<group>"; };
-		937ED6352CED22DF004508E3 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		937ED6372CED2AAC004508E3 /* Koi CalDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Koi CalDebug.entitlements"; sourceTree = "<group>"; };
-		937ED6382CED2AEF004508E3 /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
-		937ED6392CED2AEF004508E3 /* WeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
-		937ED63C2CED3307004508E3 /* XAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XAIService.swift; path = "Koi Cal/XAIService.swift"; sourceTree = "<group>"; };
-		937ED63D2CED3307004508E3 /* XAIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XAIConfig.swift; path = "Koi Cal/XAIConfig.swift"; sourceTree = "<group>"; };
-		937ED6402CED3678004508E3 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		93C590392CF545D5006986A2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +103,6 @@
 		936B80D12CE68B4D00F668CD = {
 			isa = PBXGroup;
 			children = (
-				937ED63D2CED3307004508E3 /* XAIConfig.swift */,
-				937ED63C2CED3307004508E3 /* XAIService.swift */,
-				937ED6332CED20A8004508E3 /* FeedingEntryView.swift */,
 				936B80DC2CE68B4D00F668CD /* Koi Cal */,
 				936B80ED2CE68B4E00F668CD /* Koi CalTests */,
 				936B80F72CE68B4E00F668CD /* Koi CalUITests */,
@@ -120,17 +123,25 @@
 		936B80DC2CE68B4D00F668CD /* Koi Cal */ = {
 			isa = PBXGroup;
 			children = (
-				937ED6372CED2AAC004508E3 /* Koi CalDebug.entitlements */,
-				937ED62B2CECCA00004508E3 /* CustomCalendarView.swift */,
-				937ED6382CED2AEF004508E3 /* SettingsManager.swift */,
-				937ED6402CED3678004508E3 /* LocationManager.swift */,
-				937ED6392CED2AEF004508E3 /* WeatherManager.swift */,
-				937ED6352CED22DF004508E3 /* SettingsView.swift */,
-				937ED62D2CECD12D004508E3 /* FallingPelletView.swift */,
-				937ED62F2CECD12D004508E3 /* FeedingData.swift */,
-				937ED62E2CECD12D004508E3 /* FeedingGuideView.swift */,
-				936B80DD2CE68B4D00F668CD /* Koi_CalApp.swift */,
-				936B80DF2CE68B4D00F668CD /* ContentView.swift */,
+				9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */,
+				9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */,
+				93C590392CF545D5006986A2 /* ContentView.swift */,
+				9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */,
+				9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */,
+				9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */,
+				9355BEE22CF4EEEA007B1A78 /* FeedingGuideView.swift */,
+				9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */,
+				9355BEF92CF4F019007B1A78 /* FeedingEntryView.swift */,
+				9355BEFA2CF4F019007B1A78 /* XAIConfig.swift */,
+				9355BEFB2CF4F019007B1A78 /* XAIService.swift */,
+				9355BF032CF4F214007B1A78 /* koical.entitlements */,
+				9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */,
+				9355BEFF2CF4F042007B1A78 /* Info.plist */,
+				9355BF002CF4F042007B1A78 /* WeatherManager.swift */,
+				9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */,
+				9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */,
+				9355BEEA2CF4EEEA007B1A78 /* XAIConfig.swift */,
+				9355BEEB2CF4EEEA007B1A78 /* XAIService.swift */,
 				936B80E12CE68B4E00F668CD /* Assets.xcassets */,
 				936B80E32CE68B4E00F668CD /* Preview Content */,
 			);
@@ -292,19 +303,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				937ED6322CECD12D004508E3 /* FeedingData.swift in Sources */,
-				937ED6362CED22DF004508E3 /* SettingsView.swift in Sources */,
-				937ED63B2CED2AEF004508E3 /* WeatherManager.swift in Sources */,
-				937ED6302CECD12D004508E3 /* FallingPelletView.swift in Sources */,
-				937ED6312CECD12D004508E3 /* FeedingGuideView.swift in Sources */,
-				936B80E02CE68B4D00F668CD /* ContentView.swift in Sources */,
-				937ED6342CED20A8004508E3 /* FeedingEntryView.swift in Sources */,
-				937ED63E2CED3307004508E3 /* XAIService.swift in Sources */,
-				936B80DE2CE68B4D00F668CD /* Koi_CalApp.swift in Sources */,
-				937ED62C2CECCA00004508E3 /* CustomCalendarView.swift in Sources */,
-				937ED63F2CED3307004508E3 /* XAIConfig.swift in Sources */,
-				937ED63A2CED2AEF004508E3 /* SettingsManager.swift in Sources */,
-				937ED6412CED3678004508E3 /* LocationManager.swift in Sources */,
+				9355BEFC2CF4F019007B1A78 /* XAIService.swift in Sources */,
+				9355BF022CF4F042007B1A78 /* WeatherManager.swift in Sources */,
+				93C5903A2CF545D5006986A2 /* ContentView.swift in Sources */,
+				9355BEFE2CF4F019007B1A78 /* XAIConfig.swift in Sources */,
+				9355BEEC2CF4EEEA007B1A78 /* FeedingGuideView.swift in Sources */,
+				9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */,
+				9355BEEE2CF4EEEA007B1A78 /* LocationManager.swift in Sources */,
+				9355BEEF2CF4EEEA007B1A78 /* SettingsManager.swift in Sources */,
+				9355BEF02CF4EEEA007B1A78 /* Color+Hex.swift in Sources */,
+				9355BEF32CF4EEEA007B1A78 /* FallingPelletView.swift in Sources */,
+				9355BEF42CF4EEEA007B1A78 /* FeedingEntryView.swift in Sources */,
+				9355BEF52CF4EEEA007B1A78 /* Koi_CalApp.swift in Sources */,
+				9355BEF62CF4EEEA007B1A78 /* SettingsView.swift in Sources */,
+				9355BEF72CF4EEEA007B1A78 /* FeedingData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,7 +547,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.designoverhaul.koicalTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koicalTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -554,7 +566,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.designoverhaul.koicalTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koicalTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -571,7 +583,7 @@
 				DEVELOPMENT_TEAM = 8Z26HLRJ65;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.designoverhaul.koicalUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koicalUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -588,7 +600,7 @@
 				DEVELOPMENT_TEAM = 8Z26HLRJ65;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.designoverhaul.koicalUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koicalUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;

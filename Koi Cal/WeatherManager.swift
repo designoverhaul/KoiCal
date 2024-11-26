@@ -1,12 +1,14 @@
 import Foundation
 import WeatherKit
 import CoreLocation
+import SwiftUI
 
 @MainActor
 class WeatherManager: ObservableObject {
     @Published var currentTemperature: Double?
     @Published var errorMessage: String?
     private let weatherService = WeatherService()
+    @AppStorage("useCelsius") private var useCelsius = false
     
     func getTemperature(for location: CLLocation?) async {
         guard let location = location else {

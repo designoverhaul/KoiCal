@@ -9,7 +9,6 @@ import SwiftUI
 import WeatherKit
 import CoreLocation
 
-// Add this enum at the top level
 enum RecommendationState {
     case loading
     case success(String)
@@ -26,11 +25,11 @@ struct ContentView: View {
     @StateObject private var weatherManager = WeatherManager()
     @StateObject private var xaiService = XAIService()
     @State private var recommendationState: RecommendationState = .none
-    let location = CLLocation(latitude: 33.7490, longitude: -84.3880) // Atlanta coordinates
     @AppStorage("lastRecommendationDate") private var lastRecommendationDate = Date().timeIntervalSince1970
     @State private var selectedAgeGroup = "Mixed"
     @State private var selectedObjective = "General Health"
     @StateObject private var locationManager = LocationManager()
+    @AppStorage("useCelsius") private var useCelsius = false
     
     var body: some View {
         ZStack {
@@ -58,10 +57,10 @@ struct ContentView: View {
                                 .font(.caption)
                                 .foregroundColor(.red)
                         } else if let temp = weatherManager.currentTemperature {
-                            Text(String(format: "%.0f°F", temp))
+                            Text(formatTemperature(temp))
                                 .font(.title)
                         } else {
-                            Text("--°F")
+                            Text(useCelsius ? "--°C" : "--°F")
                                 .font(.title)
                         }
                     }
@@ -72,7 +71,7 @@ struct ContentView: View {
                         print("No location available yet")
                         locationManager.requestPermission()
                     }
-                    try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second delay
+                    try? await Task.sleep(nanoseconds: 1_000_000_000)
                     await weatherManager.getTemperature(for: locationManager.location)
                     checkForNewRecommendation()
                 }
@@ -80,7 +79,7 @@ struct ContentView: View {
                     guard let newLocation else { return }
                     print("Location changed to: \(newLocation.coordinate)")
                     Task {
-                        try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 second delay
+                        try? await Task.sleep(nanoseconds: 500_000_000)
                         await weatherManager.getTemperature(for: newLocation)
                     }
                 }
@@ -91,17 +90,22 @@ struct ContentView: View {
                         }
                     }
                 }
+                .onChange(of: useCelsius) { _, _ in
+                    if let temp = weatherManager.currentTemperature {
+                        weatherManager.objectWillChange.send()
+                    }
+                }
                 
-                // Food Image (stable position)
+                // Food Image and Recommendation
                 VStack(spacing: 12) {
                     GeometryReader { geometry in
                         Image("fishsFood")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: geometry.size.width / 3)  // Set to 1/3 of screen width
-                            .frame(maxWidth: .infinity)  // Center the image
+                            .frame(width: geometry.size.width / 3)
+                            .frame(maxWidth: .infinity)
                     }
-                    .frame(height: 200)  // Give the GeometryReader a fixed height
+                    .frame(height: 200)
                     .onTapGesture {
                         print("Food tapped")
                         feedingData.toggleFeeding(for: selectedDate)
@@ -126,6 +130,7 @@ struct ContentView: View {
                             HStack(alignment: .top, spacing: 4) {
                                 Image(systemName: "sparkles")
                                     .foregroundColor(Color.koiOrange)
+                                    .font(.system(size: 20))
                                 
                                 Text(recommendation)
                                     .font(.subheadline)
@@ -151,6 +156,34 @@ struct ContentView: View {
                 .padding(.horizontal)
                 .padding(.top, -10)
                 
+                // Snack Time section
+                HStack(alignment: .center, spacing: 12) {
+                    Text("🍒")
+                        .font(.system(size: 32))
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 4) {
+                            Text("Snack Time!")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                            Text("- Feed in moderation")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        Text("Cherries are a low protein summer food. Please remove seeds.")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .lineSpacing(2)
+                    }
+                }
+                .padding(.vertical, 6)
+                .padding(.horizontal, 16)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(.systemGray6))
+                .cornerRadius(12)
+                .padding(.horizontal)
+                
                 CustomCalendarView(selectedDate: $selectedDate, feedingData: feedingData)
                     .padding(.horizontal)
                     .padding(.top, -10)
@@ -167,8 +200,8 @@ struct ContentView: View {
                         }
                     }
                 }
-                .frame(maxHeight: 200)  // Limit the height of the scroll view
-                .padding(.top, -10)  // Add negative top padding to move it closer to calendar
+                .frame(maxHeight: 200)
+                .padding(.top, -10)
                 
                 Spacer()
                 
@@ -202,14 +235,12 @@ struct ContentView: View {
             }
             .zIndex(0)
             
-            // Show all active falling animations
             ForEach(animations, id: \.self) { id in
                 FallingPelletsView()
                     .onAppear { print("Pellets view appeared for: \(id)") }
             }
             .zIndex(1)
             
-            // Feeding guide overlay
             if showingFeedingGuide {
                 Color.black.opacity(0.3)
                     .ignoresSafeArea()
@@ -277,6 +308,15 @@ struct ContentView: View {
                     }
                 }
             }
+        }
+    }
+    
+    private func formatTemperature(_ fahrenheit: Double) -> String {
+        if useCelsius {
+            let celsius = (fahrenheit - 32) * 5/9
+            return String(format: "%.0f°C", celsius)
+        } else {
+            return String(format: "%.0f°F", fahrenheit)
         }
     }
 }

@@ -1,14 +1,6 @@
 import SwiftUI
 import Foundation
 
-// Add the color definitions at the top of the file
-extension Color {
-    static let koiBrown = Color(red: 0x58/255.0, green: 0x41/255.0, blue: 0x1F/255.0)
-    static let firstFeeding = Color(red: 0xF1/255.0, green: 0xDB/255.0, blue: 0xC4/255.0)
-    static let secondFeeding = Color(red: 0xC0/255.0, green: 0xA6/255.0, blue: 0x81/255.0)
-    static let thirdFeeding = Color(red: 0x58/255.0, green: 0x41/255.0, blue: 0x1F/255.0)
-}
-
 // Add this struct at the top
 struct CalendarDay: Identifiable {
     let id = UUID()

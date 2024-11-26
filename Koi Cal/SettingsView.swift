@@ -7,6 +7,7 @@ struct SettingsView: View {
     @ObservedObject var feedingData: FeedingData
     @ObservedObject var xaiService: XAIService
     @ObservedObject var weatherManager: WeatherManager
+    @AppStorage("useCelsius") private var useCelsius = false
     @State private var showingError = false
     
     let ageGroups = ["Juvenile", "Adult", "Mixed"]
@@ -47,6 +48,10 @@ struct SettingsView: View {
                             Text(food).tag(food)
                         }
                     }
+                }
+                
+                Section(header: Text("Display Settings")) {
+                    Toggle("Show Temperature in Celsius", isOn: $useCelsius)
                 }
             }
             .navigationTitle("Settings")
