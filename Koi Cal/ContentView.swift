@@ -44,7 +44,7 @@ struct ContentView: View {
                     Spacer()
                     
                     VStack(alignment: .trailing) {
-                        Text("7 Day Avg")
+                        Text("Water Temp")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         if locationManager.authorizationStatus == .notDetermined {
@@ -57,7 +57,7 @@ struct ContentView: View {
                                 .font(.caption)
                                 .foregroundColor(.red)
                         } else if let temp = weatherManager.currentTemperature {
-                            Text(formatTemperature(temp))
+                            Text(formatTemperature(temp - 4))
                                 .font(.title)
                         } else {
                             Text(useCelsius ? "--°C" : "--°F")
