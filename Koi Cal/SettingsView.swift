@@ -7,6 +7,7 @@ struct SettingsView: View {
     @ObservedObject var feedingData: FeedingData
     @ObservedObject var xaiService: XAIService
     @ObservedObject var weatherManager: WeatherManager
+    @ObservedObject var locationManager: LocationManager
     @AppStorage("useCelsius") private var useCelsius = false
     @State private var showingError = false
     
@@ -21,8 +22,23 @@ struct SettingsView: View {
                     HStack {
                         Text("Pond Location")
                         Spacer()
-                        Text("Atlanta, Georgia")
-                            .foregroundColor(.gray)
+                        if locationManager.authorizationStatus == .denied {
+                            Button("Enable in Settings") {
+                                if let url = URL(string: UIApplication.openSettingsURLString) {
+                                    UIApplication.shared.open(url)
+                                }
+                            }
+                            .foregroundColor(.blue)
+                        } else {
+                            Text(locationManager.cityName)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    
+                    if let error = locationManager.errorMessage {
+                        Text(error)
+                            .foregroundColor(.red)
+                            .font(.caption)
                     }
                 }
                 
@@ -79,11 +95,35 @@ struct SettingsView: View {
     private func updateRecommendation() {
         Task {
             do {
+                let calendar = Calendar.current
+                let today = calendar.startOfDay(for: Date())
+                let weekHistory = (0...6).map { dayOffset -> (date: Date, count: Int) in
+                    let date = calendar.date(byAdding: .day, value: -dayOffset, to: today)!
+                    return (date: date, count: feedingData.getFeedingCount(for: date))
+                }
+                
+                let historyText = weekHistory
+                    .map { date, count in
+                        let dayString: String
+                        if calendar.isDateInToday(date) {
+                            dayString = "today"
+                        } else if calendar.isDateInYesterday(date) {
+                            dayString = "yesterday"
+                        } else {
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "EEEE"
+                            dayString = formatter.string(from: date).lowercased()
+                        }
+                        return "\(count) times \(dayString)"
+                    }
+                    .joined(separator: ", ")
+                
                 _ = try await xaiService.getRecommendation(
                     temperature: weatherManager.currentTemperature ?? 70,
                     fishAge: selectedAgeGroup,
                     objective: selectedObjective,
-                    location: "Atlanta, Georgia"
+                    location: "Atlanta, Georgia",
+                    feedingHistory: historyText
                 )
             } catch {
                 print("Error updating recommendation: \(error)")

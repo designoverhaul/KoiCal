@@ -73,7 +73,8 @@ struct ContentView: View {
                     }
                     try? await Task.sleep(nanoseconds: 1_000_000_000)
                     await weatherManager.getTemperature(for: locationManager.location)
-                    checkForNewRecommendation()
+                    print("🔍 Checking for new recommendation on app launch")
+                    await getRecommendation()  // Force an initial recommendation
                 }
                 .onChange(of: locationManager.location) { _, newLocation in
                     guard let newLocation else { return }
@@ -84,15 +85,15 @@ struct ContentView: View {
                     }
                 }
                 .onChange(of: weatherManager.currentTemperature) { _, newTemp in
+                    print("🌡️ Temperature changed to: \(String(describing: newTemp))")
                     if newTemp != nil {
-                        Task {
-                            await getRecommendation()
-                        }
-                    }
-                }
-                .onChange(of: useCelsius) { _, _ in
-                    if let temp = weatherManager.currentTemperature {
                         weatherManager.objectWillChange.send()
+                        if !Calendar.current.isDateInToday(Date(timeIntervalSince1970: lastRecommendationDate)) {
+                            Task {
+                                await getRecommendation()
+                                lastRecommendationDate = Date().timeIntervalSince1970
+                            }
+                        }
                     }
                 }
                 
@@ -102,10 +103,10 @@ struct ContentView: View {
                         Image("fishsFood")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: geometry.size.width / 3)
+                            .frame(width: 210)
                             .frame(maxWidth: .infinity)
                     }
-                    .frame(height: 200)
+                    .frame(height: 80)
                     .onTapGesture {
                         print("Food tapped")
                         feedingData.toggleFeeding(for: selectedDate)
@@ -137,18 +138,30 @@ struct ContentView: View {
                                     .multilineTextAlignment(.center)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
-                            .padding()
-                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 6)
+                            .padding(.horizontal, 16)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             .background(Color(.systemGray6))
-                            .cornerRadius(8)
+                            .cornerRadius(12)
+                            .padding(.horizontal)
                         } else if case .loading = recommendationState {
                             ProgressView()
-                                .padding()
+                                .padding(.vertical, 6)
+                                .padding(.horizontal, 16)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(Color(.systemGray6))
+                                .cornerRadius(12)
+                                .padding(.horizontal)
                         } else {
                             Text("Loading feeding recommendation...")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
-                                .padding()
+                                .padding(.vertical, 6)
+                                .padding(.horizontal, 16)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(Color(.systemGray6))
+                                .cornerRadius(12)
+                                .padding(.horizontal)
                         }
                     }
                     .padding(.horizontal)
@@ -226,7 +239,8 @@ struct ContentView: View {
                             selectedObjective: $selectedObjective,
                             feedingData: feedingData,
                             xaiService: xaiService,
-                            weatherManager: weatherManager
+                            weatherManager: weatherManager,
+                            locationManager: locationManager
                         )
                     }
                 }
@@ -260,24 +274,56 @@ struct ContentView: View {
     
     private func getRecommendation() async {
         guard let temperature = weatherManager.currentTemperature else {
+            print("❌ No temperature data available")
             recommendationState = .error("Unable to get temperature data")
             return
         }
         
+        print("🌡️ Getting recommendation for temp: \(temperature)°F")
+        
+        // Get feeding history for the last week
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let weekHistory = (0...6).map { dayOffset -> (date: Date, count: Int) in
+            let date = calendar.date(byAdding: .day, value: -dayOffset, to: today)!
+            return (date: date, count: feedingData.getFeedingCount(for: date))
+        }
+        
+        // Format feeding history for the AI
+        let historyText = weekHistory
+            .map { date, count in
+                let dayString: String
+                if calendar.isDateInToday(date) {
+                    dayString = "today"
+                } else if calendar.isDateInYesterday(date) {
+                    dayString = "yesterday"
+                } else {
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "EEEE"
+                    dayString = formatter.string(from: date).lowercased()
+                }
+                return "\(count) times \(dayString)"
+            }
+            .joined(separator: ", ")
+        
+        print("📅 Feeding history: \(historyText)")
         recommendationState = .loading
         
         do {
+            print("🤖 Calling XAI service...")
             let recommendation = try await xaiService.getRecommendation(
                 temperature: temperature,
                 fishAge: selectedAgeGroup,
                 objective: selectedObjective,
-                location: "Atlanta, Georgia"
+                location: locationManager.cityName,
+                feedingHistory: historyText
             )
+            print("✅ Got recommendation: \(recommendation)")
             await MainActor.run {
                 recommendationState = .success(recommendation)
             }
         } catch {
-            print("Error getting recommendation: \(error)")
+            print("❌ Error getting recommendation: \(error)")
             await MainActor.run {
                 recommendationState = .error("Unable to get feeding recommendation")
             }
@@ -287,27 +333,21 @@ struct ContentView: View {
     private func checkForNewRecommendation() {
         let calendar = Calendar.current
         let lastDate = Date(timeIntervalSince1970: lastRecommendationDate)
-        if !calendar.isDate(lastDate, inSameDayAs: Date()) {
+        
+        print("🔄 Checking if new recommendation needed")
+        print("   Last recommendation: \(lastDate)")
+        print("   Is today? \(calendar.isDateInToday(lastDate))")
+        
+        // Only get a new recommendation if it's a new day
+        if !calendar.isDateInToday(lastDate) {
+            print("📅 Getting new recommendation for new day")
             Task {
-                do {
-                    recommendationState = .loading
-                    let recommendation = try await xaiService.getRecommendation(
-                        temperature: weatherManager.currentTemperature ?? 70,
-                        fishAge: selectedAgeGroup,
-                        objective: selectedObjective,
-                        location: "Atlanta, Georgia"
-                    )
-                    await MainActor.run {
-                        recommendationState = .success(recommendation)
-                        lastRecommendationDate = Date().timeIntervalSince1970
-                    }
-                } catch {
-                    print("Error getting recommendation: \(error)")
-                    await MainActor.run {
-                        recommendationState = .error("Unable to get feeding recommendation")
-                    }
-                }
+                await getRecommendation()
+                // Update the timestamp after successful recommendation
+                lastRecommendationDate = Date().timeIntervalSince1970
             }
+        } else {
+            print("⏭️ Skipping recommendation - already have one for today")
         }
     }
     

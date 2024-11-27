@@ -40,7 +40,8 @@ class XAIService: ObservableObject {
         temperature: Double,
         fishAge: String,
         objective: String,
-        location: String
+        location: String,
+        feedingHistory: String
     ) async throws -> String {
         await MainActor.run {
             isLoading = true
@@ -56,6 +57,7 @@ class XAIService: ObservableObject {
             .replacingOccurrences(of: "{age}", with: fishAge)
             .replacingOccurrences(of: "{objective}", with: objective)
             .replacingOccurrences(of: "{location}", with: location)
+            .replacingOccurrences(of: "{feeding_history}", with: feedingHistory)
         
         let messages = [
             Message(role: "system", content: prompt),
