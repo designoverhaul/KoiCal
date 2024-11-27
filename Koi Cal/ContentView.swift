@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  Koi Cal
 //
-//  Created by Aaron Heine on 11/14/24.
+//  Created by Aaron Heine on 11/14/24x you don't understand I'm telling why understand tutorial release.
 //
 
 import SwiftUI
