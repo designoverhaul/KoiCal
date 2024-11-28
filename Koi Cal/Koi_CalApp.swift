@@ -9,10 +9,20 @@ import SwiftUI
 
 @main
 struct Koi_CalApp: App {
+    @State private var showingSplash = true
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .preferredColorScheme(.light)
+            ZStack {
+                ContentView()
+                    .preferredColorScheme(.light)
+                
+                if showingSplash {
+                    SplashScreenView(isPresented: $showingSplash)
+                        .transition(.opacity)
+                        .zIndex(1)
+                }
+            }
         }
     }
 }

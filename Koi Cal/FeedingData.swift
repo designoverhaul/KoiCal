@@ -18,29 +18,22 @@ class FeedingData: ObservableObject {
         let normalizedDate = calendar.startOfDay(for: date)
         let isHistoricalEntry = !calendar.isDateInToday(date)
         
+        let currentCount = feedings[normalizedDate] ?? 0
+        if currentCount >= 3 {
+            return
+        }
+        
         let entryDate = isHistoricalEntry ? 
             calendar.date(bySettingHour: 12, minute: 0, second: 0, of: date)! :
             Date()
         
-        if let currentCount = feedings[normalizedDate] {
-            if currentCount < 3 {
-                feedings[normalizedDate] = currentCount + 1
-                feedingEntries.append(FeedingEntry(
-                    date: entryDate,
-                    feedingNumber: currentCount + 1,
-                    foodType: currentFoodType,
-                    isHistoricalEntry: isHistoricalEntry
-                ))
-            }
-        } else {
-            feedings[normalizedDate] = 1
-            feedingEntries.append(FeedingEntry(
-                date: entryDate,
-                feedingNumber: 1,
-                foodType: currentFoodType,
-                isHistoricalEntry: isHistoricalEntry
-            ))
-        }
+        feedings[normalizedDate] = currentCount + 1
+        feedingEntries.append(FeedingEntry(
+            date: entryDate,
+            feedingNumber: currentCount + 1,
+            foodType: currentFoodType,
+            isHistoricalEntry: isHistoricalEntry
+        ))
     }
     
     func deleteEntry(_ entry: FeedingEntry) {

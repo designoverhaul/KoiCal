@@ -6,26 +6,22 @@ struct FeedingEntryView: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
-                Text("Feeding #\(entry.feedingNumber)")
-                    .font(.headline)
-                
-                if !entry.isHistoricalEntry {
-                    Text(entry.date.formatted(date: .omitted, time: .shortened))
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                
-                Text(entry.foodType)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
+            Text(entry.date.formatted(date: .omitted, time: .shortened))
+                .font(.footnote)
+                .foregroundColor(.secondary)
+            
+            Text("•")
+                .foregroundColor(.secondary)
+            
+            Text(entry.foodType)
+                .font(.footnote)
+                .foregroundColor(.secondary)
             
             Spacer()
             
             Button(action: onDelete) {
                 Image(systemName: "trash")
-                    .foregroundColor(.red)
+                    .foregroundColor(.gray)
             }
         }
         .padding()

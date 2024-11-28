@@ -128,74 +128,59 @@ struct ContentView: View {
                             .kerning(2)
                         
                         if case .success(let recommendation) = recommendationState {
-                            HStack(alignment: .top, spacing: 4) {
+                            HStack(alignment: .top, spacing: 12) {
                                 Image(systemName: "sparkles")
+                                    .font(.system(size: 32))
                                     .foregroundColor(Color.koiOrange)
-                                    .font(.system(size: 20))
                                 
-                                Text(recommendation)
-                                    .font(.subheadline)
-                                    .multilineTextAlignment(.center)
-                                    .fixedSize(horizontal: false, vertical: true)
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Today's Recommendation")
+                                        .font(.subheadline)
+                                        .fontWeight(.semibold)
+                                    
+                                    Text(recommendation)
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                        .lineSpacing(2)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                .padding(.trailing, 8)
                             }
-                            .padding(.vertical, 6)
-                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 8)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .background(Color(.systemGray6))
                             .cornerRadius(12)
-                            .padding(.horizontal)
+                            
                         } else if case .loading = recommendationState {
-                            ProgressView()
-                                .padding(.vertical, 6)
-                                .padding(.horizontal, 16)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(Color(.systemGray6))
-                                .cornerRadius(12)
-                                .padding(.horizontal)
+                            HStack(alignment: .center, spacing: 12) {
+                                ProgressView()
+                                    .padding(.horizontal, 8)
+                                
+                                Text("Loading recommendation...")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.vertical, 6)
+                            .padding(.horizontal, 6)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color(.systemGray6))
+                            .cornerRadius(12)
                         } else {
                             Text("Loading feeding recommendation...")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                                 .padding(.vertical, 6)
-                                .padding(.horizontal, 16)
+                                .padding(.horizontal, 6)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .background(Color(.systemGray6))
                                 .cornerRadius(12)
-                                .padding(.horizontal)
                         }
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 8)
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 4)
                 .padding(.top, -10)
-                
-                // Snack Time section
-                HStack(alignment: .center, spacing: 12) {
-                    Text("🍒")
-                        .font(.system(size: 32))
-                    
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack(spacing: 4) {
-                            Text("Snack Time!")
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                            Text("- Feed in moderation")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-                        
-                        Text("Cherries are a low protein summer food. Please remove seeds.")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .lineSpacing(2)
-                    }
-                }
-                .padding(.vertical, 6)
-                .padding(.horizontal, 16)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color(.systemGray6))
-                .cornerRadius(12)
-                .padding(.horizontal)
                 
                 CustomCalendarView(selectedDate: $selectedDate, feedingData: feedingData)
                     .padding(.horizontal)
@@ -214,7 +199,7 @@ struct ContentView: View {
                     }
                 }
                 .frame(maxHeight: 200)
-                .padding(.top, -10)
+                .padding(.top, -16)
                 
                 Spacer()
                 
@@ -245,7 +230,8 @@ struct ContentView: View {
                     }
                 }
                 .padding(.horizontal, 40)
-                .padding(.bottom)
+                .padding(.bottom, 8)
+                .background(Color.clear)
             }
             .zIndex(0)
             
