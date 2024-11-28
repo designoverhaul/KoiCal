@@ -121,17 +121,23 @@ struct ContentView: View {
                     }
                     
                     VStack(spacing: 8) {
-                        Text(selectedDate.formatted(.dateTime.month(.wide).day().year()))
-                            .font(.caption)
-                            .foregroundColor(Color.koiOrange)
-                            .textCase(.uppercase)
-                            .kerning(2)
-                        
                         if case .success(let recommendation) = recommendationState {
                             HStack(alignment: .top, spacing: 12) {
-                                Image(systemName: "sparkles")
-                                    .font(.system(size: 32))
-                                    .foregroundColor(Color.koiOrange)
+                                VStack(alignment: .center, spacing: 4) {
+                                    Image(systemName: "sparkles")
+                                        .font(.system(size: 32))
+                                        .foregroundColor(Color.koiOrange)
+                                    
+                                    VStack(alignment: .center, spacing: 0) {
+                                        Text("NOV")
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                        Text("28")
+                                            .font(.title)
+                                            .foregroundColor(.secondary)
+                                    }
+                                }
+                                .frame(width: 60) // Fixed width to help with alignment
                                 
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("Today's Recommendation")
@@ -146,12 +152,11 @@ struct ContentView: View {
                                 }
                                 .padding(.trailing, 8)
                             }
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 8)
+                            .padding(.vertical, 16)
+                            .padding(.horizontal, 12)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .background(Color(.systemGray6))
                             .cornerRadius(12)
-                            
                         } else if case .loading = recommendationState {
                             HStack(alignment: .center, spacing: 12) {
                                 ProgressView()
@@ -184,178 +189,187 @@ struct ContentView: View {
                 
                 CustomCalendarView(selectedDate: $selectedDate, feedingData: feedingData)
                     .padding(.horizontal)
-                    .padding(.top, -10)
+                    .padding(.bottom, -17)
                 
-                ScrollView {
-                    LazyVStack(spacing: 0, pinnedViews: []) {
-                        ForEach(feedingData.getEntries(for: selectedDate)
-                            .sorted(by: { $0.date > $1.date })) { entry in
-                                VStack(spacing: 0) {
-                                    FeedingEntryView(entry: entry) {
-                                        feedingData.deleteEntry(entry)
-                                    }
-                                    
-                                    if entry != feedingData.getEntries(for: selectedDate)
-                                        .sorted(by: { $0.date > $1.date })
-                                        .last {
-                                        Divider()
-                                            .padding(.horizontal)
-                                    }
-                                }
+                // Feeding entries without ScrollView
+                LazyVStack(spacing: 0) {
+                    ForEach(feedingData.getEntries(for: selectedDate)
+                        .sorted(by: { $0.date > $1.date })) { entry in
+                            FeedingEntryView(entry: entry) {
+                                feedingData.deleteEntry(entry)
+                            }
+                            .padding(.vertical, 0)
+                            
+                            if entry != feedingData.getEntries(for: selectedDate)
+                                .sorted(by: { $0.date > $1.date })
+                                .last {
+                                Divider()
+                                    .padding(.horizontal)
                             }
                     }
-                    .frame(maxHeight: 200)
-                    .padding(.top, -16)
+                }
+                .padding(.horizontal)
+                
+                Spacer() // Push footer to bottom
+            }
+            
+            // Footer - Moved outside the ScrollView
+            VStack {
+                Spacer()
+                HStack {
+                    Button(action: { showingFeedingGuide = true }) {
+                        Image(systemName: "graduationcap.fill")
+                            .font(.title2)
+                            .foregroundStyle(.gray)
+                    }
                     
                     Spacer()
                     
-                    // Bottom Navigation
-                    HStack {
-                        Button(action: { showingFeedingGuide = true }) {
-                            Image(systemName: "graduationcap.fill")
-                                .font(.title2)
-                                .foregroundStyle(.gray)
-                        }
-                        
-                        Spacer()
-                        
-                        Button(action: { showingSettings = true }) {
-                            Image(systemName: "gearshape.fill")
-                                .font(.title2)
-                                .foregroundStyle(.gray)
-                        }
-                        .sheet(isPresented: $showingSettings) {
-                            SettingsView(
-                                selectedAgeGroup: $selectedAgeGroup,
-                                selectedObjective: $selectedObjective,
-                                feedingData: feedingData,
-                                xaiService: xaiService,
-                                weatherManager: weatherManager,
-                                locationManager: locationManager
-                            )
-                        }
+                    Button(action: { showingSettings = true }) {
+                        Image(systemName: "gearshape.fill")
+                            .font(.title2)
+                            .foregroundStyle(.gray)
                     }
-                    .padding(.horizontal, 40)
-                    .padding(.bottom, 4)
-                    .background(Color.clear)
                 }
-                .zIndex(0)
-                
-                ForEach(animations, id: \.self) { id in
-                    FallingPelletsView()
-                        .onAppear { print("Pellets view appeared for: \(id)") }
-                }
-                .zIndex(1)
-                
-                if showingFeedingGuide {
-                    Color.black.opacity(0.3)
-                        .ignoresSafeArea()
-                        .zIndex(2)
-                        .onTapGesture {
-                            showingFeedingGuide = false
-                        }
-                    
-                    FeedingGuideView {
+                .padding(.horizontal, 40)
+                .padding(.vertical, 4)
+                .frame(height: 45)
+                .background(Color(.systemBackground))
+                .overlay(
+                    Rectangle()
+                        .frame(height: 0.5)
+                        .foregroundColor(Color(.systemGray4))
+                        .offset(y: -0),
+                    alignment: .top
+                )
+            }
+            .sheet(isPresented: $showingSettings) {
+                SettingsView(
+                    selectedAgeGroup: $selectedAgeGroup,
+                    selectedObjective: $selectedObjective,
+                    feedingData: feedingData,
+                    xaiService: xaiService,
+                    weatherManager: weatherManager,
+                    locationManager: locationManager
+                )
+            }
+            
+            // Overlay views
+            ForEach(animations, id: \.self) { id in
+                FallingPelletsView()
+                    .onAppear { print("Pellets view appeared for: \(id)") }
+            }
+            .zIndex(1)
+            
+            if showingFeedingGuide {
+                Color.black.opacity(0.3)
+                    .ignoresSafeArea()
+                    .zIndex(2)
+                    .onTapGesture {
                         showingFeedingGuide = false
                     }
-                    .transition(.opacity)
-                    .zIndex(3)
+                
+                FeedingGuideView {
+                    showingFeedingGuide = false
                 }
+                .transition(.opacity)
+                .zIndex(3)
             }
+        } // End of ZStack
+    } // End of body
+    
+    func getRecommendation() async {
+        guard let temperature = weatherManager.currentTemperature else {
+            print("❌ No temperature data available")
+            recommendationState = .error("Unable to get temperature data")
+            return
         }
         
-        func getRecommendation() async {
-            guard let temperature = weatherManager.currentTemperature else {
-                print("❌ No temperature data available")
-                recommendationState = .error("Unable to get temperature data")
-                return
-            }
-            
-            print("🌡️ Getting recommendation for temp: \(temperature)°F")
-            
-            // Get feeding history for the last week
-            let calendar = Calendar.current
-            let today = calendar.startOfDay(for: Date())
-            let weekHistory = (0...6).map { dayOffset -> (date: Date, count: Int) in
-                let date = calendar.date(byAdding: .day, value: -dayOffset, to: today)!
-                return (date: date, count: feedingData.getFeedingCount(for: date))
-            }
-            
-            // Format feeding history for the AI
-            let historyText = weekHistory
-                .map { date, count in
-                    let dayString: String
-                    if calendar.isDateInToday(date) {
-                        dayString = "today"
-                    } else if calendar.isDateInYesterday(date) {
-                        dayString = "yesterday"
-                    } else {
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "EEEE"
-                        dayString = formatter.string(from: date).lowercased()
-                    }
-                    return "\(count) times \(dayString)"
-                }
-                .joined(separator: ", ")
-            
-            print("📅 Feeding history: \(historyText)")
-            recommendationState = .loading
-            
-            do {
-                print("🤖 Calling XAI service...")
-                let recommendation = try await xaiService.getRecommendation(
-                    temperature: temperature,
-                    fishAge: selectedAgeGroup,
-                    objective: selectedObjective,
-                    location: locationManager.cityName,
-                    feedingHistory: historyText
-                )
-                print("✅ Got recommendation: \(recommendation)")
-                await MainActor.run {
-                    recommendationState = .success(recommendation)
-                }
-            } catch {
-                print("❌ Error getting recommendation: \(error)")
-                await MainActor.run {
-                    recommendationState = .error("Unable to get feeding recommendation")
-                }
-            }
+        print("🌡️ Getting recommendation for temp: \(temperature)°F")
+        
+        // Get feeding history for the last week
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let weekHistory = (0...6).map { dayOffset -> (date: Date, count: Int) in
+            let date = calendar.date(byAdding: .day, value: -dayOffset, to: today)!
+            return (date: date, count: feedingData.getFeedingCount(for: date))
         }
         
-        func checkForNewRecommendation() {
-            let calendar = Calendar.current
-            let lastDate = Date(timeIntervalSince1970: lastRecommendationDate)
-            
-            print("🔄 Checking if new recommendation needed")
-            print("   Last recommendation: \(lastDate)")
-            print("   Is today? \(calendar.isDateInToday(lastDate))")
-            
-            // Only get a new recommendation if it's a new day
-            if !calendar.isDateInToday(lastDate) {
-                print("📅 Getting new recommendation for new day")
-                Task {
-                    await getRecommendation()
-                    // Update the timestamp after successful recommendation
-                    lastRecommendationDate = Date().timeIntervalSince1970
+        // Format feeding history for the AI
+        let historyText = weekHistory
+            .map { date, count in
+                let dayString: String
+                if calendar.isDateInToday(date) {
+                    dayString = "today"
+                } else if calendar.isDateInYesterday(date) {
+                    dayString = "yesterday"
+                } else {
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "EEEE"
+                    dayString = formatter.string(from: date).lowercased()
                 }
-            } else {
-                print("⏭️ Skipping recommendation - already have one for today")
+                return "\(count) times \(dayString)"
             }
-        }
+            .joined(separator: ", ")
         
-        func formatTemperature(_ fahrenheit: Double) -> String {
-            if useCelsius {
-                let celsius = (fahrenheit - 32) * 5/9
-                return String(format: "%.0f°C", celsius)
-            } else {
-                return String(format: "%.0f°F", fahrenheit)
+        print("📅 Feeding history: \(historyText)")
+        recommendationState = .loading
+        
+        do {
+            print("🤖 Calling XAI service...")
+            let recommendation = try await xaiService.getRecommendation(
+                temperature: temperature,
+                fishAge: selectedAgeGroup,
+                objective: selectedObjective,
+                location: locationManager.cityName,
+                feedingHistory: historyText
+            )
+            print("✅ Got recommendation: \(recommendation)")
+            await MainActor.run {
+                recommendationState = .success(recommendation)
+            }
+        } catch {
+            print("❌ Error getting recommendation: \(error)")
+            await MainActor.run {
+                recommendationState = .error("Unable to get feeding recommendation")
             }
         }
     }
     
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView()
+    func checkForNewRecommendation() {
+        let calendar = Calendar.current
+        let lastDate = Date(timeIntervalSince1970: lastRecommendationDate)
+        
+        print("🔄 Checking if new recommendation needed")
+        print("   Last recommendation: \(lastDate)")
+        print("   Is today? \(calendar.isDateInToday(lastDate))")
+        
+        // Only get a new recommendation if it's a new day
+        if !calendar.isDateInToday(lastDate) {
+            print("📅 Getting new recommendation for new day")
+            Task {
+                await getRecommendation()
+                // Update the timestamp after successful recommendation
+                lastRecommendationDate = Date().timeIntervalSince1970
+            }
+        } else {
+            print("⏭️ Skipping recommendation - already have one for today")
         }
     }
+    
+    func formatTemperature(_ fahrenheit: Double) -> String {
+        if useCelsius {
+            let celsius = (fahrenheit - 32) * 5/9
+            return String(format: "%.0f°C", celsius)
+        } else {
+            return String(format: "%.0f°F", fahrenheit)
+        }
+    }
+} // End of ContentView
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
 

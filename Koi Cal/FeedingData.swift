@@ -1,11 +1,15 @@
 import Foundation
 
-struct FeedingEntry: Identifiable {
+struct FeedingEntry: Identifiable, Equatable {
     let id = UUID()
     let date: Date
     let feedingNumber: Int
     let foodType: String
     let isHistoricalEntry: Bool
+    
+    static func == (lhs: FeedingEntry, rhs: FeedingEntry) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 class FeedingData: ObservableObject {

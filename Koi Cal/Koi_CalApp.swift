@@ -10,6 +10,12 @@ import SwiftUI
 @main
 struct Koi_CalApp: App {
     @State private var showingSplash = true
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    
+    init() {
+        // Force portrait orientation
+        AppDelegate.orientationLock = .portrait
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -24,5 +30,17 @@ struct Koi_CalApp: App {
                 }
             }
         }
+    }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    static var orientationLock = UIInterfaceOrientationMask.all
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return AppDelegate.orientationLock
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        return true
     }
 }

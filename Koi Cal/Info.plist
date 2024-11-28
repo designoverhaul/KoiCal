@@ -8,5 +8,9 @@
     <string>We need your location to provide accurate weather information for your koi feeding recommendations.</string>
     <key>com.apple.developer.weatherkit</key>
     <true/>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+    </array>
 </dict>
 </plist> 
