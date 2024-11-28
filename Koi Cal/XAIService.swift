@@ -94,14 +94,6 @@ class XAIService: ObservableObject {
         }
         
         let chatResponse = try JSONDecoder().decode(ChatResponse.self, from: data)
-        let recommendation = chatResponse.choices.first?.message.content ?? "No recommendation available"
-        
-        // After getting the recommendation from the API, clean up the text:
-        let cleanedRecommendation = recommendation
-            .replacingOccurrences(of: "**", with: "") // Remove bold markdown
-            .replacingOccurrences(of: "*", with: "")  // Remove any remaining asterisks
-            .trimmingCharacters(in: .whitespacesAndNewlines) // Clean up extra spaces
-        
-        return cleanedRecommendation
+        return chatResponse.choices.first?.message.content ?? "No recommendation available"
     }
 } 

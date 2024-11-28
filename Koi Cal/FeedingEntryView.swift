@@ -7,15 +7,15 @@ struct FeedingEntryView: View {
     var body: some View {
         HStack {
             Text(entry.date.formatted(date: .omitted, time: .shortened))
-                .font(.callout)
-                .foregroundColor(.primary.opacity(0.85))
+                .font(.footnote)
+                .foregroundColor(.secondary)
             
             Text("•")
-                .foregroundColor(.primary.opacity(0.70))
+                .foregroundColor(.secondary)
             
             Text(entry.foodType)
-                .font(.callout)
-                .foregroundColor(.primary.opacity(0.70))
+                .font(.footnote)
+                .foregroundColor(.secondary)
             
             Spacer()
             
@@ -24,7 +24,6 @@ struct FeedingEntryView: View {
                     .foregroundColor(.gray)
             }
         }
-        .padding(.vertical, 8)
-        .padding(.horizontal)
+        .padding()
     }
 } 
