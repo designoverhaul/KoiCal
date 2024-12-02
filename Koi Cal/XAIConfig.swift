@@ -45,6 +45,8 @@ enum XAIConfig {
         64°F - 88°F (18°C - 31°C): Feed 2-4 times daily with high protein content food to support growth and activity.
         Above 88°F (31°C): Reduce feeding due to potential oxygen depletion and stress.
 
-    IMPORTANT: Give me a 1 sentence recommendation for what and how often to feed my koi today, considering both the temperature AND recent feeding history.
+        Keep in mind that water temperature is usually 4 degrees cooler than air temperature.
+
+    IMPORTANT: Give me a 1 sentence recommendation for what and how often to feed my koi today.
     """
 } 
