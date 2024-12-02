@@ -13,9 +13,69 @@ struct FeedingEntry: Identifiable, Equatable {
 }
 
 class FeedingData: ObservableObject {
-    @Published var feedings: [Date: Int] = [:]
-    @Published var feedingEntries: [FeedingEntry] = []
+    @Published var feedings: [Date: Int] = [:] {
+        didSet {
+            saveFeedingData()
+        }
+    }
+    @Published var feedingEntries: [FeedingEntry] = [] {
+        didSet {
+            saveFeedingData()
+        }
+    }
     @Published var currentFoodType: String = "High Protein"
+    
+    init() {
+        loadFeedingData()
+    }
+    
+    private func saveFeedingData() {
+        // Save feeding counts with dates as timestamps
+        let feedingDict = feedings.reduce(into: [String: Int]()) { result, entry in
+            result["\(entry.key.timeIntervalSince1970)"] = entry.value
+        }
+        UserDefaults.standard.set(feedingDict, forKey: "feedingCounts")
+        
+        // Save feeding entries as array of dictionaries
+        let entryDicts = feedingEntries.map { entry -> [String: Any] in
+            return [
+                "date": entry.date.timeIntervalSince1970,
+                "feedingNumber": entry.feedingNumber,
+                "foodType": entry.foodType,
+                "isHistoricalEntry": entry.isHistoricalEntry
+            ]
+        }
+        UserDefaults.standard.set(entryDicts, forKey: "feedingEntries")
+    }
+    
+    private func loadFeedingData() {
+        // Load feeding counts
+        if let savedFeedings = UserDefaults.standard.dictionary(forKey: "feedingCounts") as? [String: Int] {
+            feedings = savedFeedings.reduce(into: [Date: Int]()) { result, entry in
+                if let timestamp = Double(entry.key) {
+                    result[Date(timeIntervalSince1970: timestamp)] = entry.value
+                }
+            }
+        }
+        
+        // Load feeding entries
+        if let savedEntries = UserDefaults.standard.array(forKey: "feedingEntries") as? [[String: Any]] {
+            feedingEntries = savedEntries.compactMap { dict -> FeedingEntry? in
+                guard let timestamp = dict["date"] as? Double,
+                      let feedingNumber = dict["feedingNumber"] as? Int,
+                      let foodType = dict["foodType"] as? String,
+                      let isHistoricalEntry = dict["isHistoricalEntry"] as? Bool else {
+                    return nil
+                }
+                return FeedingEntry(
+                    date: Date(timeIntervalSince1970: timestamp),
+                    feedingNumber: feedingNumber,
+                    foodType: foodType,
+                    isHistoricalEntry: isHistoricalEntry
+                )
+            }
+        }
+    }
     
     func toggleFeeding(for date: Date) {
         let calendar = Calendar.current
