@@ -20,7 +20,7 @@ struct Koi_CalApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                ContentView()
+                MainTabView()
                     .preferredColorScheme(.light)
                 
                 if showingSplash {

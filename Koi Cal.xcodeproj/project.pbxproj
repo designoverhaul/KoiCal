@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		934336D92D00C12400A3689F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934336D82D00C12400A3689F /* MainTabView.swift */; };
 		9355BEEC2CF4EEEA007B1A78 /* FeedingGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE22CF4EEEA007B1A78 /* FeedingGuideView.swift */; };
 		9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */; };
 		9355BEEE2CF4EEEA007B1A78 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		934336D82D00C12400A3689F /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarView.swift; sourceTree = "<group>"; };
 		9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallingPelletView.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */,
 				9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */,
 				93C590392CF545D5006986A2 /* ContentView.swift */,
+				934336D82D00C12400A3689F /* MainTabView.swift */,
 				9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */,
 				9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */,
 				937EB61B2CF8A5E5002C0B54 /* Two_Koi.lottie */,
@@ -318,6 +321,7 @@
 				9355BEFC2CF4F019007B1A78 /* XAIService.swift in Sources */,
 				9355BF022CF4F042007B1A78 /* WeatherManager.swift in Sources */,
 				937EB6172CF89CFF002C0B54 /* SplashScreenView.swift in Sources */,
+				934336D92D00C12400A3689F /* MainTabView.swift in Sources */,
 				93C5903A2CF545D5006986A2 /* ContentView.swift in Sources */,
 				9355BEFE2CF4F019007B1A78 /* XAIConfig.swift in Sources */,
 				9355BEEC2CF4EEEA007B1A78 /* FeedingGuideView.swift in Sources */,
