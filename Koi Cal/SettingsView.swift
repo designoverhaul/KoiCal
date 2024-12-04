@@ -1,23 +1,22 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(\.dismiss) var dismiss
     @Binding var selectedAgeGroup: String
     @Binding var selectedObjective: String
     @ObservedObject var feedingData: FeedingData
     @ObservedObject var xaiService: XAIService
     @ObservedObject var weatherManager: WeatherManager
     @ObservedObject var locationManager: LocationManager
+    @Environment(\.dismiss) var dismiss
     @AppStorage("useCelsius") private var useCelsius = false
-    @State private var showingError = false
     
-    let ageGroups = ["Juvenile", "Adult", "Mixed"]
-    let objectives = ["Improved Color", "General Health", "Growth and Breeding", "Improved Behavior"]
-    let foodTypes = ["High Protein", "Cool Season"]
+    private let ageGroups = ["Juvenile", "Adult", "Mixed"]
+    private let objectives = ["Improved Color", "General Health", "Growth and Breeding", "Improved Behavior"]
+    private let foodTypes = ["High Protein", "Cool Season"]
     
     var body: some View {
         NavigationView {
-            List {
+            Form {
                 Section("Location") {
                     HStack {
                         Text("Pond Location")
@@ -94,41 +93,41 @@ struct SettingsView: View {
     
     private func updateRecommendation() {
         Task {
-            do {
-                let calendar = Calendar.current
-                let today = calendar.startOfDay(for: Date())
-                let weekHistory = (0...6).map { dayOffset -> (date: Date, count: Int) in
-                    let date = calendar.date(byAdding: .day, value: -dayOffset, to: today)!
-                    return (date: date, count: feedingData.getFeedingCount(for: date))
-                }
-                
-                let historyText = weekHistory
-                    .map { date, count in
-                        let dayString: String
-                        if calendar.isDateInToday(date) {
-                            dayString = "today"
-                        } else if calendar.isDateInYesterday(date) {
-                            dayString = "yesterday"
-                        } else {
-                            let formatter = DateFormatter()
-                            formatter.dateFormat = "EEEE"
-                            dayString = formatter.string(from: date).lowercased()
-                        }
-                        return "\(count) times \(dayString)"
-                    }
-                    .joined(separator: ", ")
-                
-                _ = try await xaiService.getRecommendation(
-                    temperature: weatherManager.currentTemperature ?? 70,
+            if let temperature = weatherManager.currentTemperature {
+                _ = try? await xaiService.getRecommendation(
+                    temperature: temperature,
                     fishAge: selectedAgeGroup,
                     objective: selectedObjective,
-                    location: "Atlanta, Georgia",
-                    feedingHistory: historyText
+                    location: locationManager.cityName,
+                    feedingHistory: getFeedingHistory()
                 )
-            } catch {
-                print("Error updating recommendation: \(error)")
-                showingError = true
+                print("✅ Updated recommendation after settings change")
             }
         }
+    }
+    
+    private func getFeedingHistory() -> String {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let weekHistory = (0...6).map { dayOffset -> (date: Date, count: Int) in
+            let date = calendar.date(byAdding: .day, value: -dayOffset, to: today)!
+            return (date: date, count: feedingData.getFeedingCount(for: date))
+        }
+        
+        return weekHistory
+            .map { date, count in
+                let dayString: String
+                if calendar.isDateInToday(date) {
+                    dayString = "today"
+                } else if calendar.isDateInYesterday(date) {
+                    dayString = "yesterday"
+                } else {
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "EEEE"
+                    dayString = formatter.string(from: date).lowercased()
+                }
+                return "\(count) times \(dayString)"
+            }
+            .joined(separator: ", ")
     }
 } 
