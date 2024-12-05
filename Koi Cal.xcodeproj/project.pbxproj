@@ -29,6 +29,7 @@
 		937EB6152CF89C8C002C0B54 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 937EB6142CF89C8C002C0B54 /* Lottie */; };
 		937EB6172CF89CFF002C0B54 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EB6162CF89CFF002C0B54 /* SplashScreenView.swift */; };
 		937EB61C2CF8A5E5002C0B54 /* Two_Koi.lottie in Resources */ = {isa = PBXBuildFile; fileRef = 937EB61B2CF8A5E5002C0B54 /* Two_Koi.lottie */; };
+		9387B50C2D02017600F6B3B9 /* FishStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387B50B2D02017600F6B3B9 /* FishStatsView.swift */; };
 		93C5903A2CF545D5006986A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C590392CF545D5006986A2 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		936B80FA2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		937EB6162CF89CFF002C0B54 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		937EB61B2CF8A5E5002C0B54 /* Two_Koi.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = Two_Koi.lottie; sourceTree = "<group>"; };
+		9387B50B2D02017600F6B3B9 /* FishStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishStatsView.swift; sourceTree = "<group>"; };
 		93C590392CF545D5006986A2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 				937EB61B2CF8A5E5002C0B54 /* Two_Koi.lottie */,
 				9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */,
 				9355BEE22CF4EEEA007B1A78 /* FeedingGuideView.swift */,
+				9387B50B2D02017600F6B3B9 /* FishStatsView.swift */,
 				9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */,
 				9355BEF92CF4F019007B1A78 /* FeedingEntryView.swift */,
 				9355BEFA2CF4F019007B1A78 /* XAIConfig.swift */,
@@ -328,6 +331,7 @@
 				9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */,
 				9355BEEE2CF4EEEA007B1A78 /* LocationManager.swift in Sources */,
 				9355BEEF2CF4EEEA007B1A78 /* SettingsManager.swift in Sources */,
+				9387B50C2D02017600F6B3B9 /* FishStatsView.swift in Sources */,
 				9355BEF02CF4EEEA007B1A78 /* Color+Hex.swift in Sources */,
 				9355BEF32CF4EEEA007B1A78 /* FallingPelletView.swift in Sources */,
 				9355BEF42CF4EEEA007B1A78 /* FeedingEntryView.swift in Sources */,

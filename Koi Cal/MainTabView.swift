@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedTab = 2  // Start on Feeding History tab
+    @AppStorage("useCelsius") private var useCelsius = false
     
     // Define colors as constants
     private let inactiveColor = Color(hex: "A1A1A1")
@@ -10,34 +11,38 @@ struct MainTabView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             // Fish Stats Tab
-            SettingsView(
-                selectedAgeGroup: .constant("Mixed"),
-                selectedObjective: .constant("General Health"),
-                feedingData: FeedingData(),
-                xaiService: XAIService(),
-                weatherManager: WeatherManager(),
-                locationManager: LocationManager()
-            )
-            .tabItem {
-                Label {
-                    Text("Fish Stats")
-                } icon: {
-                    Image(systemName: "fish")
-                        .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
+            FishStatsView()
+                .tabItem {
+                    Label {
+                        Text("Fish Stats")
+                    } icon: {
+                        Image(systemName: "fish")
+                            .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
+                    }
                 }
-            }
-            .tag(0)
+                .tag(0)
             
-            // Pond Stats Tab (Coming Soon)
-            VStack(spacing: 20) {
-                Text("Coming Soon!")
-                    .font(.title)
-                    .foregroundColor(.secondary)
-                
-                Image(systemName: "water.waves")
-                    .font(.system(size: 60))
-                    .foregroundColor(activeColor)
+            // Pond Stats Tab
+            VStack(spacing: 24) {
+                // Temperature Unit Section
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Temperature Unit")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    
+                    Picker("", selection: $useCelsius) {
+                        Text("Fahrenheit").tag(false)
+                        Text("Celsius").tag(true)
+                    }
+                    .pickerStyle(.segmented)
+                }
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(12)
+                .padding()
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(.systemGroupedBackground))
             .tabItem {
                 Label {
                     Text("Pond Stats")
