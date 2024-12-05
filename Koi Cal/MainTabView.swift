@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @State private var selectedTab = 1  // Start on Feeding History tab
+    @State private var selectedTab = 2  // Start on Feeding History tab
     
     // Define colors as constants
     private let inactiveColor = Color(hex: "A1A1A1")
@@ -9,39 +9,7 @@ struct MainTabView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            // The Plan Tab (Coming Soon)
-            VStack(spacing: 20) {
-                Text("Coming Soon!")
-                    .font(.title)
-                    .foregroundColor(.secondary)
-                
-                Image(systemName: "map.fill")
-                    .font(.system(size: 60))
-                    .foregroundColor(activeColor)
-            }
-            .tabItem {
-                Label {
-                    Text("The Plan")
-                } icon: {
-                    Image(systemName: "map")
-                        .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
-                }
-            }
-            .tag(0)
-            
-            // Feeding History Tab (Main Content)
-            ContentView()
-                .tabItem {
-                    Label {
-                        Text("Feeding History")
-                    } icon: {
-                        Image(systemName: "calendar")
-                            .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
-                    }
-                }
-                .tag(1)
-            
-            // Settings Tab
+            // Fish Stats Tab
             SettingsView(
                 selectedAgeGroup: .constant("Mixed"),
                 selectedObjective: .constant("General Health"),
@@ -52,13 +20,65 @@ struct MainTabView: View {
             )
             .tabItem {
                 Label {
-                    Text("Settings")
+                    Text("Fish Stats")
                 } icon: {
-                    Image(systemName: "gearshape")
-                        .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
+                    Image(systemName: "fish")
+                        .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
                 }
             }
-            .tag(2)
+            .tag(0)
+            
+            // Pond Stats Tab (Coming Soon)
+            VStack(spacing: 20) {
+                Text("Coming Soon!")
+                    .font(.title)
+                    .foregroundColor(.secondary)
+                
+                Image(systemName: "water.waves")
+                    .font(.system(size: 60))
+                    .foregroundColor(activeColor)
+            }
+            .tabItem {
+                Label {
+                    Text("Pond Stats")
+                } icon: {
+                    Image(systemName: "water.waves")
+                        .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
+                }
+            }
+            .tag(1)
+            
+            // Feeding History Tab (Main Content)
+            ContentView()
+                .tabItem {
+                    Label {
+                        Text("Feeding History")
+                    } icon: {
+                        Image(systemName: "calendar")
+                            .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
+                    }
+                }
+                .tag(2)
+            
+            // Health Plan Tab (Coming Soon)
+            VStack(spacing: 20) {
+                Text("Coming Soon!")
+                    .font(.title)
+                    .foregroundColor(.secondary)
+                
+                Image(systemName: "sparkles")
+                    .font(.system(size: 60))
+                    .foregroundColor(activeColor)
+            }
+            .tabItem {
+                Label {
+                    Text("Health Plan")
+                } icon: {
+                    Image(systemName: "sparkles")
+                        .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
+                }
+            }
+            .tag(3)
         }
         .tint(activeColor) // Set active color
         .onAppear {
