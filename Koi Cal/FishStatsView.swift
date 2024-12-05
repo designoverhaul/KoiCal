@@ -14,26 +14,6 @@ struct FishStatsView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 24) {
-                    // Location Section
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("LOCATION")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                            .padding(.horizontal, 4)
-                        
-                        HStack {
-                            Text("Pond Location")
-                                .foregroundColor(.primary)
-                            Spacer()
-                            Text(locationManager.cityName)
-                                .foregroundColor(.gray)
-                        }
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(12)
-                    }
-                    .padding(.horizontal)
-                    
                     // Fish Age Section
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Age of Fish")

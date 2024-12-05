@@ -3,6 +3,8 @@ import SwiftUI
 struct MainTabView: View {
     @State private var selectedTab = 2  // Start on Feeding History tab
     @AppStorage("useCelsius") private var useCelsius = false
+    @AppStorage("useCentimeters") private var useCentimeters = false
+    @StateObject private var locationManager = LocationManager()
     
     // Define colors as constants
     private let inactiveColor = Color(hex: "A1A1A1")
@@ -24,6 +26,26 @@ struct MainTabView: View {
             
             // Pond Stats Tab
             VStack(spacing: 24) {
+                // Location Section
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("LOCATION")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .padding(.horizontal, 4)
+                    
+                    HStack {
+                        Text("Pond Location")
+                            .foregroundColor(.primary)
+                        Spacer()
+                        Text(locationManager.cityName)
+                            .foregroundColor(.gray)
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(12)
+                }
+                .padding(.horizontal)
+                
                 // Temperature Unit Section
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Temperature Unit")
@@ -33,6 +55,23 @@ struct MainTabView: View {
                     Picker("", selection: $useCelsius) {
                         Text("Fahrenheit").tag(false)
                         Text("Celsius").tag(true)
+                    }
+                    .pickerStyle(.segmented)
+                }
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(12)
+                .padding()
+                
+                // Length Unit Section
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Length Unit")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    
+                    Picker("", selection: $useCentimeters) {
+                        Text("Feet").tag(false)
+                        Text("Centimeters").tag(true)
                     }
                     .pickerStyle(.segmented)
                 }
@@ -66,24 +105,16 @@ struct MainTabView: View {
                 .tag(2)
             
             // Health Plan Tab (Coming Soon)
-            VStack(spacing: 20) {
-                Text("Coming Soon!")
-                    .font(.title)
-                    .foregroundColor(.secondary)
-                
-                Image(systemName: "sparkles")
-                    .font(.system(size: 60))
-                    .foregroundColor(activeColor)
-            }
-            .tabItem {
-                Label {
-                    Text("Health Plan")
-                } icon: {
-                    Image(systemName: "sparkles")
-                        .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
+            HealthPlanView()
+                .tabItem {
+                    Label {
+                        Text("Health Plan")
+                    } icon: {
+                        Image(systemName: "sparkles")
+                            .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
+                    }
                 }
-            }
-            .tag(3)
+                .tag(3)
         }
         .tint(activeColor) // Set active color
         .onAppear {
