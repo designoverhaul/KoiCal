@@ -11,10 +11,12 @@ struct HealthPlanView: View {
                             Text("HEALTH PLAN")
                                 .font(.system(size: 34, weight: .heavy))
                                 .foregroundColor(Color(hex: "474747"))
+                                .fixedSize(horizontal: true, vertical: false)
                             
                             Text("DEC 22")
                                 .font(.system(size: 34, weight: .regular))
                                 .foregroundColor(Color(hex: "F18833"))
+                                .fixedSize(horizontal: true, vertical: false)
                         }
                         
                         Text("Based on your fish, pond, climate, and more")
@@ -22,7 +24,7 @@ struct HealthPlanView: View {
                             .foregroundColor(Color(hex: "575757"))
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
+                    .padding(.horizontal, 12)
                     .padding(.bottom, 8)
                     
                     // Schedule Box

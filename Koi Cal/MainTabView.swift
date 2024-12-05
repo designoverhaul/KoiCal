@@ -25,60 +25,69 @@ struct MainTabView: View {
                 .tag(0)
             
             // Pond Stats Tab
-            VStack(spacing: 24) {
-                // Location Section
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("LOCATION")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                        .padding(.horizontal, 4)
-                    
-                    HStack {
-                        Text("Pond Location")
-                            .foregroundColor(.primary)
-                        Spacer()
-                        Text(locationManager.cityName)
-                            .foregroundColor(.gray)
+            NavigationView {
+                ScrollView {
+                    VStack(spacing: 24) {
+                        HeaderView(
+                            title: "POND STATS",
+                            subtitle: "Based on your fish, pond, climate, and more"
+                        )
+                        
+                        // Location Section
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("LOCATION")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                                .padding(.horizontal, 4)
+                            
+                            HStack {
+                                Text("Pond Location")
+                                    .foregroundColor(.primary)
+                                Spacer()
+                                Text(locationManager.cityName)
+                                    .foregroundColor(.gray)
+                            }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(12)
+                        }
+                        .padding(.horizontal)
+                        
+                        // Temperature Unit Section
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Temperature Unit")
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                            
+                            Picker("", selection: $useCelsius) {
+                                Text("Fahrenheit").tag(false)
+                                Text("Celsius").tag(true)
+                            }
+                            .pickerStyle(.segmented)
+                        }
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(12)
+                        .padding()
+                        
+                        // Length Unit Section
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Length Unit")
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                            
+                            Picker("", selection: $useCentimeters) {
+                                Text("Feet").tag(false)
+                                Text("Centimeters").tag(true)
+                            }
+                            .pickerStyle(.segmented)
+                        }
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(12)
+                        .padding()
                     }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(12)
                 }
-                .padding(.horizontal)
-                
-                // Temperature Unit Section
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Temperature Unit")
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                    
-                    Picker("", selection: $useCelsius) {
-                        Text("Fahrenheit").tag(false)
-                        Text("Celsius").tag(true)
-                    }
-                    .pickerStyle(.segmented)
-                }
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(12)
-                .padding()
-                
-                // Length Unit Section
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Length Unit")
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                    
-                    Picker("", selection: $useCentimeters) {
-                        Text("Feet").tag(false)
-                        Text("Centimeters").tag(true)
-                    }
-                    .pickerStyle(.segmented)
-                }
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(12)
-                .padding()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(.systemGroupedBackground))

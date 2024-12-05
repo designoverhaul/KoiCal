@@ -35,10 +35,10 @@ struct ContentView: View {
                 VStack(spacing: 10) {
                     // Top Bar
                     HStack {
-                        Image("logo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 48)
+                        // Image("logo")
+                        //     .resizable()
+                        //     .scaledToFit()
+                        //     .frame(height: 48)
                         
                         Spacer()
                         

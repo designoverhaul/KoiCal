@@ -13,7 +13,12 @@ struct FishStatsView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(spacing: 24) {
+                VStack(spacing: 16) {
+                    HeaderView(
+                        title: "FISH STATS",
+                        subtitle: "Based on your fish, pond, climate, and more"
+                    )
+                    
                     // Fish Age Section
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Age of Fish")
