@@ -7,8 +7,18 @@ struct FishStatsView: View {
     @StateObject private var locationManager = LocationManager()
     @State private var selectedAgeGroup = "Mixed"
     @State private var selectedObjectives = Set<String>()
-    @State private var selectedProblems = Set<String>()
+    @State private var selectedProblems: Set<HealthProblem> = []
     @AppStorage("useCelsius") private var useCelsius = false
+    @State private var selectedFoodType = "High Protein - Summer Food"
+    
+    enum HealthProblem: String, CaseIterable {
+        case aggression = "Aggression"
+        case lowEnergy = "Low Energy (normal in winter)"
+        case stuntedGrowth = "Stunted Growth"
+        case lackOfAppetite = "Lack of appetite"
+        case obesity = "Obesity or bloating"
+        case constantHiding = "Constant Hiding"
+    }
     
     var body: some View {
         NavigationView {
@@ -31,6 +41,38 @@ struct FishStatsView: View {
                             }
                         }
                         .pickerStyle(.segmented)
+                    }
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(12)
+                    
+                    // Current Food Type Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Current Food Type")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            ForEach([
+                                "High Protein - Summer Food",
+                                "Low Protein - Spring and Fall",
+                                "Not Feeding - Winter"
+                            ], id: \.self) { foodType in
+                                Button(action: {
+                                    selectedFoodType = foodType
+                                }) {
+                                    HStack {
+                                        Image(systemName: selectedFoodType == foodType ? "largecircle.fill.circle" : "circle")
+                                            .foregroundColor(selectedFoodType == foodType ? Color(hex: "F18833") : .gray)
+                                        Text(foodType)
+                                            .foregroundColor(.primary)
+                                        Spacer()
+                                    }
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                .padding(.vertical, 8)
+                            }
+                        }
                     }
                     .padding()
                     .background(Color(.systemGray6))
@@ -80,11 +122,7 @@ struct FishStatsView: View {
                             .foregroundColor(.primary)
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            ForEach([
-                                "Aggression",
-                                "Low Energy",
-                                "Stunted Growth"
-                            ], id: \.self) { problem in
+                            ForEach(HealthProblem.allCases, id: \.self) { problem in
                                 Button(action: {
                                     if selectedProblems.contains(problem) {
                                         selectedProblems.remove(problem)
@@ -95,7 +133,7 @@ struct FishStatsView: View {
                                     HStack {
                                         Image(systemName: selectedProblems.contains(problem) ? "checkmark.square.fill" : "square")
                                             .foregroundColor(selectedProblems.contains(problem) ? Color(hex: "F18833") : .gray)
-                                        Text(problem)
+                                        Text(problem.rawValue)
                                             .foregroundColor(.primary)
                                         Spacer()
                                     }
