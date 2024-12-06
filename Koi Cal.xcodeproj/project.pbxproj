@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		932362102D0354560003DCCD /* WaterQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620F2D0354560003DCCD /* WaterQualityView.swift */; };
+		932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620E2D0354560003DCCD /* WaterMeasurementView.swift */; };
+		932362122D0354560003DCCD /* WaterMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620D2D0354560003DCCD /* WaterMeasurement.swift */; };
+		932362132D0354560003DCCD /* PondStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620C2D0354560003DCCD /* PondStatsView.swift */; };
 		934336D92D00C12400A3689F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934336D82D00C12400A3689F /* MainTabView.swift */; };
 		9355BEEC2CF4EEEA007B1A78 /* FeedingGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE22CF4EEEA007B1A78 /* FeedingGuideView.swift */; };
 		9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */; };
@@ -53,6 +57,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		932362052D034F000003DCCD /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
+		9323620C2D0354560003DCCD /* PondStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PondStatsView.swift; sourceTree = "<group>"; };
+		9323620D2D0354560003DCCD /* WaterMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeasurement.swift; sourceTree = "<group>"; };
+		9323620E2D0354560003DCCD /* WaterMeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeasurementView.swift; sourceTree = "<group>"; };
+		9323620F2D0354560003DCCD /* WaterQualityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterQualityView.swift; sourceTree = "<group>"; };
 		934336D82D00C12400A3689F /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarView.swift; sourceTree = "<group>"; };
@@ -144,12 +153,17 @@
 				9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */,
 				9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */,
 				9387B50D2D02265900F6B3B9 /* HealthPlanView.swift */,
+				9323620C2D0354560003DCCD /* PondStatsView.swift */,
+				9323620D2D0354560003DCCD /* WaterMeasurement.swift */,
+				9323620E2D0354560003DCCD /* WaterMeasurementView.swift */,
+				9323620F2D0354560003DCCD /* WaterQualityView.swift */,
 				9387B50F2D022E1E00F6B3B9 /* HeaderView.swift */,
 				937EB61B2CF8A5E5002C0B54 /* Two_Koi.lottie */,
 				9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */,
 				9355BEE22CF4EEEA007B1A78 /* FeedingGuideView.swift */,
 				9387B50B2D02017600F6B3B9 /* FishStatsView.swift */,
 				9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */,
+				932362052D034F000003DCCD /* Untitled.swift */,
 				9355BEF92CF4F019007B1A78 /* FeedingEntryView.swift */,
 				9355BEFA2CF4F019007B1A78 /* XAIConfig.swift */,
 				9355BEFB2CF4F019007B1A78 /* XAIService.swift */,
@@ -335,6 +349,10 @@
 				9355BEFE2CF4F019007B1A78 /* XAIConfig.swift in Sources */,
 				9387B5102D022E1E00F6B3B9 /* HeaderView.swift in Sources */,
 				9355BEEC2CF4EEEA007B1A78 /* FeedingGuideView.swift in Sources */,
+				932362102D0354560003DCCD /* WaterQualityView.swift in Sources */,
+				932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */,
+				932362122D0354560003DCCD /* WaterMeasurement.swift in Sources */,
+				932362132D0354560003DCCD /* PondStatsView.swift in Sources */,
 				9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */,
 				9355BEEE2CF4EEEA007B1A78 /* LocationManager.swift in Sources */,
 				9355BEEF2CF4EEEA007B1A78 /* SettingsManager.swift in Sources */,

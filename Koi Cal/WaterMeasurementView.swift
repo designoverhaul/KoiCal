@@ -23,11 +23,11 @@ struct WaterMeasurementView: View {
             .padding(.bottom, 4)
             
             // Color squares row
-            HStack(spacing: 5.48) {
+            HStack(spacing: 4) {
                 ForEach(type.colors.indices, id: \.self) { index in
                     Rectangle()
                         .fill(type.colors[index])
-                        .frame(width: 46, height: 46)
+                        .frame(width: 40, height: 40)
                         .overlay(
                             Rectangle()
                                 .stroke(Color(red: 0.34, green: 0.34, blue: 0.34), lineWidth: selectedValue == index ? 1.25 : 0)
@@ -37,6 +37,7 @@ struct WaterMeasurementView: View {
                         }
                 }
             }
+            .frame(maxWidth: .infinity)
             
             Text(type.description)
                 .font(.system(size: 11))

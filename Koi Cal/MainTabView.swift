@@ -33,6 +33,11 @@ struct MainTabView: View {
                             subtitle: "Based on your fish, pond, climate, and more"
                         )
                         
+                        // Add Water Quality View here
+                        WaterQualityView()
+                            .padding(.horizontal)
+                            .padding(.bottom, 20)
+                        
                         // Location Section
                         VStack(alignment: .leading, spacing: 12) {
                             Text("LOCATION")
@@ -87,6 +92,8 @@ struct MainTabView: View {
                         .cornerRadius(12)
                         .padding()
                     }
+                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
