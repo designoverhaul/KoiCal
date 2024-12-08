@@ -33,7 +33,6 @@
 		9387B50E2D02265900F6B3B9 /* HealthPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387B50D2D02265900F6B3B9 /* HealthPlanView.swift */; };
 		9387B5102D022E1E00F6B3B9 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387B50F2D022E1E00F6B3B9 /* HeaderView.swift */; };
 		9389E2102D04E187001BAAE7 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E20F2D04E187001BAAE7 /* Types.swift */; };
-		9389E2122D04E22C001BAAE7 /* PondHealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E2112D04E22C001BAAE7 /* PondHealthManager.swift */; };
 		9389E2162D04E34B001BAAE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9389E2152D04E34B001BAAE7 /* Assets.xcassets */; };
 		9389E21B2D04E7AF001BAAE7 /* XAIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E21A2D04E7AF001BAAE7 /* XAIConfig.swift */; };
 		9389E21D2D04E85D001BAAE7 /* FeedingHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E21C2D04E846001BAAE7 /* FeedingHistoryView.swift */; };
@@ -88,7 +87,6 @@
 		9387B50D2D02265900F6B3B9 /* HealthPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthPlanView.swift; sourceTree = "<group>"; };
 		9387B50F2D022E1E00F6B3B9 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		9389E20F2D04E187001BAAE7 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
-		9389E2112D04E22C001BAAE7 /* PondHealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PondHealthManager.swift; sourceTree = "<group>"; };
 		9389E2152D04E34B001BAAE7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9389E2172D04E70B001BAAE7 /* koical.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = koical.entitlements; sourceTree = "<group>"; };
 		9389E21A2D04E7AF001BAAE7 /* XAIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIConfig.swift; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 				9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */,
 				9323620D2D0354560003DCCD /* WaterMeasurement.swift */,
 				9389E20F2D04E187001BAAE7 /* Types.swift */,
-				9389E2112D04E22C001BAAE7 /* PondHealthManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -420,7 +417,6 @@
 			files = (
 				9389E21B2D04E7AF001BAAE7 /* XAIConfig.swift in Sources */,
 				9355BEFC2CF4F019007B1A78 /* XAIService.swift in Sources */,
-				9389E2122D04E22C001BAAE7 /* PondHealthManager.swift in Sources */,
 				9355BF022CF4F042007B1A78 /* WeatherManager.swift in Sources */,
 				937EB6172CF89CFF002C0B54 /* SplashScreenView.swift in Sources */,
 				9389E2102D04E187001BAAE7 /* Types.swift in Sources */,

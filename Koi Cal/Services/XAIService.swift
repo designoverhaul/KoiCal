@@ -52,6 +52,20 @@ class XAIService: ObservableObject {
             }
         }
         
+        // Get current date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM"
+        let currentMonth = dateFormatter.string(from: Date())
+        
+        // Debug: Print input values
+        print("🔍 Input Values:")
+        print("Current Month: \(currentMonth)")
+        print("Temperature: \(temperature)")
+        print("Fish Age: \(fishAge)")
+        print("Objective: \(objective)")
+        print("Location: \(location)")
+        print("Feeding History: \(feedingHistory)")
+        
         let prompt = XAIConfig.systemPrompt
             .replacingOccurrences(of: "{temp}", with: String(format: "%.0f", temperature))
             .replacingOccurrences(of: "{age}", with: fishAge)
@@ -59,17 +73,28 @@ class XAIService: ObservableObject {
             .replacingOccurrences(of: "{location}", with: location)
             .replacingOccurrences(of: "{feeding_history}", with: feedingHistory)
         
+        // Debug: Print the complete system prompt
+        print("\n🤖 System Prompt:")
+        print(prompt)
+        
         let messages = [
             Message(role: "system", content: prompt),
-            Message(role: "user", content: "What is your feeding recommendation for today?")
+            Message(role: "user", content: "The current month is \(currentMonth). Provide only the feeding frequency in the specified format, considering the season and temperature.")
         ]
         
+        // Debug: Print the complete request
+        print("\n📤 Request to XAI:")
         let request = ChatRequest(
             messages: messages,
             model: "grok-beta",
             temperature: 0.7,
             max_tokens: 100
         )
+        
+        if let requestJson = try? JSONEncoder().encode(request),
+           let requestString = String(data: requestJson, encoding: .utf8) {
+            print(requestString)
+        }
         
         var urlRequest = URLRequest(url: URL(string: XAIConfig.apiURL)!)
         urlRequest.httpMethod = "POST"
@@ -80,10 +105,11 @@ class XAIService: ObservableObject {
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         
         if let httpResponse = response as? HTTPURLResponse {
-            print("API Response Status: \(httpResponse.statusCode)")
+            print("\n📥 Response Status: \(httpResponse.statusCode)")
             
             if let responseString = String(data: data, encoding: .utf8) {
-                print("API Response Body: \(responseString)")
+                print("Response Body:")
+                print(responseString)
             }
             
             guard httpResponse.statusCode == 200 else {
@@ -94,6 +120,12 @@ class XAIService: ObservableObject {
         }
         
         let chatResponse = try JSONDecoder().decode(ChatResponse.self, from: data)
-        return chatResponse.choices.first?.message.content ?? "No recommendation available"
+        let recommendation = chatResponse.choices.first?.message.content ?? "No recommendation available"
+        
+        // Debug: Print final recommendation
+        print("\n🎯 Final Recommendation:")
+        print(recommendation)
+        
+        return recommendation.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 } 
