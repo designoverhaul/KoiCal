@@ -53,7 +53,11 @@ class FeedingData: ObservableObject {
         if let savedFeedings = UserDefaults.standard.dictionary(forKey: "feedingCounts") as? [String: Int] {
             feedings = savedFeedings.reduce(into: [Date: Int]()) { result, entry in
                 if let timestamp = Double(entry.key) {
-                    result[Date(timeIntervalSince1970: timestamp)] = entry.value
+                    let date = Date(timeIntervalSince1970: timestamp)
+                    // Normalize the date to start of day
+                    let calendar = Calendar.current
+                    let normalizedDate = calendar.startOfDay(for: date)
+                    result[normalizedDate] = entry.value
                 }
             }
         }
@@ -87,8 +91,10 @@ class FeedingData: ObservableObject {
             return
         }
         
+        // For historical entries, create an entry at noon of the selected date
+        // For current entries, use the current time
         let entryDate = isHistoricalEntry ? 
-            calendar.date(bySettingHour: 12, minute: 0, second: 0, of: date)! :
+            calendar.date(bySettingHour: 12, minute: 0, second: 0, of: normalizedDate)! :
             Date()
         
         feedings[normalizedDate] = currentCount + 1
@@ -102,16 +108,17 @@ class FeedingData: ObservableObject {
     
     func deleteEntry(_ entry: FeedingEntry) {
         if let index = feedingEntries.firstIndex(where: { $0.id == entry.id }) {
-            feedingEntries.remove(at: index)
-            
             let calendar = Calendar.current
             let normalizedDate = calendar.startOfDay(for: entry.date)
-            if let currentCount = feedings[normalizedDate] {
-                if currentCount > 1 {
-                    feedings[normalizedDate] = currentCount - 1
-                } else {
-                    feedings.removeValue(forKey: normalizedDate)
-                }
+            
+            feedingEntries.remove(at: index)
+            
+            // Update the feeding count for the day
+            let remainingEntries = getEntries(for: normalizedDate)
+            feedings[normalizedDate] = remainingEntries.count
+            
+            if remainingEntries.isEmpty {
+                feedings.removeValue(forKey: normalizedDate)
             }
         }
     }
@@ -124,8 +131,9 @@ class FeedingData: ObservableObject {
     
     func getEntries(for date: Date) -> [FeedingEntry] {
         let calendar = Calendar.current
+        let normalizedDate = calendar.startOfDay(for: date)
         return feedingEntries.filter { entry in
-            calendar.isDate(entry.date, inSameDayAs: date)
+            calendar.isDate(calendar.startOfDay(for: entry.date), equalTo: normalizedDate, toGranularity: .day)
         }
     }
 } 

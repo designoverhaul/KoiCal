@@ -13,91 +13,23 @@ struct MainTabView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             // Fish Stats Tab
-            FishStatsView()
-                .tabItem {
-                    Label {
-                        Text("Fish Stats")
-                    } icon: {
-                        Image(systemName: "fish")
-                            .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
-                    }
+            NavigationView {
+                FishStatsView()
+            }
+            .tabItem {
+                Label {
+                    Text("Fish Stats")
+                } icon: {
+                    Image(systemName: "fish")
+                        .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
                 }
-                .tag(0)
+            }
+            .tag(0)
             
             // Pond Stats Tab
             NavigationView {
-                ScrollView {
-                    VStack(spacing: 24) {
-                        HeaderView(
-                            title: "POND STATS",
-                            subtitle: "Based on your fish, pond, climate, and more"
-                        )
-                        
-                        // Add Water Quality View here
-                        WaterQualityView()
-                            .padding(.horizontal)
-                            .padding(.bottom, 20)
-                        
-                        // Location Section
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("LOCATION")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                                .padding(.horizontal, 4)
-                            
-                            HStack {
-                                Text("Pond Location")
-                                    .foregroundColor(.primary)
-                                Spacer()
-                                Text(locationManager.cityName)
-                                    .foregroundColor(.gray)
-                            }
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(12)
-                        }
-                        .padding(.horizontal)
-                        
-                        // Temperature Unit Section
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Temperature Unit")
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                            
-                            Picker("", selection: $useCelsius) {
-                                Text("Fahrenheit").tag(false)
-                                Text("Celsius").tag(true)
-                            }
-                            .pickerStyle(.segmented)
-                        }
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
-                        .padding()
-                        
-                        // Length Unit Section
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Length Unit")
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                            
-                            Picker("", selection: $useCentimeters) {
-                                Text("Feet").tag(false)
-                                Text("Centimeters").tag(true)
-                            }
-                            .pickerStyle(.segmented)
-                        }
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
-                        .padding()
-                    }
-                    .padding(.horizontal)
-                    .frame(maxWidth: .infinity)
-                }
+                PondStatsView()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(.systemGroupedBackground))
             .tabItem {
                 Label {
                     Text("Pond Stats")
@@ -109,16 +41,18 @@ struct MainTabView: View {
             .tag(1)
             
             // Feeding History Tab (Main Content)
-            ContentView()
-                .tabItem {
-                    Label {
-                        Text("Feeding History")
-                    } icon: {
-                        Image(systemName: "calendar")
-                            .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
-                    }
+            NavigationView {
+                FeedingHistoryView()
+            }
+            .tabItem {
+                Label {
+                    Text("Feeding History")
+                } icon: {
+                    Image(systemName: "calendar")
+                        .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
                 }
-                .tag(2)
+            }
+            .tag(2)
             
             // Health Plan Tab (Coming Soon)
             HealthPlanView()

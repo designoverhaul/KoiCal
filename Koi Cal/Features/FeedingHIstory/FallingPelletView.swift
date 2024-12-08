@@ -10,7 +10,7 @@ struct FallingPelletsView: View {
                 let xPosition = CGFloat.random(in: 0...geometry.size.width)
                 let delay = Double.random(in: 0...0.3)
                 
-                Image("Single-fish-food")
+                Image("Single-Fish-Food")
                     .resizable()
                     .frame(width: 20, height: 20)
                     .position(x: xPosition, y: startAnimation ? geometry.size.height + 50 : -50)

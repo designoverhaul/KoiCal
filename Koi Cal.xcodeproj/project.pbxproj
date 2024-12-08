@@ -10,9 +10,7 @@
 		932362102D0354560003DCCD /* WaterQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620F2D0354560003DCCD /* WaterQualityView.swift */; };
 		932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620E2D0354560003DCCD /* WaterMeasurementView.swift */; };
 		932362122D0354560003DCCD /* WaterMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620D2D0354560003DCCD /* WaterMeasurement.swift */; };
-		932362132D0354560003DCCD /* PondStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620C2D0354560003DCCD /* PondStatsView.swift */; };
 		934336D92D00C12400A3689F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934336D82D00C12400A3689F /* MainTabView.swift */; };
-		9355BEEC2CF4EEEA007B1A78 /* FeedingGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE22CF4EEEA007B1A78 /* FeedingGuideView.swift */; };
 		9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */; };
 		9355BEEE2CF4EEEA007B1A78 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */; };
 		9355BEEF2CF4EEEA007B1A78 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */; };
@@ -23,9 +21,7 @@
 		9355BEF62CF4EEEA007B1A78 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */; };
 		9355BEF72CF4EEEA007B1A78 /* FeedingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */; };
 		9355BEFC2CF4F019007B1A78 /* XAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEFB2CF4F019007B1A78 /* XAIService.swift */; };
-		9355BEFE2CF4F019007B1A78 /* XAIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEFA2CF4F019007B1A78 /* XAIConfig.swift */; };
 		9355BF022CF4F042007B1A78 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BF002CF4F042007B1A78 /* WeatherManager.swift */; };
-		936B80E22CE68B4E00F668CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 936B80E12CE68B4E00F668CD /* Assets.xcassets */; };
 		936B80E52CE68B4E00F668CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 936B80E42CE68B4E00F668CD /* Preview Assets.xcassets */; };
 		936B80EF2CE68B4E00F668CD /* Koi_CalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80EE2CE68B4E00F668CD /* Koi_CalTests.swift */; };
 		936B80F92CE68B4E00F668CD /* Koi_CalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80F82CE68B4E00F668CD /* Koi_CalUITests.swift */; };
@@ -36,7 +32,12 @@
 		9387B50C2D02017600F6B3B9 /* FishStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387B50B2D02017600F6B3B9 /* FishStatsView.swift */; };
 		9387B50E2D02265900F6B3B9 /* HealthPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387B50D2D02265900F6B3B9 /* HealthPlanView.swift */; };
 		9387B5102D022E1E00F6B3B9 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387B50F2D022E1E00F6B3B9 /* HeaderView.swift */; };
-		93C5903A2CF545D5006986A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C590392CF545D5006986A2 /* ContentView.swift */; };
+		9389E2102D04E187001BAAE7 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E20F2D04E187001BAAE7 /* Types.swift */; };
+		9389E2122D04E22C001BAAE7 /* PondHealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E2112D04E22C001BAAE7 /* PondHealthManager.swift */; };
+		9389E2162D04E34B001BAAE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9389E2152D04E34B001BAAE7 /* Assets.xcassets */; };
+		9389E21B2D04E7AF001BAAE7 /* XAIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E21A2D04E7AF001BAAE7 /* XAIConfig.swift */; };
+		9389E21D2D04E85D001BAAE7 /* FeedingHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E21C2D04E846001BAAE7 /* FeedingHistoryView.swift */; };
+		9389E2232D04FDD8001BAAE7 /* PondStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E2222D04FDD1001BAAE7 /* PondStatsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,8 +58,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		932362052D034F000003DCCD /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
-		9323620C2D0354560003DCCD /* PondStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PondStatsView.swift; sourceTree = "<group>"; };
 		9323620D2D0354560003DCCD /* WaterMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeasurement.swift; sourceTree = "<group>"; };
 		9323620E2D0354560003DCCD /* WaterMeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeasurementView.swift; sourceTree = "<group>"; };
 		9323620F2D0354560003DCCD /* WaterQualityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterQualityView.swift; sourceTree = "<group>"; };
@@ -68,21 +67,15 @@
 		9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallingPelletView.swift; sourceTree = "<group>"; };
 		9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingData.swift; sourceTree = "<group>"; };
 		9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingEntryView.swift; sourceTree = "<group>"; };
-		9355BEE22CF4EEEA007B1A78 /* FeedingGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingGuideView.swift; sourceTree = "<group>"; };
 		9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalApp.swift; sourceTree = "<group>"; };
 		9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		9355BEEA2CF4EEEA007B1A78 /* XAIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIConfig.swift; sourceTree = "<group>"; };
-		9355BEEB2CF4EEEA007B1A78 /* XAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIService.swift; sourceTree = "<group>"; };
 		9355BEF92CF4F019007B1A78 /* FeedingEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingEntryView.swift; sourceTree = "<group>"; };
-		9355BEFA2CF4F019007B1A78 /* XAIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIConfig.swift; sourceTree = "<group>"; };
 		9355BEFB2CF4F019007B1A78 /* XAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIService.swift; sourceTree = "<group>"; };
 		9355BEFF2CF4F042007B1A78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9355BF002CF4F042007B1A78 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
-		9355BF032CF4F214007B1A78 /* koical.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = koical.entitlements; sourceTree = "<group>"; };
 		936B80DA2CE68B4D00F668CD /* Koi Cal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Koi Cal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		936B80E12CE68B4E00F668CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		936B80E42CE68B4E00F668CD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		936B80EA2CE68B4E00F668CD /* Koi CalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Koi CalTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		936B80EE2CE68B4E00F668CD /* Koi_CalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalTests.swift; sourceTree = "<group>"; };
@@ -94,7 +87,13 @@
 		9387B50B2D02017600F6B3B9 /* FishStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishStatsView.swift; sourceTree = "<group>"; };
 		9387B50D2D02265900F6B3B9 /* HealthPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthPlanView.swift; sourceTree = "<group>"; };
 		9387B50F2D022E1E00F6B3B9 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		93C590392CF545D5006986A2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9389E20F2D04E187001BAAE7 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		9389E2112D04E22C001BAAE7 /* PondHealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PondHealthManager.swift; sourceTree = "<group>"; };
+		9389E2152D04E34B001BAAE7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9389E2172D04E70B001BAAE7 /* koical.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = koical.entitlements; sourceTree = "<group>"; };
+		9389E21A2D04E7AF001BAAE7 /* XAIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIConfig.swift; sourceTree = "<group>"; };
+		9389E21C2D04E846001BAAE7 /* FeedingHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingHistoryView.swift; sourceTree = "<group>"; };
+		9389E2222D04FDD1001BAAE7 /* PondStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PondStatsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,38 +145,12 @@
 		936B80DC2CE68B4D00F668CD /* Koi Cal */ = {
 			isa = PBXGroup;
 			children = (
-				9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */,
-				9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */,
-				93C590392CF545D5006986A2 /* ContentView.swift */,
-				934336D82D00C12400A3689F /* MainTabView.swift */,
-				9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */,
-				9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */,
-				9387B50D2D02265900F6B3B9 /* HealthPlanView.swift */,
-				9323620C2D0354560003DCCD /* PondStatsView.swift */,
-				9323620D2D0354560003DCCD /* WaterMeasurement.swift */,
-				9323620E2D0354560003DCCD /* WaterMeasurementView.swift */,
-				9323620F2D0354560003DCCD /* WaterQualityView.swift */,
-				9387B50F2D022E1E00F6B3B9 /* HeaderView.swift */,
-				937EB61B2CF8A5E5002C0B54 /* Two_Koi.lottie */,
-				9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */,
-				9355BEE22CF4EEEA007B1A78 /* FeedingGuideView.swift */,
-				9387B50B2D02017600F6B3B9 /* FishStatsView.swift */,
-				9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */,
-				932362052D034F000003DCCD /* Untitled.swift */,
-				9355BEF92CF4F019007B1A78 /* FeedingEntryView.swift */,
-				9355BEFA2CF4F019007B1A78 /* XAIConfig.swift */,
-				9355BEFB2CF4F019007B1A78 /* XAIService.swift */,
-				9355BF032CF4F214007B1A78 /* koical.entitlements */,
-				9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */,
-				9355BEFF2CF4F042007B1A78 /* Info.plist */,
-				9355BF002CF4F042007B1A78 /* WeatherManager.swift */,
-				9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */,
-				9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */,
-				9355BEEA2CF4EEEA007B1A78 /* XAIConfig.swift */,
-				937EB6162CF89CFF002C0B54 /* SplashScreenView.swift */,
-				9355BEEB2CF4EEEA007B1A78 /* XAIService.swift */,
-				936B80E12CE68B4E00F668CD /* Assets.xcassets */,
-				936B80E32CE68B4E00F668CD /* Preview Content */,
+				9389E2052D04DE37001BAAE7 /* App */,
+				9389E2062D04DE40001BAAE7 /* Features */,
+				9389E2072D04DE4B001BAAE7 /* Services */,
+				9389E20A2D04DE69001BAAE7 /* Resources */,
+				9389E2082D04DE54001BAAE7 /* Models */,
+				9389E2092D04DE5D001BAAE7 /* Components */,
 			);
 			path = "Koi Cal";
 			sourceTree = "<group>";
@@ -205,6 +178,110 @@
 				936B80FA2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift */,
 			);
 			path = "Koi CalUITests";
+			sourceTree = "<group>";
+		};
+		9389E2052D04DE37001BAAE7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				934336D82D00C12400A3689F /* MainTabView.swift */,
+				9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */,
+				9389E2172D04E70B001BAAE7 /* koical.entitlements */,
+				9355BEFF2CF4F042007B1A78 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		9389E2062D04DE40001BAAE7 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				9389E20E2D04DF73001BAAE7 /* HealthPlan */,
+				9389E20D2D04DF69001BAAE7 /* FeedingHIstory */,
+				9389E20C2D04DF53001BAAE7 /* PondStats */,
+				9389E20B2D04DF3D001BAAE7 /* FishStats */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		9389E2072D04DE4B001BAAE7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9389E21A2D04E7AF001BAAE7 /* XAIConfig.swift */,
+				9355BEFB2CF4F019007B1A78 /* XAIService.swift */,
+				9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */,
+				9355BF002CF4F042007B1A78 /* WeatherManager.swift */,
+				9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9389E2082D04DE54001BAAE7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */,
+				9323620D2D0354560003DCCD /* WaterMeasurement.swift */,
+				9389E20F2D04E187001BAAE7 /* Types.swift */,
+				9389E2112D04E22C001BAAE7 /* PondHealthManager.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9389E2092D04DE5D001BAAE7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */,
+				9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */,
+				9387B50F2D022E1E00F6B3B9 /* HeaderView.swift */,
+				9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */,
+				937EB6162CF89CFF002C0B54 /* SplashScreenView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9389E20A2D04DE69001BAAE7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				937EB61B2CF8A5E5002C0B54 /* Two_Koi.lottie */,
+				9389E2152D04E34B001BAAE7 /* Assets.xcassets */,
+				936B80E32CE68B4E00F668CD /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9389E20B2D04DF3D001BAAE7 /* FishStats */ = {
+			isa = PBXGroup;
+			children = (
+				9387B50B2D02017600F6B3B9 /* FishStatsView.swift */,
+			);
+			path = FishStats;
+			sourceTree = "<group>";
+		};
+		9389E20C2D04DF53001BAAE7 /* PondStats */ = {
+			isa = PBXGroup;
+			children = (
+				9323620E2D0354560003DCCD /* WaterMeasurementView.swift */,
+				9389E2222D04FDD1001BAAE7 /* PondStatsView.swift */,
+				9323620F2D0354560003DCCD /* WaterQualityView.swift */,
+			);
+			path = PondStats;
+			sourceTree = "<group>";
+		};
+		9389E20D2D04DF69001BAAE7 /* FeedingHIstory */ = {
+			isa = PBXGroup;
+			children = (
+				9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */,
+				9389E21C2D04E846001BAAE7 /* FeedingHistoryView.swift */,
+				9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */,
+				9355BEF92CF4F019007B1A78 /* FeedingEntryView.swift */,
+			);
+			path = FeedingHIstory;
+			sourceTree = "<group>";
+		};
+		9389E20E2D04DF73001BAAE7 /* HealthPlan */ = {
+			isa = PBXGroup;
+			children = (
+				9387B50D2D02265900F6B3B9 /* HealthPlanView.swift */,
+			);
+			path = HealthPlan;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,8 +392,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				936B80E52CE68B4E00F668CD /* Preview Assets.xcassets in Resources */,
+				9389E2162D04E34B001BAAE7 /* Assets.xcassets in Resources */,
 				937EB61C2CF8A5E5002C0B54 /* Two_Koi.lottie in Resources */,
-				936B80E22CE68B4E00F668CD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,24 +418,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9389E21B2D04E7AF001BAAE7 /* XAIConfig.swift in Sources */,
 				9355BEFC2CF4F019007B1A78 /* XAIService.swift in Sources */,
+				9389E2122D04E22C001BAAE7 /* PondHealthManager.swift in Sources */,
 				9355BF022CF4F042007B1A78 /* WeatherManager.swift in Sources */,
 				937EB6172CF89CFF002C0B54 /* SplashScreenView.swift in Sources */,
+				9389E2102D04E187001BAAE7 /* Types.swift in Sources */,
 				934336D92D00C12400A3689F /* MainTabView.swift in Sources */,
-				93C5903A2CF545D5006986A2 /* ContentView.swift in Sources */,
-				9355BEFE2CF4F019007B1A78 /* XAIConfig.swift in Sources */,
 				9387B5102D022E1E00F6B3B9 /* HeaderView.swift in Sources */,
-				9355BEEC2CF4EEEA007B1A78 /* FeedingGuideView.swift in Sources */,
 				932362102D0354560003DCCD /* WaterQualityView.swift in Sources */,
+				9389E2232D04FDD8001BAAE7 /* PondStatsView.swift in Sources */,
 				932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */,
 				932362122D0354560003DCCD /* WaterMeasurement.swift in Sources */,
-				932362132D0354560003DCCD /* PondStatsView.swift in Sources */,
 				9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */,
 				9355BEEE2CF4EEEA007B1A78 /* LocationManager.swift in Sources */,
 				9355BEEF2CF4EEEA007B1A78 /* SettingsManager.swift in Sources */,
 				9387B50C2D02017600F6B3B9 /* FishStatsView.swift in Sources */,
 				9387B50E2D02265900F6B3B9 /* HealthPlanView.swift in Sources */,
 				9355BEF02CF4EEEA007B1A78 /* Color+Hex.swift in Sources */,
+				9389E21D2D04E85D001BAAE7 /* FeedingHistoryView.swift in Sources */,
 				9355BEF32CF4EEEA007B1A78 /* FallingPelletView.swift in Sources */,
 				9355BEF42CF4EEEA007B1A78 /* FeedingEntryView.swift in Sources */,
 				9355BEF52CF4EEEA007B1A78 /* Koi_CalApp.swift in Sources */,
