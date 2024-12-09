@@ -2,23 +2,23 @@ import SwiftUI
 
 struct FishStatsView: View {
     // Current Food selection
-    @State private var selectedFood = 1  // Default to "Low Protein - Spring and Fall"
+    @AppStorage("selectedFood") private var selectedFood = 1  // Default to "Low Protein - Spring and Fall"
     
     // Objectives multiple selection
-    @State private var improveColor = false
-    @State private var growthAndBreeding = false
-    @State private var improvedBehavior = false
+    @AppStorage("improveColor") private var improveColor = false
+    @AppStorage("growthAndBreeding") private var growthAndBreeding = false
+    @AppStorage("improvedBehavior") private var improvedBehavior = false
     
     // Problems multiple selection
-    @State private var sicknessOrDeath = false
-    @State private var lowEnergy = true
-    @State private var stuntedGrowth = false
-    @State private var lackOfAppetite = false
-    @State private var obesity = false
-    @State private var constantHiding = false
+    @AppStorage("sicknessOrDeath") private var sicknessOrDeath = false
+    @AppStorage("lowEnergy") private var lowEnergy = true
+    @AppStorage("stuntedGrowth") private var stuntedGrowth = false
+    @AppStorage("lackOfAppetite") private var lackOfAppetite = false
+    @AppStorage("obesity") private var obesity = false
+    @AppStorage("constantHiding") private var constantHiding = false
     
     // Age of fish selection
-    @State private var selectedAge = 1  // Default to "Adult"
+    @AppStorage("selectedAge") private var selectedAge = 1  // Default to "Adult"
     
     var body: some View {
         ScrollView {

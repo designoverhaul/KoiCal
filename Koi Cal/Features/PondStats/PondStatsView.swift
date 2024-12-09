@@ -1,7 +1,7 @@
 import SwiftUI
 import MapKit
 
-class LocationSearchManager: NSObject, ObservableObject, MKLocalSearchCompleterDelegate {
+class LocationSearchCompleter: NSObject, ObservableObject, MKLocalSearchCompleterDelegate {
     @Published var suggestions: [MKLocalSearchCompletion] = []
     private let completer: MKLocalSearchCompleter
     
@@ -18,28 +18,29 @@ class LocationSearchManager: NSObject, ObservableObject, MKLocalSearchCompleterD
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         suggestions = completer.results
-        print("Got \(suggestions.count) location suggestions")
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        print("Location search failed with error: \(error.localizedDescription)")
+        print("Location search failed: \(error.localizedDescription)")
         suggestions = []
     }
 }
 
 struct PondStatsView: View {
     @StateObject private var weatherManager = WeatherManager()
-    @StateObject private var locationManager = LocationSearchManager()
+    @StateObject private var searchCompleter = LocationSearchCompleter()
     @AppStorage("useCelsius") private var useCelsius = false
     @AppStorage("useMetric") private var useMetric = false
     @AppStorage("pondVolume") private var pondVolume = ""
     @AppStorage("sunlightHours") private var sunlightHours = ""
     @AppStorage("location") private var savedLocation = ""
+    @AppStorage("waterClarity") private var selectedWaterClarity = 0  // 0: None, 1: Green, 2: Black/Dark, 3: Cloudy
     @State private var searchText = ""
     @FocusState private var isVolumeFieldFocused: Bool
     @FocusState private var isSunlightFieldFocused: Bool
     @FocusState private var isLocationFieldFocused: Bool
     
+    // Helper properties for pond volume
     private var volumeLabel: String {
         useMetric ? "Liters" : "Gallons"
     }
@@ -59,6 +60,31 @@ struct PondStatsView: View {
                 // Water Quality Measurements
                 WaterQualityView()
                     .padding(.bottom, 20)
+                
+                // Water Clarity Section
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Are you having water clarity issues?")
+                        .font(.headline)
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(0..<4) { index in
+                            Button {
+                                selectedWaterClarity = index
+                            } label: {
+                                HStack {
+                                    Image(systemName: selectedWaterClarity == index ? "circle.fill" : "circle")
+                                        .foregroundColor(selectedWaterClarity == index ? .accentColor : .gray)
+                                    Text(index == 0 ? "None" :
+                                        index == 1 ? "Green water" :
+                                        index == 2 ? "Black or dark water" :
+                                        "Cloudy water")
+                                        .foregroundColor(.primary)
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal)
                 
                 // Measurements Section
                 VStack(alignment: .leading, spacing: 12) {
@@ -120,18 +146,17 @@ struct PondStatsView: View {
                         .focused($isLocationFieldFocused)
                         .onChange(of: searchText) { oldValue, newValue in
                             if newValue.count > 2 {
-                                locationManager.search(query: newValue)
+                                searchCompleter.search(query: newValue)
                             }
                         }
                     
-                    if !locationManager.suggestions.isEmpty && searchText.count > 2 && isLocationFieldFocused {
+                    if !searchCompleter.suggestions.isEmpty && searchText.count > 2 && isLocationFieldFocused {
                         VStack(alignment: .leading, spacing: 8) {
-                            ForEach(locationManager.suggestions, id: \.self) { suggestion in
+                            ForEach(searchCompleter.suggestions, id: \.self) { suggestion in
                                 Button(action: {
                                     savedLocation = suggestion.title
                                     searchText = suggestion.title
                                     isLocationFieldFocused = false
-                                    // Update temperature for new location
                                     Task {
                                         await weatherManager.updateTemperature()
                                     }
@@ -149,7 +174,7 @@ struct PondStatsView: View {
                                 .buttonStyle(.plain)
                                 .padding(.vertical, 8)
                                 
-                                if suggestion != locationManager.suggestions.last {
+                                if suggestion != searchCompleter.suggestions.last {
                                     Divider()
                                 }
                             }
@@ -179,6 +204,7 @@ struct PondStatsView: View {
             }
         }
         .navigationTitle("Pond Stats")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
