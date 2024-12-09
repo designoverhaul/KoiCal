@@ -1,12 +1,19 @@
 import SwiftUI
+import MapKit
 
 struct PondStatsView: View {
-    @StateObject private var locationManager = LocationManager()
     @StateObject private var weatherManager = WeatherManager()
     @AppStorage("useCelsius") private var useCelsius = false
     @AppStorage("useMetric") private var useMetric = false
     @AppStorage("pondVolume") private var pondVolume = ""
     @AppStorage("sunlightHours") private var sunlightHours = ""
+    @AppStorage("location") private var savedLocation = ""
+    @State private var searchText = ""
+    @State private var locationSuggestions: [MKLocalSearchCompletion] = []
+    @State private var searchCompleter = MKLocalSearchCompleter()
+    @FocusState private var isVolumeFieldFocused: Bool
+    @FocusState private var isSunlightFieldFocused: Bool
+    @FocusState private var isLocationFieldFocused: Bool
     
     private var volumeLabel: String {
         useMetric ? "Liters" : "Gallons"
@@ -15,10 +22,8 @@ struct PondStatsView: View {
     private var displayVolume: String {
         guard let volume = Double(pondVolume) else { return "" }
         if useMetric {
-            // Convert gallons to liters
             return String(format: "%.0f", volume * 3.78541)
         } else {
-            // Convert liters to gallons
             return String(format: "%.0f", volume / 3.78541)
         }
     }
@@ -52,6 +57,7 @@ struct PondStatsView: View {
                     TextField(volumeLabel, text: $pondVolume)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.numberPad)
+                        .focused($isVolumeFieldFocused)
                 }
                 .padding(.horizontal)
                 
@@ -63,20 +69,51 @@ struct PondStatsView: View {
                     TextField("Hours", text: $sunlightHours)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.numberPad)
+                        .focused($isSunlightFieldFocused)
                 }
                 .padding(.horizontal)
                 
                 // Location Section
-                Section {
-                    HStack {
-                        Text("Location")
-                        Spacer()
-                        if locationManager.authorizationStatus == .denied {
-                            Link("Enable in Settings", destination: URL(string: "app-settings:")!)
-                        } else {
-                            Text(locationManager.cityName)
-                                .foregroundColor(.secondary)
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Where is your pond located?")
+                        .font(.headline)
+                    
+                    TextField("Enter location", text: $searchText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .autocorrectionDisabled()
+                        .focused($isLocationFieldFocused)
+                    
+                    if !locationSuggestions.isEmpty && searchText.count > 2 && isLocationFieldFocused {
+                        VStack(alignment: .leading, spacing: 8) {
+                            ForEach(locationSuggestions, id: \.self) { suggestion in
+                                Button(action: {
+                                    savedLocation = suggestion.title
+                                    searchText = suggestion.title
+                                    locationSuggestions.removeAll()
+                                    isLocationFieldFocused = false
+                                }) {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(suggestion.title)
+                                            .foregroundColor(.primary)
+                                        Text(suggestion.subtitle)
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .contentShape(Rectangle())
+                                }
+                                .buttonStyle(.plain)
+                                .padding(.vertical, 8)
+                                
+                                if suggestion != locationSuggestions.last {
+                                    Divider()
+                                }
+                            }
                         }
+                        .padding(8)
+                        .background(Color(.systemBackground))
+                        .cornerRadius(8)
+                        .shadow(radius: 2)
                     }
                 }
                 .padding(.horizontal)
@@ -91,15 +128,39 @@ struct PondStatsView: View {
                     }
                     .padding(.horizontal)
                 }
+                
+                // Bottom padding
+                Spacer()
+                    .frame(height: 100)
             }
         }
         .navigationTitle("Pond Stats")
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isVolumeFieldFocused = false
+                    isSunlightFieldFocused = false
+                    isLocationFieldFocused = false
+                }
+            }
+        }
         .onChange(of: useMetric) { oldValue, newValue in
-            // Update the volume when measurement system changes
             if !pondVolume.isEmpty {
                 let oldValue = pondVolume
                 pondVolume = displayVolume
                 print("Converting from \(oldValue) to \(pondVolume)")
+            }
+        }
+        .onAppear {
+            searchCompleter.delegate = SearchCompleterDelegate(suggestions: $locationSuggestions)
+            searchText = savedLocation
+        }
+        .onChange(of: searchText) { oldValue, newValue in
+            if newValue.count > 2 {
+                searchCompleter.queryFragment = newValue
+            } else {
+                locationSuggestions.removeAll()
             }
         }
     }
@@ -111,5 +172,21 @@ struct PondStatsView: View {
         } else {
             return String(format: "%.0f°F", fahrenheit)
         }
+    }
+}
+
+class SearchCompleterDelegate: NSObject, MKLocalSearchCompleterDelegate, ObservableObject {
+    @Binding var suggestions: [MKLocalSearchCompletion]
+    
+    init(suggestions: Binding<[MKLocalSearchCompletion]>) {
+        _suggestions = suggestions
+    }
+    
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        suggestions = completer.results
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        print("Location search failed with error: \(error.localizedDescription)")
     }
 }
