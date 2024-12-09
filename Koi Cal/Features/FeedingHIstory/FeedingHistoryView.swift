@@ -23,7 +23,12 @@ struct FeedingHistoryView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 10) {
+            VStack(spacing: 24) {
+                HeaderView(
+                    title: "FEEDING HISTORY",
+                    subtitle: "Track your feeding schedule"
+                )
+                
                 // Top Bar with Temperature
                 temperatureView
                 

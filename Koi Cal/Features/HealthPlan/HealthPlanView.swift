@@ -20,7 +20,12 @@ struct HealthPlanView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 24) {
+                HeaderView(
+                    title: "HEALTH PLAN",
+                    subtitle: "Personalized care recommendations"
+                )
+                
                 // Feeding Frequency Section
                 VStack(alignment: .leading, spacing: 8) {
                     Text("FEEDING FREQUENCY")
