@@ -1,16 +1,41 @@
 import SwiftUI
 import MapKit
 
+class LocationSearchManager: NSObject, ObservableObject, MKLocalSearchCompleterDelegate {
+    @Published var suggestions: [MKLocalSearchCompletion] = []
+    private let completer: MKLocalSearchCompleter
+    
+    override init() {
+        completer = MKLocalSearchCompleter()
+        super.init()
+        completer.delegate = self
+        completer.resultTypes = .address
+    }
+    
+    func search(query: String) {
+        completer.queryFragment = query
+    }
+    
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        suggestions = completer.results
+        print("Got \(suggestions.count) location suggestions")
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        print("Location search failed with error: \(error.localizedDescription)")
+        suggestions = []
+    }
+}
+
 struct PondStatsView: View {
     @StateObject private var weatherManager = WeatherManager()
+    @StateObject private var locationManager = LocationSearchManager()
     @AppStorage("useCelsius") private var useCelsius = false
     @AppStorage("useMetric") private var useMetric = false
     @AppStorage("pondVolume") private var pondVolume = ""
     @AppStorage("sunlightHours") private var sunlightHours = ""
     @AppStorage("location") private var savedLocation = ""
     @State private var searchText = ""
-    @State private var locationSuggestions: [MKLocalSearchCompletion] = []
-    @State private var searchCompleter = MKLocalSearchCompleter()
     @FocusState private var isVolumeFieldFocused: Bool
     @FocusState private var isSunlightFieldFocused: Bool
     @FocusState private var isLocationFieldFocused: Bool
@@ -82,14 +107,18 @@ struct PondStatsView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .autocorrectionDisabled()
                         .focused($isLocationFieldFocused)
+                        .onChange(of: searchText) { oldValue, newValue in
+                            if newValue.count > 2 {
+                                locationManager.search(query: newValue)
+                            }
+                        }
                     
-                    if !locationSuggestions.isEmpty && searchText.count > 2 && isLocationFieldFocused {
+                    if !locationManager.suggestions.isEmpty && searchText.count > 2 && isLocationFieldFocused {
                         VStack(alignment: .leading, spacing: 8) {
-                            ForEach(locationSuggestions, id: \.self) { suggestion in
+                            ForEach(locationManager.suggestions, id: \.self) { suggestion in
                                 Button(action: {
                                     savedLocation = suggestion.title
                                     searchText = suggestion.title
-                                    locationSuggestions.removeAll()
                                     isLocationFieldFocused = false
                                 }) {
                                     VStack(alignment: .leading, spacing: 4) {
@@ -105,7 +134,7 @@ struct PondStatsView: View {
                                 .buttonStyle(.plain)
                                 .padding(.vertical, 8)
                                 
-                                if suggestion != locationSuggestions.last {
+                                if suggestion != locationManager.suggestions.last {
                                     Divider()
                                 }
                             }
@@ -153,14 +182,8 @@ struct PondStatsView: View {
             }
         }
         .onAppear {
-            searchCompleter.delegate = SearchCompleterDelegate(suggestions: $locationSuggestions)
-            searchText = savedLocation
-        }
-        .onChange(of: searchText) { oldValue, newValue in
-            if newValue.count > 2 {
-                searchCompleter.queryFragment = newValue
-            } else {
-                locationSuggestions.removeAll()
+            if !savedLocation.isEmpty {
+                searchText = savedLocation
             }
         }
     }
@@ -172,21 +195,5 @@ struct PondStatsView: View {
         } else {
             return String(format: "%.0f°F", fahrenheit)
         }
-    }
-}
-
-class SearchCompleterDelegate: NSObject, MKLocalSearchCompleterDelegate, ObservableObject {
-    @Binding var suggestions: [MKLocalSearchCompletion]
-    
-    init(suggestions: Binding<[MKLocalSearchCompletion]>) {
-        _suggestions = suggestions
-    }
-    
-    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        suggestions = completer.results
-    }
-    
-    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        print("Location search failed with error: \(error.localizedDescription)")
     }
 }
