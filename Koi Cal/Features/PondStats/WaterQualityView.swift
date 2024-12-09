@@ -3,10 +3,19 @@ import SwiftUI
 struct WaterQualityView: View {
     @StateObject private var waterQualityManager = WaterQualityManager()
     
+    // Define the order of measurements
+    private let orderedMeasurements: [MeasurementType] = [
+        .nitrate,
+        .nitrite,
+        .phLow,
+        .kh,
+        .gh
+    ]
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-                ForEach(Array(waterQualityManager.measurements.keys), id: \.self) { type in
+                ForEach(orderedMeasurements, id: \.self) { type in
                     WaterMeasurementView(
                         type: type,
                         selectedValue: Binding(

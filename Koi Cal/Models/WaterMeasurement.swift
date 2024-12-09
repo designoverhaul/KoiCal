@@ -2,11 +2,27 @@ import Foundation
 import SwiftUI
 
 enum MeasurementType: String, CaseIterable {
-    case nitrate = "Nitrate"
-    case nitrite = "Nitrite"
+    case nitrate = "NO₃ Nitrate"
+    case nitrite = "NO₂ Nitrite"
     case phLow = "pH"
     case kh = "KH Carbonate Hardness"
-    case gh = "General Hardness"
+    case gh = "GH General Hardness"
+    
+    // Helper property to split the title into chemical symbol and name
+    var splitTitle: (symbol: String, name: String?) {
+        switch self {
+        case .nitrate:
+            return ("NO₃", "Nitrate")
+        case .nitrite:
+            return ("NO₂", "Nitrite")
+        case .phLow:
+            return ("pH", nil)
+        case .kh:
+            return ("KH", "Carbonate Hardness")
+        case .gh:
+            return ("GH", "General Hardness")
+        }
+    }
     
     var description: String {
         switch self {
@@ -30,7 +46,7 @@ enum MeasurementType: String, CaseIterable {
         case .nitrite:
             return ["-", "0", "1", "5", "10", "20", "40", "80"]
         case .phLow:
-            return ["-", "6.0", "6.4", "6.6", "6.8", "7.0", "7.2", "7.6"]
+            return ["-", "6.0", "6.5", "7.0", "7.5", "8.0", "8.5", "9.0"]
         case .kh:
             return ["-", "0", "40", "80", "120", "180", "240", "360"]
         case .gh:
@@ -64,25 +80,25 @@ enum MeasurementType: String, CaseIterable {
             ]
         case .phLow:
             return [
-                Color(red: 0.93, green: 0.93, blue: 0.93),  // Gray
-                Color(red: 0.98, green: 0.97, blue: 0.47),  // Yellow
-                Color(red: 0.89, green: 0.95, blue: 0.66),  // Light Green
-                Color(red: 0.75, green: 0.89, blue: 0.61),
-                Color(red: 0.67, green: 0.84, blue: 0.63),
-                Color(red: 0.56, green: 0.82, blue: 0.59),
-                Color(red: 0.52, green: 0.80, blue: 0.65),
-                Color(red: 0.35, green: 0.77, blue: 0.80)   // Blue-Green
+                Color(red: 0.93, green: 0.93, blue: 0.93),  // Gray for "-"
+                Color(hex: "FFC849"),  // 6.0
+                Color(hex: "FFB84C"),  // 6.5
+                Color(hex: "FE9E45"),  // 7.0
+                Color(hex: "FF7345"),  // 7.5
+                Color(hex: "FE6152"),  // 8.0
+                Color(hex: "FF5753"),  // 8.5
+                Color(hex: "FE4E64")   // 9.0
             ]
         case .kh:
             return [
-                Color(red: 0.93, green: 0.93, blue: 0.93),  // Gray
-                Color(red: 0.98, green: 0.97, blue: 0.47),  // Yellow
-                Color(red: 0.89, green: 0.95, blue: 0.66),  // Light Green
-                Color(red: 0.75, green: 0.89, blue: 0.61),
-                Color(red: 0.67, green: 0.84, blue: 0.63),
-                Color(red: 0.56, green: 0.82, blue: 0.59),
-                Color(red: 0.52, green: 0.80, blue: 0.65),
-                Color(red: 0.35, green: 0.77, blue: 0.80)   // Blue-Green
+                Color(red: 0.93, green: 0.93, blue: 0.93),  // Gray for "-"
+                Color(hex: "F7DE82"),  // 0
+                Color(hex: "CFD365"),  // 40
+                Color(hex: "AFD3A5"),  // 80
+                Color(hex: "9FD1AB"),  // 120
+                Color(hex: "8BC7B1"),  // 180
+                Color(hex: "6BC5C5"),  // 240
+                Color(hex: "6BC5C5")   // 360 (using 240 color)
             ]
         case .gh:
             return [

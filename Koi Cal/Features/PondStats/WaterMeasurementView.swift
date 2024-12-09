@@ -6,9 +6,16 @@ struct WaterMeasurementView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(type.rawValue)
-                .font(.system(size: 18, weight: .heavy))
-                .foregroundColor(Color(red: 0.34, green: 0.34, blue: 0.34))
+            // Title with different font weights
+            HStack(spacing: 4) {
+                Text(type.splitTitle.symbol)
+                    .font(.system(size: 18, weight: .heavy))
+                
+                if let name = type.splitTitle.name {
+                    Text(name)
+                        .font(.system(size: 18, weight: .regular))
+                }
+            }
             
             // Values row
             HStack(spacing: 0) {
