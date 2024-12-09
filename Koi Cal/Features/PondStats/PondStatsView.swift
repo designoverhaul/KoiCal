@@ -90,20 +90,17 @@ struct PondStatsView: View {
                             }
                         }
                     }
-                    .padding(.horizontal)
                     
                     // Measurements Section
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Measurements")
                             .font(.title2)
-                            .padding(.horizontal)
                         
                         Picker("Measurement System", selection: $useMetric) {
                             Text("Imperial").tag(false)
                             Text("Metric").tag(true)
                         }
                         .pickerStyle(.segmented)
-                        .padding(.horizontal)
                     }
                     
                     // Pond Volume Section
@@ -127,7 +124,6 @@ struct PondStatsView: View {
                                 }
                             }
                     }
-                    .padding(.horizontal)
                     
                     // Sunlight Hours Section
                     VStack(alignment: .leading, spacing: 12) {
@@ -139,7 +135,6 @@ struct PondStatsView: View {
                             .keyboardType(.numberPad)
                             .focused($isSunlightFieldFocused)
                     }
-                    .padding(.horizontal)
                     
                     // Location Section
                     VStack(alignment: .leading, spacing: 12) {
@@ -191,7 +186,6 @@ struct PondStatsView: View {
                             .shadow(radius: 2)
                         }
                     }
-                    .padding(.horizontal)
                     
                     // Temperature Section
                     if let temp = weatherManager.currentTemperature {
@@ -201,14 +195,13 @@ struct PondStatsView: View {
                             Text(formatTemperature(temp))
                                 .foregroundColor(.secondary)
                         }
-                        .padding(.horizontal)
                     }
                     
                     // Bottom padding
                     Spacer()
                         .frame(height: 100)
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 20)
                 .padding(.top, 24)
             }
         }

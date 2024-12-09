@@ -18,7 +18,7 @@ struct HeaderView: View {
                     .foregroundColor(Color(hex: "575757"))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 20)
             .padding(.bottom, 8)
             .background {
                 Color(.systemBackground)

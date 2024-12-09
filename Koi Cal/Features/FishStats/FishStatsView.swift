@@ -22,72 +22,83 @@ struct FishStatsView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading, spacing: 0) {
                 HeaderView(
                     title: "FISH STATS",
                     subtitle: "Track your koi's growth and health"
                 )
                 
-                // Current Food Section
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Current Food")
-                        .font(.headline)
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        ForEach(0..<3) { index in
-                            Button {
-                                selectedFood = index
-                            } label: {
-                                HStack {
-                                    Image(systemName: selectedFood == index ? "circle.fill" : "circle")
-                                        .foregroundColor(selectedFood == index ? .accentColor : .gray)
-                                    Text(index == 0 ? "High Protein - Summer Food" :
-                                        index == 1 ? "Low Protein - Spring and Fall" :
-                                        "Not Feeding - Winter")
-                                        .foregroundColor(.primary)
+                VStack(alignment: .leading, spacing: 24) {
+                    // Current Food Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Current Food")
+                            .font(.headline)
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            ForEach(0..<3) { index in
+                                Button {
+                                    selectedFood = index
+                                } label: {
+                                    HStack {
+                                        Image(systemName: selectedFood == index ? "circle.fill" : "circle")
+                                            .foregroundColor(selectedFood == index ? .accentColor : .gray)
+                                        Text(index == 0 ? "High Protein - Summer Food" :
+                                            index == 1 ? "Low Protein - Spring and Fall" :
+                                            "Not Feeding - Winter")
+                                            .foregroundColor(.primary)
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                
-                // Objectives Section
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Objectives")
-                        .font(.headline)
                     
-                    Toggle("Improve color", isOn: $improveColor)
-                    Toggle("Growth and breeding", isOn: $growthAndBreeding)
-                    Toggle("Improved behavior", isOn: $improvedBehavior)
-                }
-                
-                // Problems Section
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Problems")
-                        .font(.headline)
-                    
-                    Toggle("Sickness or Death", isOn: $sicknessOrDeath)
-                    Toggle("Low Energy (normal in winter)", isOn: $lowEnergy)
-                    Toggle("Stunted Growth", isOn: $stuntedGrowth)
-                    Toggle("Lack of appetite", isOn: $lackOfAppetite)
-                    Toggle("Obesity or bloating", isOn: $obesity)
-                    Toggle("Constant Hiding", isOn: $constantHiding)
-                }
-                
-                // Age of fish Section
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Age of fish")
-                        .font(.headline)
-                    
-                    Picker("Age", selection: $selectedAge) {
-                        Text("Juvenile").tag(0)
-                        Text("Adult").tag(1)
-                        Text("Mixed").tag(2)
+                    // Objectives Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Objectives")
+                            .font(.headline)
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            Toggle("Improve color", isOn: $improveColor)
+                            Toggle("Growth and breeding", isOn: $growthAndBreeding)
+                            Toggle("Improved behavior", isOn: $improvedBehavior)
+                        }
                     }
-                    .pickerStyle(.segmented)
+                    
+                    // Problems Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Problems")
+                            .font(.headline)
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            Toggle("Sickness or Death", isOn: $sicknessOrDeath)
+                            Toggle("Low Energy (normal in winter)", isOn: $lowEnergy)
+                            Toggle("Stunted Growth", isOn: $stuntedGrowth)
+                            Toggle("Lack of appetite", isOn: $lackOfAppetite)
+                            Toggle("Obesity or bloating", isOn: $obesity)
+                            Toggle("Constant Hiding", isOn: $constantHiding)
+                        }
+                    }
+                    
+                    // Age of fish Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Age of fish")
+                            .font(.headline)
+                        
+                        Picker("Age", selection: $selectedAge) {
+                            Text("Juvenile").tag(0)
+                            Text("Adult").tag(1)
+                            Text("Mixed").tag(2)
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                    
+                    // Bottom padding
+                    Spacer()
+                        .frame(height: 100)
                 }
+                .padding(.horizontal, 20)
+                .padding(.top, 24)
             }
-            .padding(.horizontal)
         }
         .navigationTitle("Fish Stats")
         .navigationBarTitleDisplayMode(.inline)
