@@ -2,11 +2,11 @@ import SwiftUI
 
 struct HealthPlanView: View {
     @StateObject private var xaiService = XAIService()
+    @StateObject private var weatherManager = WeatherManager()
     @State private var feedingFrequency = "Loading..."
     @AppStorage("selectedAge") private var selectedAge = 1
     @AppStorage("selectedObjective") private var selectedObjective = "General health"
     @AppStorage("location") private var location = ""
-    @AppStorage("temperature") private var temperature: Double = 0.0
     @AppStorage("lastFeeding") private var lastFeeding = ""
     
     private func getAgeString() -> String {
@@ -51,9 +51,12 @@ struct HealthPlanView: View {
         .navigationBarTitleDisplayMode(.inline)
         .background(Color(.systemGroupedBackground))
         .task {
+            // First get the temperature
+            await weatherManager.updateTemperature()
+            
             do {
                 feedingFrequency = try await xaiService.getRecommendation(
-                    temperature: temperature,
+                    temperature: weatherManager.currentTemperature ?? 0.0,
                     fishAge: getAgeString(),
                     objective: selectedObjective,
                     location: location,

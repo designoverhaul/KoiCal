@@ -54,12 +54,12 @@ class XAIService: ObservableObject {
         
         // Get current date
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM"
-        let currentMonth = dateFormatter.string(from: Date())
+        dateFormatter.dateFormat = "MMMM d"
+        let currentDate = dateFormatter.string(from: Date())
         
         // Debug: Print input values
         print("🔍 Input Values:")
-        print("Current Month: \(currentMonth)")
+        print("Current Date: \(currentDate)")
         print("Temperature: \(temperature)")
         print("Fish Age: \(fishAge)")
         print("Objective: \(objective)")
@@ -79,7 +79,7 @@ class XAIService: ObservableObject {
         
         let messages = [
             Message(role: "system", content: prompt),
-            Message(role: "user", content: "The current month is \(currentMonth). Provide only the feeding frequency in the specified format, considering the season and temperature.")
+            Message(role: "user", content: "The current date is \(currentDate). Provide only the feeding frequency in the specified format, considering the season and temperature.")
         ]
         
         // Debug: Print the complete request

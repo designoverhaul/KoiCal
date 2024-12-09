@@ -6,12 +6,11 @@ struct FishStatsView: View {
     
     // Objectives multiple selection
     @State private var improveColor = false
-    @State private var generalHealth = true
     @State private var growthAndBreeding = false
     @State private var improvedBehavior = false
     
     // Problems multiple selection
-    @State private var aggression = false
+    @State private var sicknessOrDeath = false
     @State private var lowEnergy = true
     @State private var stuntedGrowth = false
     @State private var lackOfAppetite = false
@@ -58,7 +57,6 @@ struct FishStatsView: View {
                         .font(.headline)
                     
                     Toggle("Improve color", isOn: $improveColor)
-                    Toggle("General health", isOn: $generalHealth)
                     Toggle("Growth and breeding", isOn: $growthAndBreeding)
                     Toggle("Improved behavior", isOn: $improvedBehavior)
                 }
@@ -68,7 +66,7 @@ struct FishStatsView: View {
                     Text("Problems")
                         .font(.headline)
                     
-                    Toggle("Aggression", isOn: $aggression)
+                    Toggle("Sickness or Death", isOn: $sicknessOrDeath)
                     Toggle("Low Energy (normal in winter)", isOn: $lowEnergy)
                     Toggle("Stunted Growth", isOn: $stuntedGrowth)
                     Toggle("Lack of appetite", isOn: $lackOfAppetite)
