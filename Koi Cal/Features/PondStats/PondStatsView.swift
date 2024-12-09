@@ -62,49 +62,48 @@ struct PondStatsView: View {
                     subtitle: "Monitor your pond's environment"
                 )
                 
+                .padding(.horizontal, 26)
+                
                 VStack(alignment: .leading, spacing: 24) {
                     // Water Quality Measurements
                     WaterQualityView()
-                        .padding(.bottom, 20)
                     
                     // Water Clarity Section
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Are you having water clarity issues?")
-                            .font(.headline)
-                        
-                        VStack(alignment: .leading, spacing: 8) {
-                            ForEach(0..<4) { index in
-                                Button {
-                                    selectedWaterClarity = index
-                                } label: {
-                                    HStack {
-                                        Image(systemName: selectedWaterClarity == index ? "circle.fill" : "circle")
-                                            .foregroundColor(selectedWaterClarity == index ? .accentColor : .gray)
-                                        Text(index == 0 ? "None" :
+                    Text("Are you having water clarity issues?")
+                        .font(.headline)
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(0..<4) { index in
+                            Button {
+                                selectedWaterClarity = index
+                            } label: {
+                                HStack {
+                                    Image(systemName: selectedWaterClarity == index ? "circle.fill" : "circle")
+                                        .foregroundColor(selectedWaterClarity == index ? .accentColor : .gray)
+                                    Text(index == 0 ? "None" :
                                             index == 1 ? "Green water" :
                                             index == 2 ? "Black or dark water" :
                                             "Cloudy water")
-                                            .foregroundColor(.primary)
-                                    }
+                                        .foregroundColor(.primary)
                                 }
                             }
                         }
                     }
+                    .padding(.horizontal, 26)
                     
                     // Measurements Section
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Measurements")
-                            .font(.title2)
-                        
-                        Picker("Measurement System", selection: $useMetric) {
-                            Text("Imperial").tag(false)
-                            Text("Metric").tag(true)
-                        }
-                        .pickerStyle(.segmented)
+                    Text("Measurements")
+                        .font(.title2)
+                    
+                    Picker("Measurement System", selection: $useMetric) {
+                        Text("Imperial").tag(false)
+                        Text("Metric").tag(true)
                     }
+                    .pickerStyle(.segmented)
                     
                     // Pond Volume Section
                     VStack(alignment: .leading, spacing: 12) {
+                        
                         Text("How many \(volumeLabel.lowercased()) is your pond?")
                             .font(.headline)
                         
@@ -124,6 +123,7 @@ struct PondStatsView: View {
                                 }
                             }
                     }
+                    .padding(.horizontal, 26)
                     
                     // Sunlight Hours Section
                     VStack(alignment: .leading, spacing: 12) {
@@ -135,6 +135,7 @@ struct PondStatsView: View {
                             .keyboardType(.numberPad)
                             .focused($isSunlightFieldFocused)
                     }
+                    .padding(.horizontal, 26)
                     
                     // Location Section
                     VStack(alignment: .leading, spacing: 12) {
@@ -186,6 +187,7 @@ struct PondStatsView: View {
                             .shadow(radius: 2)
                         }
                     }
+                    .padding(.horizontal, 26)
                     
                     // Temperature Section
                     if let temp = weatherManager.currentTemperature {
