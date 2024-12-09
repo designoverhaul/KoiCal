@@ -10,8 +10,12 @@ struct WaterQualityView: View {
                     WaterMeasurementView(
                         type: type,
                         selectedValue: Binding(
-                            get: { waterQualityManager.measurements[type] ?? nil },
-                            set: { waterQualityManager.updateMeasurement(type, value: $0) }
+                            get: { waterQualityManager.measurements[type] ?? 0 },
+                            set: { newValue in
+                                if let unwrappedValue = newValue {
+                                    waterQualityManager.updateMeasurement(type, value: unwrappedValue)
+                                }
+                            }
                         )
                     )
                 }
@@ -20,4 +24,4 @@ struct WaterQualityView: View {
             .frame(maxWidth: .infinity)
         }
     }
-} 
+}
