@@ -7,22 +7,32 @@ import SwiftUI
 class WeatherManager: ObservableObject {
     @Published var currentTemperature: Double?
     @Published var errorMessage: String?
+    @AppStorage("location") private var pondLocation = ""
     private let weatherService = WeatherService()
-    @AppStorage("useCelsius") private var useCelsius = false
+    private let geocoder = CLGeocoder()
     
-    func getTemperature(for location: CLLocation?) async {
-        guard let location = location else {
-            print("No location available")
-            errorMessage = "Location not available"
+    func updateTemperature() async {
+        guard !pondLocation.isEmpty else {
+            print("No pond location set")
+            errorMessage = "Please set your pond location"
             return
         }
         
         do {
+            // Convert address to coordinates
+            let placemarks = try await geocoder.geocodeAddressString(pondLocation)
+            guard let location = placemarks.first?.location else {
+                print("Could not find coordinates for location: \(pondLocation)")
+                errorMessage = "Could not find location"
+                return
+            }
+            
+            // Get weather for coordinates
             let weather = try await weatherService.weather(for: location)
             let temperature = weather.currentWeather.temperature
             currentTemperature = temperature.converted(to: .fahrenheit).value
             errorMessage = nil
-            print("Successfully fetched temperature: \(String(describing: currentTemperature))°F")
+            print("Successfully fetched temperature for \(pondLocation): \(String(describing: currentTemperature))°F")
         } catch {
             print("Error fetching weather: \(error)")
             currentTemperature = nil

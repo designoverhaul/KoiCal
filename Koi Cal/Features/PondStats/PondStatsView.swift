@@ -83,6 +83,17 @@ struct PondStatsView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.numberPad)
                         .focused($isVolumeFieldFocused)
+                        .onChange(of: pondVolume) { oldValue, newValue in
+                            // Only allow numbers
+                            let filtered = newValue.filter { $0.isNumber }
+                            if filtered != newValue {
+                                pondVolume = filtered
+                            }
+                            // Add commas
+                            if let number = Int(filtered) {
+                                pondVolume = number.formatted(.number)
+                            }
+                        }
                 }
                 .padding(.horizontal)
                 
@@ -120,6 +131,10 @@ struct PondStatsView: View {
                                     savedLocation = suggestion.title
                                     searchText = suggestion.title
                                     isLocationFieldFocused = false
+                                    // Update temperature for new location
+                                    Task {
+                                        await weatherManager.updateTemperature()
+                                    }
                                 }) {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text(suggestion.title)
@@ -176,9 +191,13 @@ struct PondStatsView: View {
         }
         .onChange(of: useMetric) { oldValue, newValue in
             if !pondVolume.isEmpty {
-                let oldValue = pondVolume
-                pondVolume = displayVolume
-                print("Converting from \(oldValue) to \(pondVolume)")
+                // Remove commas before converting
+                let cleanVolume = pondVolume.replacingOccurrences(of: ",", with: "")
+                if let volume = Double(cleanVolume) {
+                    let converted = useMetric ? volume * 3.78541 : volume / 3.78541
+                    // Format with commas
+                    pondVolume = Int(converted).formatted(.number)
+                }
             }
         }
         .onAppear {
