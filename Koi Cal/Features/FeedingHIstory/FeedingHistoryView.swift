@@ -15,6 +15,7 @@ struct FeedingHistoryView: View {
     @State private var animations: [UUID] = []
     @StateObject private var weatherManager = WeatherManager()
     @AppStorage("useMetric") private var useMetric = false
+    @AppStorage("hasSeenFeedTooltip") private var hasSeenFeedTooltip = false
     
     private var sortedEntries: [FeedingEntry] {
         feedingData.getEntries(for: selectedDate)
@@ -74,23 +75,38 @@ struct FeedingHistoryView: View {
     }
     
     private var feedingButton: some View {
-        VStack(spacing: 12) {
-            GeometryReader { geometry in
-                Image("fishFood")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 210)
-                    .frame(maxWidth: .infinity)
-            }
-            .frame(height: 80)
-            .onTapGesture {
-                feedingData.toggleFeeding(for: selectedDate)
-                let animationId = UUID()
-                animations.append(animationId)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                    animations.removeAll { $0 == animationId }
+        ZStack(alignment: .top) {
+            VStack(spacing: 12) {
+                GeometryReader { geometry in
+                    Image("fishFood")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 210)
+                        .frame(maxWidth: .infinity)
                 }
+                .frame(height: 80)
+                .onTapGesture {
+                    feedingData.toggleFeeding(for: selectedDate)
+                    hasSeenFeedTooltip = true
+                    let animationId = UUID()
+                    animations.append(animationId)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                        animations.removeAll { $0 == animationId }
+                    }
+                }
+            }
+            
+            if !hasSeenFeedTooltip {
+                Text("Tap to Feed")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color.orange)
+                    .cornerRadius(16)
+                    .offset(y: -25)
+                    .transition(.opacity)
             }
         }
         .padding(.horizontal, 4)

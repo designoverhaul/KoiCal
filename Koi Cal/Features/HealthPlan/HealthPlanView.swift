@@ -21,48 +21,30 @@ struct HealthPlanView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading, spacing: 12) {
+                    // Food Type Section
+                    InfoCardView(
+                        title: "Food Type",
+                        content: "Low Protein - Spring and Fall"
+                    )
+                    
                     // Feeding Frequency Section
-                    VStack(alignment: .leading, spacing: 6) {
-                        HStack {
-                            Text("FOOD TYPE")
-                                .font(.system(size: 13))
-                                .foregroundColor(Color(red: 0.44, green: 0.44, blue: 0.44))
-                            
-                            Spacer()
-                            
-                            Image(systemName: "sparkle")
-                                .foregroundColor(.orange)
-                        }
-                        
-                        if xaiService.isLoading {
-                            ProgressView()
-                                .tint(.gray)
-                        } else {
-                            Text(feedingFrequency)
-                                .font(.system(size: 14))
-                                .lineSpacing(21.70)
-                                .foregroundColor(Color(red: 0.34, green: 0.34, blue: 0.34))
-                        }
-                    }
-                    .padding(EdgeInsets(top: 12, leading: 14, bottom: 12, trailing: 14))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 70)
-                    .background(.white)
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .inset(by: 1.50)
-                            .stroke(Color(red: 0.93, green: 0.93, blue: 0.93), lineWidth: 1.50)
+                    InfoCardView(
+                        title: "Feeding Frequency",
+                        content: feedingFrequency,
+                        showSparkle: true
                     )
-                    .shadow(
-                        color: Color(red: 0.10, green: 0.26, blue: 0.07, opacity: 0.08), 
-                        radius: 13, 
-                        y: 4
+                    
+                    // Water Temperature Section
+                    InfoCardView(
+                        title: "Water Temperature",
+                        content: "72°F",
+                        showSparkle: false
                     )
-                    .padding(.horizontal, 16)
+                    
+                    // More sections...
                 }
-                .padding(.horizontal, 6)
+                .padding(.horizontal, 16)
                 .padding(.top, 16)
             }
             .navigationTitle("Health Plan")

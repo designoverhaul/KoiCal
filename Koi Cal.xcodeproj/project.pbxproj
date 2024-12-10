@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9308F2302D08C3A9009B2951 /* InfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9308F22F2D08C3A9009B2951 /* InfoCardView.swift */; };
 		932362102D0354560003DCCD /* WaterQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620F2D0354560003DCCD /* WaterQualityView.swift */; };
 		932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620E2D0354560003DCCD /* WaterMeasurementView.swift */; };
 		932362122D0354560003DCCD /* WaterMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620D2D0354560003DCCD /* WaterMeasurement.swift */; };
@@ -57,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9308F22F2D08C3A9009B2951 /* InfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardView.swift; sourceTree = "<group>"; };
 		9323620D2D0354560003DCCD /* WaterMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeasurement.swift; sourceTree = "<group>"; };
 		9323620E2D0354560003DCCD /* WaterMeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeasurementView.swift; sourceTree = "<group>"; };
 		9323620F2D0354560003DCCD /* WaterQualityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterQualityView.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				9387B50D2D02265900F6B3B9 /* HealthPlanView.swift */,
+				9308F22F2D08C3A9009B2951 /* InfoCardView.swift */,
 			);
 			path = HealthPlan;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				9355BEF42CF4EEEA007B1A78 /* FeedingEntryView.swift in Sources */,
 				9355BEF52CF4EEEA007B1A78 /* Koi_CalApp.swift in Sources */,
 				9355BEF62CF4EEEA007B1A78 /* SettingsView.swift in Sources */,
+				9308F2302D08C3A9009B2951 /* InfoCardView.swift in Sources */,
 				9355BEF72CF4EEEA007B1A78 /* FeedingData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
