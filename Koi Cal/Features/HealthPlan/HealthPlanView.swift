@@ -28,12 +28,12 @@ struct HealthPlanView: View {
                     )
                     
                     // Feeding Frequency Section
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 6) {
                         Text("FEEDING FREQUENCY")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.gray)
+                            .font(.system(size: 13))
+                            .foregroundColor(Color(red: 0.44, green: 0.44, blue: 0.44))
                         
-                        HStack(alignment: .center, spacing: 12) {
+                        HStack(spacing: 6) {
                             Image(systemName: "sparkles")
                                 .foregroundColor(.orange)
                             
@@ -42,14 +42,27 @@ struct HealthPlanView: View {
                                     .tint(.gray)
                             } else {
                                 Text(feedingFrequency)
-                                    .font(.system(size: 15, weight: .medium))
-                                    .foregroundColor(.gray)
+                                    .font(.system(size: 14))
+                                    .lineSpacing(21.70)
+                                    .foregroundColor(Color(red: 0.34, green: 0.34, blue: 0.34))
                             }
                         }
                     }
-                    .padding(24)
-                    .background(Color(.systemBackground))
-                    .cornerRadius(16)
+                    .padding(EdgeInsets(top: 12, leading: 14, bottom: 12, trailing: 14))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 70)
+                    .background(.white)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .inset(by: 1.50)
+                            .stroke(Color(red: 0.93, green: 0.93, blue: 0.93), lineWidth: 1.50)
+                    )
+                    .shadow(
+                        color: Color(red: 0.10, green: 0.26, blue: 0.07, opacity: 0.08), 
+                        radius: 13, 
+                        y: 4
+                    )
                     .padding(.horizontal, 16)
                 }
                 .padding(.horizontal, 16)
