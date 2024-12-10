@@ -57,22 +57,19 @@ struct PondStatsView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                HeaderView(
-                    title: "POND STATS",
-                    subtitle: "Monitor your pond's environment"
-                )
-                
-                .padding(.horizontal, 26)
-                
                 VStack(alignment: .leading, spacing: 24) {
                     // Water Quality Measurements
                     WaterQualityView()
                     
                     // Water Clarity Section
-                    Text("Are you having water clarity issues?")
-                        .font(.headline)
+                  
                     
                     VStack(alignment: .leading, spacing: 8) {
+                        
+                        Text("Are you having water clarity issues?")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(hex: "565656"))
+                        
                         ForEach(0..<4) { index in
                             Button {
                                 selectedWaterClarity = index
@@ -92,20 +89,24 @@ struct PondStatsView: View {
                     .padding(.horizontal, 26)
                     
                     // Measurements Section
-                    Text("Measurements")
-                        .font(.title2)
-                    
-                    Picker("Measurement System", selection: $useMetric) {
-                        Text("Imperial").tag(false)
-                        Text("Metric").tag(true)
+                    VStack(alignment: .leading, spacing:12){
+                        Text("Measurements")
+                            .font(.title2)
+                        
+                        Picker("Measurement System", selection: $useMetric) {
+                            Text("Imperial").tag(false)
+                            Text("Metric").tag(true)
+                        }
+                        .pickerStyle(.segmented)
                     }
-                    .pickerStyle(.segmented)
-                    
+                    .padding(.horizontal, 26)
+                        
                     // Pond Volume Section
                     VStack(alignment: .leading, spacing: 12) {
                         
                         Text("How many \(volumeLabel.lowercased()) is your pond?")
-                            .font(.headline)
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(hex: "565656"))
                         
                         TextField(volumeLabel, text: $pondVolume)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -128,7 +129,8 @@ struct PondStatsView: View {
                     // Sunlight Hours Section
                     VStack(alignment: .leading, spacing: 12) {
                         Text("How many hours of direct sunlight does your pond get per day?")
-                            .font(.headline)
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(hex: "565656"))
                         
                         TextField("Hours", text: $sunlightHours)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -140,7 +142,8 @@ struct PondStatsView: View {
                     // Location Section
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Where is your pond located?")
-                            .font(.headline)
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(hex: "565656"))
                         
                         TextField("Enter location", text: $searchText)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -208,7 +211,7 @@ struct PondStatsView: View {
             }
         }
         .navigationTitle("Pond Stats")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
@@ -244,5 +247,12 @@ struct PondStatsView: View {
         } else {
             return String(format: "%.0f°F", fahrenheit)
         }
+    }
+}
+
+
+#Preview {
+    NavigationView {
+        PondStatsView()
     }
 }

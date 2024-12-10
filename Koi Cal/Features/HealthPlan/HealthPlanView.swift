@@ -19,44 +19,46 @@ struct HealthPlanView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                HeaderView(
-                    title: "HEALTH PLAN",
-                    subtitle: "Personalized care recommendations"
-                )
-                
-                // Feeding Frequency Section
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("FEEDING FREQUENCY")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.gray)
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    HeaderView(
+                        title: "HEALTH PLAN",
+                        subtitle: "Personalized care recommendations"
+                    )
                     
-                    HStack(alignment: .center, spacing: 12) {
-                        Image(systemName: "sparkle")
-                            .foregroundColor(.orange)
+                    // Feeding Frequency Section
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("FEEDING FREQUENCY")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.gray)
                         
-                        if xaiService.isLoading {
-                            ProgressView()
-                                .tint(.gray)
-                        } else {
-                            Text(feedingFrequency)
-                                .font(.system(size: 15, weight: .medium))
-                                .foregroundColor(.gray)
+                        HStack(alignment: .center, spacing: 12) {
+                            Image(systemName: "sparkles")
+                                .foregroundColor(.orange)
+                            
+                            if xaiService.isLoading {
+                                ProgressView()
+                                    .tint(.gray)
+                            } else {
+                                Text(feedingFrequency)
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundColor(.gray)
+                            }
                         }
                     }
+                    .padding(24)
+                    .background(Color(.systemBackground))
+                    .cornerRadius(16)
+                    .padding(.horizontal, 16)
                 }
-                .padding(24)
-                .background(Color.white)
-                .cornerRadius(16)
+                .padding(.horizontal, 16)
             }
-            .padding(.horizontal, 16)
+            .background(Color(.systemGroupedBackground))
+            .navigationTitle("Health Plan")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("Health Plan")
-        .navigationBarTitleDisplayMode(.inline)
-        .background(Color(.systemGroupedBackground))
         .task {
-            // First get the temperature
             await weatherManager.updateTemperature()
             
             do {
@@ -76,5 +78,7 @@ struct HealthPlanView: View {
 }
 
 #Preview {
-    HealthPlanView()
+    NavigationView {
+        HealthPlanView()
+    }
 } 

@@ -5,7 +5,7 @@ struct WaterMeasurementView: View {
     @Binding var selectedValue: Int?
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 4) {
             // Title with different font weights
             HStack(spacing: 4) {
                 Text(type.splitTitle.symbol)
@@ -37,7 +37,7 @@ struct WaterMeasurementView: View {
                         .frame(width: 40, height: 40)
                         .overlay(
                             Rectangle()
-                                .stroke(Color(red: 0.34, green: 0.34, blue: 0.34), lineWidth: selectedValue == index ? 1.25 : 0)
+                                .stroke(Color(red: 0.34, green: 0.34, blue: 0.34), lineWidth: selectedValue == index ? 1.85 : 0)
                         )
                         .onTapGesture {
                             selectedValue = index

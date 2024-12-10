@@ -23,11 +23,6 @@ struct FishStatsView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                HeaderView(
-                    title: "FISH STATS",
-                    subtitle: "Track your koi's growth and health"
-                )
-                
                 VStack(alignment: .leading, spacing: 24) {
                     // Current Food Section
                     VStack(alignment: .leading, spacing: 12) {
@@ -101,7 +96,7 @@ struct FishStatsView: View {
             }
         }
         .navigationTitle("Fish Stats")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 

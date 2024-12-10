@@ -14,7 +14,7 @@ struct WaterQualityView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {
+            VStack(spacing: 0) {
                 ForEach(orderedMeasurements, id: \.self) { type in
                     WaterMeasurementView(
                         type: type,
