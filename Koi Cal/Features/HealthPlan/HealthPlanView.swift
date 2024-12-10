@@ -22,30 +22,27 @@ struct HealthPlanView: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    HeaderView(
-                        title: "HEALTH PLAN",
-                        subtitle: "Personalized care recommendations"
-                    )
-                    
                     // Feeding Frequency Section
                     VStack(alignment: .leading, spacing: 6) {
-                        Text("FEEDING FREQUENCY")
-                            .font(.system(size: 13))
-                            .foregroundColor(Color(red: 0.44, green: 0.44, blue: 0.44))
-                        
-                        HStack(spacing: 6) {
-                            Image(systemName: "sparkles")
-                                .foregroundColor(.orange)
+                        HStack {
+                            Text("FOOD TYPE")
+                                .font(.system(size: 13))
+                                .foregroundColor(Color(red: 0.44, green: 0.44, blue: 0.44))
                             
-                            if xaiService.isLoading {
-                                ProgressView()
-                                    .tint(.gray)
-                            } else {
-                                Text(feedingFrequency)
-                                    .font(.system(size: 14))
-                                    .lineSpacing(21.70)
-                                    .foregroundColor(Color(red: 0.34, green: 0.34, blue: 0.34))
-                            }
+                            Spacer()
+                            
+                            Image(systemName: "sparkle")
+                                .foregroundColor(.orange)
+                        }
+                        
+                        if xaiService.isLoading {
+                            ProgressView()
+                                .tint(.gray)
+                        } else {
+                            Text(feedingFrequency)
+                                .font(.system(size: 14))
+                                .lineSpacing(21.70)
+                                .foregroundColor(Color(red: 0.34, green: 0.34, blue: 0.34))
                         }
                     }
                     .padding(EdgeInsets(top: 12, leading: 14, bottom: 12, trailing: 14))
@@ -65,11 +62,11 @@ struct HealthPlanView: View {
                     )
                     .padding(.horizontal, 16)
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 6)
+                .padding(.top, 16)
             }
-            
-            
-           
+            .navigationTitle("Health Plan")
+            .navigationBarTitleDisplayMode(.large)
         }
         .task {
             await weatherManager.updateTemperature()
