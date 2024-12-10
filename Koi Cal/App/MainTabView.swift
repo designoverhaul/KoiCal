@@ -5,6 +5,11 @@ struct MainTabView: View {
     @AppStorage("useCelsius") private var useCelsius = false
     @AppStorage("useCentimeters") private var useCentimeters = false
     @StateObject private var locationManager = LocationManager()
+    @StateObject private var feedingData = FeedingData()
+    @StateObject private var xaiService = XAIService()
+    @StateObject private var weatherManager = WeatherManager()
+    @State private var selectedAgeGroup = "Mixed"
+    @State private var selectedObjective = "General Health"
     
     // Define colors as constants
     private let inactiveColor = Color(hex: "A1A1A1")
@@ -40,7 +45,7 @@ struct MainTabView: View {
             }
             .tag(1)
             
-            // Feeding History Tab (Main Content)
+            // Feeding History Tab
             NavigationView {
                 FeedingHistoryView()
             }
@@ -54,17 +59,40 @@ struct MainTabView: View {
             }
             .tag(2)
             
-            // Health Plan Tab (Coming Soon)
-            HealthPlanView()
-                .tabItem {
-                    Label {
-                        Text("Health Plan")
-                    } icon: {
-                        Image(systemName: "sparkles")
-                            .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
-                    }
+            // Health Plan Tab
+            NavigationView {
+                HealthPlanView()
+            }
+            .tabItem {
+                Label {
+                    Text("Health Plan")
+                } icon: {
+                    Image(systemName: "sparkles")
+                        .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
                 }
-                .tag(3)
+            }
+            .tag(3)
+            
+            // Settings Tab
+            NavigationView {
+                SettingsView(
+                    selectedAgeGroup: $selectedAgeGroup,
+                    selectedObjective: $selectedObjective,
+                    feedingData: feedingData,
+                    xaiService: xaiService,
+                    weatherManager: weatherManager,
+                    locationManager: locationManager
+                )
+            }
+            .tabItem {
+                Label {
+                    Text("Settings")
+                } icon: {
+                    Image(systemName: "gear")
+                        .environment(\.symbolVariants, selectedTab == 4 ? .fill : .none)
+                }
+            }
+            .tag(4)
         }
         .tint(activeColor) // Set active color
         .onAppear {

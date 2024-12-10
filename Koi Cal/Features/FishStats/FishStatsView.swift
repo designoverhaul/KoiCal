@@ -24,28 +24,6 @@ struct FishStatsView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
                 VStack(alignment: .leading, spacing: 24) {
-                    // Current Food Section
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Current Food")
-                            .font(.headline)
-                        
-                        VStack(alignment: .leading, spacing: 8) {
-                            ForEach(0..<3) { index in
-                                Button {
-                                    selectedFood = index
-                                } label: {
-                                    HStack {
-                                        Image(systemName: selectedFood == index ? "circle.fill" : "circle")
-                                            .foregroundColor(selectedFood == index ? .accentColor : .gray)
-                                        Text(index == 0 ? "High Protein - Summer Food" :
-                                            index == 1 ? "Low Protein - Spring and Fall" :
-                                            "Not Feeding - Winter")
-                                            .foregroundColor(.primary)
-                                    }
-                                }
-                            }
-                        }
-                    }
                     
                     // Objectives Section
                     VStack(alignment: .leading, spacing: 12) {

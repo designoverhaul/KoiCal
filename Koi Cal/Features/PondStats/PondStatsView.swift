@@ -210,7 +210,7 @@ struct PondStatsView: View {
                 .padding(.top, 24)
             }
         }
-        .navigationTitle("Pond Stats")
+        .navigationTitle("Water Test")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
