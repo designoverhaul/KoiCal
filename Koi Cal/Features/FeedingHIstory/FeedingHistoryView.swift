@@ -24,10 +24,7 @@ struct FeedingHistoryView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-                HeaderView(
-                    title: "FEEDING HISTORY",
-                    subtitle: "Track your feeding schedule"
-                )
+               
                 
                 // Top Bar with Temperature
                 temperatureView
@@ -43,16 +40,17 @@ struct FeedingHistoryView: View {
                 // Feeding entries list
                 feedingEntriesList
             }
+            .padding(.top, 16) // Add padding here, adjust the value as needed
         }
         .navigationTitle("Feeding History")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .overlay {
             ForEach(animations, id: \.self) { id in
                 FallingPelletsView()
             }
         }
     }
-    
+
     private var temperatureView: some View {
         HStack {
             Spacer()
