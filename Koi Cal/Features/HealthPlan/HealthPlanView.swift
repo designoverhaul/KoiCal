@@ -4,6 +4,7 @@ struct HealthPlanView: View {
     @StateObject private var xaiService = XAIService()
     @StateObject private var weatherManager = WeatherManager()
     @State private var feedingFrequency = "Loading..."
+    @State private var foodType = "Loading..."
     @AppStorage("selectedAge") private var selectedAge = 1
     @AppStorage("selectedObjective") private var selectedObjective = "General health"
     @AppStorage("location") private var location = ""
@@ -25,7 +26,8 @@ struct HealthPlanView: View {
                     // Food Type Section
                     InfoCardView(
                         title: "Food Type",
-                        content: "Low Protein - Spring and Fall"
+                        content: foodType,
+                        showSparkle: true
                     )
                     
                     // Feeding Frequency Section
@@ -54,16 +56,19 @@ struct HealthPlanView: View {
             await weatherManager.updateTemperature()
             
             do {
-                feedingFrequency = try await xaiService.getRecommendation(
+                let recommendations = try await xaiService.getRecommendation(
                     temperature: weatherManager.currentTemperature ?? 0.0,
                     fishAge: getAgeString(),
                     objective: selectedObjective,
                     location: location,
                     feedingHistory: lastFeeding
                 )
+                feedingFrequency = recommendations.feedingFrequency
+                foodType = recommendations.foodType
             } catch {
-                feedingFrequency = "Twice a week, once a day"
-                print("Error getting recommendation: \(error)")
+                print("Error getting recommendations: \(error)")
+                feedingFrequency = "Unable to get recommendation"
+                foodType = "Unable to get recommendation"
             }
         }
     }

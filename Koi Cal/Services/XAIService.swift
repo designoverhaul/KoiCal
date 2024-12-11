@@ -36,13 +36,18 @@ class XAIService: ObservableObject {
         let total_tokens: Int
     }
     
+    struct Recommendations {
+        let feedingFrequency: String
+        let foodType: String
+    }
+    
     func getRecommendation(
         temperature: Double,
         fishAge: String,
         objective: String,
         location: String,
         feedingHistory: String
-    ) async throws -> String {
+    ) async throws -> Recommendations {
         await MainActor.run {
             isLoading = true
         }
@@ -79,7 +84,16 @@ class XAIService: ObservableObject {
         
         let messages = [
             Message(role: "system", content: prompt),
-            Message(role: "user", content: "The current date is \(currentDate). Provide only the feeding frequency in the specified format, considering the season and temperature.")
+            Message(role: "user", content: """
+                The current date is \(currentDate). 
+                Provide two recommendations:
+                1. FOOD TYPE: Recommend the appropriate food type.
+                2. FEEDING FREQUENCY: Provide the feeding frequency in the specified format.
+                
+                Format your response exactly like this:
+                FOOD TYPE: [your recommendation]
+                FEEDING FREQUENCY: [your recommendation]
+                """)
         ]
         
         // Debug: Print the complete request
@@ -126,6 +140,19 @@ class XAIService: ObservableObject {
         print("\n🎯 Final Recommendation:")
         print(recommendation)
         
-        return recommendation.trimmingCharacters(in: .whitespacesAndNewlines)
+        let lines = recommendation.components(separatedBy: .newlines)
+        
+        var foodType = "No food type recommendation available"
+        var feedingFrequency = "No feeding frequency recommendation available"
+        
+        for line in lines {
+            if line.starts(with: "FOOD TYPE:") {
+                foodType = line.replacingOccurrences(of: "FOOD TYPE:", with: "").trimmingCharacters(in: .whitespaces)
+            } else if line.starts(with: "FEEDING FREQUENCY:") {
+                feedingFrequency = line.replacingOccurrences(of: "FEEDING FREQUENCY:", with: "").trimmingCharacters(in: .whitespaces)
+            }
+        }
+        
+        return Recommendations(feedingFrequency: feedingFrequency, foodType: foodType)
     }
 } 
