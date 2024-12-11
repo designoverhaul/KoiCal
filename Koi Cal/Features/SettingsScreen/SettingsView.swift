@@ -23,30 +23,6 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section("Location") {
-                    HStack {
-                        Text("Pond Location")
-                        Spacer()
-                        if locationManager.authorizationStatus == .denied {
-                            Button("Enable in Settings") {
-                                if let url = URL(string: UIApplication.openSettingsURLString) {
-                                    UIApplication.shared.open(url)
-                                }
-                            }
-                            .foregroundColor(.blue)
-                        } else {
-                            Text(locationManager.cityName)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    
-                    if let error = locationManager.errorMessage {
-                        Text(error)
-                            .foregroundColor(.red)
-                            .font(.caption)
-                    }
-                }
-                
                 Section("Fish Details") {
                     Picker("Age of Fish", selection: $selectedAgeGroup) {
                         ForEach(ageGroups, id: \.self) { age in
@@ -54,7 +30,6 @@ struct SettingsView: View {
                         }
                     }
                 }
-                
                 
                 Section("Food") {
                     Picker("Current Food Type", selection: $feedingData.currentFoodType) {
