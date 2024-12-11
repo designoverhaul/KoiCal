@@ -19,11 +19,11 @@ struct MainTabView: View {
         TabView(selection: $selectedTab) {
             // Fish Stats Tab
             NavigationView {
-                FishStatsView()
+                GoalsView()
             }
             .tabItem {
                 Label {
-                    Text("Fish Stats")
+                    Text("Goals")
                 } icon: {
                     Image(systemName: "fish")
                         .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
@@ -33,13 +33,13 @@ struct MainTabView: View {
             
             // Pond Stats Tab
             NavigationView {
-                PondStatsView()
+                WaterTestView()
             }
             .tabItem {
                 Label {
-                    Text("Pond Stats")
+                    Text("Water Test")
                 } icon: {
-                    Image(systemName: "water.waves")
+                    Image(systemName: "drop.fill")
                         .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
                 }
             }

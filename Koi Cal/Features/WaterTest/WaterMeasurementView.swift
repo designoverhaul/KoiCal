@@ -36,8 +36,31 @@ struct WaterMeasurementView: View {
                         .fill(type.colors[index])
                         .frame(width: 40, height: 40)
                         .overlay(
-                            Rectangle()
-                                .stroke(Color(red: 0.34, green: 0.34, blue: 0.34), lineWidth: selectedValue == index ? 1.85 : 0)
+                            ZStack {
+                                Rectangle()
+                                    .stroke(Color(red: 0.34, green: 0.34, blue: 0.34), lineWidth: selectedValue == index ? 1.85 : 0)
+                                
+                                if ((type == .nitrite && type.values[index] == "20") ||
+                                    (type == .nitrite && type.values[index] == "40") ||
+                                    (type == .nitrite && type.values[index] == "80")) ||
+                                   (type == .nitrate && type.values[index] == "100") ||
+                                   (type == .nitrate && type.values[index] == "250") ||
+                                   (type == .nitrate && type.values[index] == "500") ||
+                                   (type == .phLow && type.values[index] == "6.0") ||
+                                   (type == .phLow && type.values[index] == "9.0") ||
+                                   (type == .gh && type.values[index] == "0") ||
+                                   (type == .gh && type.values[index] == "180") ||
+                                   (type == .kh && type.values[index] == "0") ||
+                                   (type == .kh && type.values[index] == "40") ||
+                                   (type == .kh && type.values[index] == "240") ||
+                                   (type == .kh && type.values[index] == "360") {
+                                    Image(systemName: "exclamationmark.triangle.fill")
+                                        .foregroundColor(.yellow)
+                                        .font(.system(size: 20))
+                                        .position(x: 20, y: 20)
+                                        .shadow(color: .black.opacity(0.3), radius: 1, x: 1, y: 1)
+                                }
+                            }
                         )
                         .onTapGesture {
                             selectedValue = index
@@ -54,3 +77,10 @@ struct WaterMeasurementView: View {
         .padding()
     }
 } 
+
+
+#Preview {
+    NavigationView {
+        WaterTestView()
+    }
+}

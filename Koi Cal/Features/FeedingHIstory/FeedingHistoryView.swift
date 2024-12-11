@@ -44,7 +44,7 @@ struct FeedingHistoryView: View {
             .padding(.top, 16) // Add padding here, adjust the value as needed
         }
         .navigationTitle("Feeding History")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .overlay {
             ForEach(animations, id: \.self) { id in
                 FallingPelletsView()
