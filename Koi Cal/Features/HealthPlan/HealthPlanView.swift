@@ -20,12 +20,29 @@ struct HealthPlanView: View {
     @AppStorage("obesity") private var obesity = false
     @AppStorage("constantHiding") private var constantHiding = false
     @AppStorage("pondVolume") private var pondVolume = ""
+    @AppStorage("useMetric") private var useMetric = false
+    @AppStorage("currentFoodType") private var currentFoodType = "High Protein"
+    @AppStorage("sunlightHours") private var sunlightHours = ""
+    @AppStorage("circulationTime") private var circulationTime = ""
+    @AppStorage("waterClarity") private var waterClarity = 0 // 0: None, 1: Green, 2: Black/Dark, 3: Cloudy
+    @AppStorage("pH") private var pH = 8.0
+    @AppStorage("kh") private var kh = 40.0
+    
+    #if DEBUG
+    private static var hasLogged = false
+    #endif
     
     init() {
-        print("\n=== 🏗️ HealthPlanView initialized ===")
+        #if DEBUG
+        // Only log once in debug builds
+        if !HealthPlanView.hasLogged {
+            print("🏗️ HealthPlanView initialized")
+            HealthPlanView.hasLogged = true
+        }
+        #endif
+        
         _xaiService = StateObject(wrappedValue: XAIService())
         _weatherManager = StateObject(wrappedValue: WeatherManager())
-        print("✅ Services initialized")
     }
     
     private func getAgeString() -> String {
@@ -37,34 +54,85 @@ struct HealthPlanView: View {
         }
     }
     
+    private func getSelectedIssues() -> (goals: [String], problems: [String]) {
+        var selectedGoals: [String] = []
+        var selectedProblems: [String] = []
+        
+        // Collect selected goals
+        if improveColor { selectedGoals.append("Improve color") }
+        if growthAndBreeding { selectedGoals.append("Growth and breeding") }
+        if improvedBehavior { selectedGoals.append("Improved behavior") }
+        
+        // Collect selected problems
+        if sicknessOrDeath { selectedProblems.append("Sickness or death") }
+        if lowEnergy { selectedProblems.append("Low energy") }
+        if stuntedGrowth { selectedProblems.append("Stunted growth") }
+        if lackOfAppetite { selectedProblems.append("Lack of appetite") }
+        if obesity { selectedProblems.append("Obesity/bloating") }
+        if constantHiding { selectedProblems.append("Constant hiding") }
+        
+        return (selectedGoals, selectedProblems)
+    }
+    
+    private func getWaterClarityIssue() -> String? {
+        switch waterClarity {
+        case 1: return "Green water"
+        case 2: return "Black or dark water"
+        case 3: return "Cloudy water"
+        default: return nil
+        }
+    }
+    
     private func updateRecommendations() async {
-        print("🔄 STEP 1: Starting updateRecommendations()")
-        
-        print("🌡️ STEP 2: Current temperature: \(weatherManager.currentTemperature ?? -999)")
-        print("📍 STEP 3: Location: \(location)")
-        print("🐟 STEP 4: Fish age: \(getAgeString())")
-        print("🏊‍♂️ STEP 5: Pond volume: \(pondVolume)")
-        
         guard let temperature = weatherManager.currentTemperature else {
-            print("❌ ERROR: No temperature available")
+            print("❌ No temperature available for recommendations")
             return
         }
         
-        print("✅ STEP 6: About to call XAI service")
-        
         do {
+            let (selectedGoals, selectedProblems) = getSelectedIssues()
+            
+            print("\n📊 Settings:")
+            print("Temperature: \(Int(temperature)) °F")
+            print("Location: \(location)")
+            print("Fish Age: \(getAgeString())")
+            print("Pond Volume: \(pondVolume)")
+            print("Current Food Type: \(currentFoodType)")
+            print("Measurements: \(useMetric ? "Metric" : "Imperial")")
+            print("Hours of Direct Sunlight: \(sunlightHours)")
+            print("Circulation Time: \(circulationTime) seconds")
+            
+            if !selectedGoals.isEmpty {
+                print("\n🎯 Selected Goals:")
+                selectedGoals.forEach { print("✅ \($0)") }
+            }
+            
+            if !selectedProblems.isEmpty {
+                print("\n⚠️ Reported Problems:")
+                selectedProblems.forEach { print("✅ \($0)") }
+            }
+            
+            if let clarityIssue = getWaterClarityIssue() {
+                print("\nWater Clarity Issues:")
+                print("✅ \(clarityIssue)")
+            }
+            
+            print("\n💧 Water Test:")
+            print("pH: \(String(format: "%.1f", pH))")
+            print("KH Carbonate Hardness: \(Int(kh))")
+            
             let recommendations = try await xaiService.getRecommendation(
                 temperature: temperature,
                 fishAge: getAgeString(),
-                improveColor: improveColor,
-                growthAndBreeding: growthAndBreeding,
-                improvedBehavior: improvedBehavior,
-                sicknessDeath: sicknessOrDeath,
-                lowEnergy: lowEnergy,
-                stuntedGrowth: stuntedGrowth,
-                lackAppetite: lackOfAppetite,
-                obesityBloating: obesity,
-                constantHiding: constantHiding,
+                improveColor: selectedGoals.contains("Improve color"),
+                growthAndBreeding: selectedGoals.contains("Growth and breeding"),
+                improvedBehavior: selectedGoals.contains("Improved behavior"),
+                sicknessDeath: selectedProblems.contains("Sickness or death"),
+                lowEnergy: selectedProblems.contains("Low energy"),
+                stuntedGrowth: selectedProblems.contains("Stunted growth"),
+                lackAppetite: selectedProblems.contains("Lack of appetite"),
+                obesityBloating: selectedProblems.contains("Obesity/bloating"),
+                constantHiding: selectedProblems.contains("Constant hiding"),
                 location: location,
                 waterTest: "pH: 7.0, Nitrate: 0, Nitrite: 0",
                 pondSize: pondVolume,
@@ -87,13 +155,6 @@ struct HealthPlanView: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Debug Info:")
-                        .font(.caption)
-                    Text("Temperature: \(weatherManager.currentTemperature?.description ?? "none")")
-                        .font(.caption)
-                    Text("Location: \(location)")
-                        .font(.caption)
-                    
                     // Food Type Section
                     InfoCardView(
                         title: "Food Type",
@@ -118,27 +179,18 @@ struct HealthPlanView: View {
                     // Water Temperature Section
                     InfoCardView(
                         title: "Water Temperature",
-                        content: "72°F",
+                        content: "\(Int(weatherManager.currentTemperature ?? 0))°F",
                         showSparkle: false
                     )
-                    
-                    // More sections...
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 16)
             }
             .navigationTitle("Health Plan")
             .navigationBarTitleDisplayMode(.large)
-            .onAppear {
-                print("\n=== 👀 HealthPlanView appeared ===")
-            }
             .task {
-                print("\n=== 🚀 HealthPlanView task started ===")
-                print("Getting weather...")
                 await weatherManager.updateTemperature()
-                print("Weather updated, getting recommendations...")
                 await updateRecommendations()
-                print("Task completed")
             }
             .refreshable {
                 await updateRecommendations()
