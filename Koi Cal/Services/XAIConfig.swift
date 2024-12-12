@@ -70,10 +70,18 @@ enum XAIConfig {
     Enter just one sentence. Keep in mind you generally don't feed koi in the winter. Feed low-protein food in spring and fall. High protein in Summer. But also take into consideration user input and your own smarts.
 
     **FEEDING FREQUENCY** section
-    Enter just one sentence in this format. Here are some examples...
-        -Twice a week, once a day.
-        -Four times a week, twice a day.
-        -Every day, two times a day.
-        -Do not feed, it is Winter.
+    Take into consideration the pond location, date, and temperature.For example it is ok to feed in winter in the southern hemisphere becasue it is always warm there. Enter just one sentence in this format. Here are some examples...
+        "Twice a week, once a day."
+        "Four times a week, twice a day."
+        "Every day, two times a day."
+        "Do not feed, it is Winter."
+    
+    **POND REPORT** section
+        Take into consideration primarily the user's Water Test results. Also watch the water circulation question. Pond size, amount and location of fish. Occasionally you may want to mention something about general upkeep.
+        "Your pH is a little high so you may want to add some vinegar."
+        "Your nitrate levels are a little high so you may want to add some ammonia to the water. Also consider the amount of fish you have."
+        "Your water circulation is a too low so you may want to add a more powerful pump. Poor circulation can cause algae and other problems."
+        "Your pond is a little small for the amount of fish you have. But your levels remain good."
+    
     """
 } 

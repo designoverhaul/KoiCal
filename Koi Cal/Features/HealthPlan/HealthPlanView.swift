@@ -5,6 +5,7 @@ struct HealthPlanView: View {
     @StateObject private var weatherManager = WeatherManager()
     @State private var feedingFrequency = "Loading..."
     @State private var foodType = "Loading..."
+    @State private var pondReport = "Loading..."
     @AppStorage("selectedAge") private var selectedAge = 1
     @AppStorage("selectedObjective") private var selectedObjective = "General health"
     @AppStorage("location") private var location = ""
@@ -37,6 +38,13 @@ struct HealthPlanView: View {
                         showSparkle: true
                     )
                     
+                    // Pond Report Section
+                    InfoCardView(
+                        title: "Pond Report",
+                        content: pondReport,
+                        showSparkle: true
+                    )
+                    
                     // Water Temperature Section
                     InfoCardView(
                         title: "Water Temperature",
@@ -65,10 +73,12 @@ struct HealthPlanView: View {
                 )
                 feedingFrequency = recommendations.feedingFrequency
                 foodType = recommendations.foodType
+                pondReport = recommendations.pondReport
             } catch {
                 print("Error getting recommendations: \(error)")
                 feedingFrequency = "Unable to get recommendation"
                 foodType = "Unable to get recommendation"
+                pondReport = "Unable to get recommendation"
             }
         }
     }

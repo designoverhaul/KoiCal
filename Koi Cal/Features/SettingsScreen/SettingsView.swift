@@ -11,10 +11,12 @@ struct SettingsView: View {
     @AppStorage("pondVolume") private var pondVolume = ""
     @AppStorage("sunlightHours") private var sunlightHours = ""
     @AppStorage("location") private var savedLocation = ""
+    @AppStorage("circulationTime") private var circulationTime = ""
     @State private var searchText = ""
     @FocusState private var isVolumeFieldFocused: Bool
     @FocusState private var isSunlightFieldFocused: Bool
     @FocusState private var isLocationFieldFocused: Bool
+    @FocusState private var isCirculationFieldFocused: Bool
     @AppStorage("useMetric") private var useMetric = false
     
     private let ageGroups = ["Juvenile", "Adult", "Mixed"]
@@ -124,6 +126,21 @@ struct SettingsView: View {
                             .cornerRadius(8)
                             .shadow(radius: 2)
                         }
+                        
+                        Text("How many seconds does it take your water circulation to fill a gallon?")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(hex: "565656"))
+                        
+                        TextField("Seconds", text: $circulationTime)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .keyboardType(.numberPad)
+                            .focused($isCirculationFieldFocused)
+                            .onChange(of: circulationTime) { oldValue, newValue in
+                                let filtered = newValue.filter { $0.isNumber }
+                                if filtered != newValue {
+                                    circulationTime = filtered
+                                }
+                            }
                     }
                 }
             }
@@ -136,6 +153,7 @@ struct SettingsView: View {
                         isVolumeFieldFocused = false
                         isSunlightFieldFocused = false
                         isLocationFieldFocused = false
+                        isCirculationFieldFocused = false
                     }
                 }
             }

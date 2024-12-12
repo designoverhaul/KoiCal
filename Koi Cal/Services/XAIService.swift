@@ -39,6 +39,7 @@ class XAIService: ObservableObject {
     struct Recommendations {
         let feedingFrequency: String
         let foodType: String
+        let pondReport: String
     }
     
     func getRecommendation(
@@ -144,15 +145,22 @@ class XAIService: ObservableObject {
         
         var foodType = "No food type recommendation available"
         var feedingFrequency = "No feeding frequency recommendation available"
+        var pondReport = "No pond report available"
         
         for line in lines {
             if line.starts(with: "FOOD TYPE:") {
                 foodType = line.replacingOccurrences(of: "FOOD TYPE:", with: "").trimmingCharacters(in: .whitespaces)
             } else if line.starts(with: "FEEDING FREQUENCY:") {
                 feedingFrequency = line.replacingOccurrences(of: "FEEDING FREQUENCY:", with: "").trimmingCharacters(in: .whitespaces)
+            } else if line.starts(with: "POND REPORT:") {
+                pondReport = line.replacingOccurrences(of: "POND REPORT:", with: "").trimmingCharacters(in: .whitespaces)
             }
         }
         
-        return Recommendations(feedingFrequency: feedingFrequency, foodType: foodType)
+        return Recommendations(
+            feedingFrequency: feedingFrequency,
+            foodType: foodType,
+            pondReport: pondReport
+        )
     }
 } 
