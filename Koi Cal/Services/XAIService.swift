@@ -141,14 +141,20 @@ class XAIService: ObservableObject {
             var foodType = "No food type recommendation available"
             var feedingFrequency = "No feeding recommendation available"
             var pondReport = "No pond report available"
+            var capturingPondReport = false
             
             for line in lines {
-                if line.starts(with: "FOOD TYPE:") {
-                    foodType = line.replacingOccurrences(of: "FOOD TYPE:", with: "").trimmingCharacters(in: .whitespaces)
-                } else if line.starts(with: "FEEDING FREQUENCY:") {
-                    feedingFrequency = line.replacingOccurrences(of: "FEEDING FREQUENCY:", with: "").trimmingCharacters(in: .whitespaces)
-                } else if line.starts(with: "POND REPORT:") {
-                    pondReport = line.replacingOccurrences(of: "POND REPORT:", with: "").trimmingCharacters(in: .whitespaces)
+                if line.starts(with: "**FOOD TYPE:**") {
+                    foodType = line.replacingOccurrences(of: "**FOOD TYPE:**", with: "").trimmingCharacters(in: .whitespaces)
+                    capturingPondReport = false
+                } else if line.starts(with: "**FEEDING FREQUENCY:**") {
+                    feedingFrequency = line.replacingOccurrences(of: "**FEEDING FREQUENCY:**", with: "").trimmingCharacters(in: .whitespaces)
+                    capturingPondReport = false
+                } else if line.starts(with: "**POND REPORT:**") {
+                    pondReport = line.replacingOccurrences(of: "**POND REPORT:**", with: "").trimmingCharacters(in: .whitespaces)
+                    capturingPondReport = true
+                } else if capturingPondReport && !line.isEmpty {
+                    pondReport += "\n" + line.trimmingCharacters(in: .whitespaces)
                 }
             }
             
