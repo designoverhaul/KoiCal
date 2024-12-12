@@ -87,13 +87,15 @@ class XAIService: ObservableObject {
             Message(role: "system", content: prompt),
             Message(role: "user", content: """
                 The current date is \(currentDate). 
-                Provide two recommendations:
+                Provide three recommendations:
                 1. FOOD TYPE: Recommend the appropriate food type.
                 2. FEEDING FREQUENCY: Provide the feeding frequency in the specified format.
+                3. POND REPORT: Analyze water test results and provide recommendations.
                 
                 Format your response exactly like this:
                 FOOD TYPE: [your recommendation]
                 FEEDING FREQUENCY: [your recommendation]
+                POND REPORT: [your analysis and recommendations]
                 """)
         ]
         
@@ -103,7 +105,7 @@ class XAIService: ObservableObject {
             messages: messages,
             model: "grok-beta",
             temperature: 0.7,
-            max_tokens: 100
+            max_tokens: 300
         )
         
         if let requestJson = try? JSONEncoder().encode(request),
@@ -144,7 +146,7 @@ class XAIService: ObservableObject {
         let lines = recommendation.components(separatedBy: .newlines)
         
         var foodType = "No food type recommendation available"
-        var feedingFrequency = "No feeding frequency recommendation available"
+        var feedingFrequency = "No feeding recommendation available"
         var pondReport = "No pond report available"
         
         for line in lines {
