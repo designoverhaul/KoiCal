@@ -18,13 +18,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func requestPermission() {
-        print("Requesting location permission")
         locationManager.requestWhenInUseAuthorization()
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authorizationStatus = manager.authorizationStatus
-        print("Authorization status changed to: \(authorizationStatus.rawValue)")
         
         switch authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
@@ -49,13 +47,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         self.location = location
         
-        // Update city name using reverse geocoding
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
             guard let self = self else { return }
             
             if let error = error {
-                print("Geocoding error: \(error.localizedDescription)")
                 self.errorMessage = "Unable to determine location name"
                 return
             }
@@ -70,7 +66,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location manager failed with error: \(error.localizedDescription)")
         errorMessage = "Unable to determine location"
     }
 } 

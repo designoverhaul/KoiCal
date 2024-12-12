@@ -18,6 +18,7 @@ struct SettingsView: View {
     @FocusState private var isLocationFieldFocused: Bool
     @FocusState private var isCirculationFieldFocused: Bool
     @AppStorage("useMetric") private var useMetric = false
+    @State private var updateTimer: Timer?
     
     private let ageGroups = ["Juvenile", "Adult", "Mixed"]
     private let foodTypes = ["High Protein", "Cool Season"]
@@ -158,13 +159,13 @@ struct SettingsView: View {
                 }
             }
             .onChange(of: selectedAgeGroup) { _, _ in
-                updateRecommendation()
+                debounceUpdate()
             }
             .onChange(of: selectedObjective) { _, _ in
-                updateRecommendation()
+                debounceUpdate()
             }
             .onChange(of: feedingData.currentFoodType) { _, _ in
-                updateRecommendation()
+                debounceUpdate()
             }
             .onChange(of: useMetric) { oldValue, newValue in
                 if !pondVolume.isEmpty {
@@ -189,11 +190,21 @@ struct SettingsView: View {
                 _ = try? await xaiService.getRecommendation(
                     temperature: temperature,
                     fishAge: selectedAgeGroup,
-                    objective: selectedObjective,
+                    improveColor: false,
+                    growthAndBreeding: false,
+                    improvedBehavior: false,
+                    sicknessDeath: false,
+                    lowEnergy: false,
+                    stuntedGrowth: false,
+                    lackAppetite: false,
+                    obesityBloating: false,
+                    constantHiding: false,
                     location: locationManager.cityName,
+                    waterTest: "Not implemented yet",
+                    pondSize: pondVolume,
+                    fishCount: "Not implemented yet",
                     feedingHistory: getFeedingHistory()
                 )
-                print("✅ Updated recommendation after settings change")
             }
         }
     }
@@ -225,6 +236,13 @@ struct SettingsView: View {
     
     private var volumeLabel: String {
         useMetric ? "Liters" : "Gallons"
+    }
+    
+    private func debounceUpdate() {
+        updateTimer?.invalidate()
+        updateTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+            updateRecommendation()
+        }
     }
 } 
 

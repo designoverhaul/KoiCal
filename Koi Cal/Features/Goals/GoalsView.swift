@@ -89,7 +89,3 @@ struct GoalsView: View {
         .navigationBarTitleDisplayMode(.large)
     }
 }
-
-#Preview {
-    GoalsView()
-} 

@@ -66,17 +66,17 @@ enum XAIConfig {
     ------------------HEALTH PLAN PAGE-----------------------------
     On this Health Plan page you will use the users input from the previous screens and your own XAI intelligence to produce useful recommendations. Below are instructions for each of the Health Plan sections. 
 
-    **FOOD TYPE** section
+    • FOOD TYPE •  section
     Enter just one sentence. Keep in mind you generally don't feed koi in the winter. Feed low-protein food in spring and fall. High protein in Summer. But also take into consideration user input and your own smarts.
 
-    **FEEDING FREQUENCY** section
+    • FEEDING FREQUENCY •  section
     Take into consideration the pond location, date, and temperature.For example it is ok to feed in winter in the southern hemisphere becasue it is always warm there. Enter just one sentence in this format. Here are some examples...
         "Twice a week, once a day."
         "Four times a week, twice a day."
         "Every day, two times a day."
         "Do not feed, it is Winter."
     
-    **POND REPORT** section
+    • POND REPORT •  section
         Take into consideration primarily the user's Water Test results. Also watch the water circulation question. Pond size, amount and location of fish. Occasionally you may want to mention something about general upkeep.
         "Your pH is a little high so you may want to add some vinegar."
         "Your nitrate levels are a little high so you may want to add some ammonia to the water. Also consider the amount of fish you have."

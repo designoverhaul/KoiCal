@@ -13,7 +13,6 @@ class WeatherManager: ObservableObject {
     
     func updateTemperature() async {
         guard !pondLocation.isEmpty else {
-            print("No pond location set")
             errorMessage = "Please set your pond location"
             return
         }
@@ -22,7 +21,6 @@ class WeatherManager: ObservableObject {
             // Convert address to coordinates
             let placemarks = try await geocoder.geocodeAddressString(pondLocation)
             guard let location = placemarks.first?.location else {
-                print("Could not find coordinates for location: \(pondLocation)")
                 errorMessage = "Could not find location"
                 return
             }
@@ -32,9 +30,7 @@ class WeatherManager: ObservableObject {
             let temperature = weather.currentWeather.temperature
             currentTemperature = temperature.converted(to: .fahrenheit).value
             errorMessage = nil
-            print("Successfully fetched temperature for \(pondLocation): \(String(describing: currentTemperature))°F")
         } catch {
-            print("Error fetching weather: \(error)")
             currentTemperature = nil
             errorMessage = error.localizedDescription
         }

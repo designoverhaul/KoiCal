@@ -1,7 +1,9 @@
 import Foundation
 
+@MainActor
 class XAIService: ObservableObject {
-    @Published var isLoading = false
+    @Published private(set) var isLoading = false
+    private var currentTaskID = 0
     
     struct Message: Codable {
         let role: String
@@ -22,18 +24,7 @@ class XAIService: ObservableObject {
     }
     
     struct ChatResponse: Codable {
-        let id: String
-        let object: String
-        let created: Int
-        let model: String
         let choices: [Choice]
-        let usage: Usage
-    }
-    
-    struct Usage: Codable {
-        let prompt_tokens: Int
-        let completion_tokens: Int
-        let total_tokens: Int
     }
     
     struct Recommendations {
@@ -45,48 +36,52 @@ class XAIService: ObservableObject {
     func getRecommendation(
         temperature: Double,
         fishAge: String,
-        objective: String,
+        improveColor: Bool,
+        growthAndBreeding: Bool,
+        improvedBehavior: Bool,
+        sicknessDeath: Bool,
+        lowEnergy: Bool,
+        stuntedGrowth: Bool,
+        lackAppetite: Bool,
+        obesityBloating: Bool,
+        constantHiding: Bool,
         location: String,
+        waterTest: String,
+        pondSize: String,
+        fishCount: String, 
         feedingHistory: String
     ) async throws -> Recommendations {
-        await MainActor.run {
-            isLoading = true
-        }
-        defer {
-            Task { @MainActor in
-                isLoading = false
-            }
-        }
+        print("\n🚀 === Starting XAI Request ===")
         
-        // Get current date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM d"
         let currentDate = dateFormatter.string(from: Date())
         
-        // Debug: Print input values
-        print("🔍 Input Values:")
-        print("Current Date: \(currentDate)")
-        print("Temperature: \(temperature)")
-        print("Fish Age: \(fishAge)")
-        print("Objective: \(objective)")
-        print("Location: \(location)")
-        print("Feeding History: \(feedingHistory)")
-        
-        let prompt = XAIConfig.systemPrompt
-            .replacingOccurrences(of: "{temp}", with: String(format: "%.0f", temperature))
-            .replacingOccurrences(of: "{age}", with: fishAge)
-            .replacingOccurrences(of: "{objective}", with: objective)
-            .replacingOccurrences(of: "{location}", with: location)
-            .replacingOccurrences(of: "{feeding_history}", with: feedingHistory)
-        
-        // Debug: Print the complete system prompt
-        print("\n🤖 System Prompt:")
-        print(prompt)
-        
         let messages = [
-            Message(role: "system", content: prompt),
+            Message(role: "system", content: XAIConfig.systemPrompt),
             Message(role: "user", content: """
-                The current date is \(currentDate). 
+                The current date is \(currentDate).
+                Temperature: \(temperature)°F
+                Fish Age: \(fishAge)
+                Location: \(location)
+                Water Test: \(waterTest)
+                Pond Size: \(pondSize)
+                Fish Count: \(fishCount)
+                Feeding History: \(feedingHistory)
+                
+                Goals:
+                - Improve Color: \(improveColor)
+                - Growth and Breeding: \(growthAndBreeding)
+                - Improved Behavior: \(improvedBehavior)
+                
+                Problems:
+                - Sickness/Death: \(sicknessDeath)
+                - Low Energy: \(lowEnergy)
+                - Stunted Growth: \(stuntedGrowth)
+                - Lack Appetite: \(lackAppetite)
+                - Obesity/Bloating: \(obesityBloating)
+                - Constant Hiding: \(constantHiding)
+                
                 Provide three recommendations:
                 1. FOOD TYPE: Recommend the appropriate food type.
                 2. FEEDING FREQUENCY: Provide the feeding frequency in the specified format.
@@ -99,8 +94,9 @@ class XAIService: ObservableObject {
                 """)
         ]
         
-        // Debug: Print the complete request
-        print("\n📤 Request to XAI:")
+        print("\n📤 Request Messages:")
+        print(messages.map { "[\($0.role)]: \($0.content)" }.joined(separator: "\n"))
+        
         let request = ChatRequest(
             messages: messages,
             model: "grok-beta",
@@ -108,61 +104,62 @@ class XAIService: ObservableObject {
             max_tokens: 300
         )
         
-        if let requestJson = try? JSONEncoder().encode(request),
-           let requestString = String(data: requestJson, encoding: .utf8) {
-            print(requestString)
-        }
-        
         var urlRequest = URLRequest(url: URL(string: XAIConfig.apiURL)!)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("Bearer \(XAIConfig.apiKey)", forHTTPHeaderField: "Authorization")
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = try JSONEncoder().encode(request)
         
-        let (data, response) = try await URLSession.shared.data(for: urlRequest)
-        
-        if let httpResponse = response as? HTTPURLResponse {
-            print("\n📥 Response Status: \(httpResponse.statusCode)")
-            
-            if let responseString = String(data: data, encoding: .utf8) {
-                print("Response Body:")
-                print(responseString)
+        do {
+            urlRequest.httpBody = try JSONEncoder().encode(request)
+            print("\n📡 API URL: \(XAIConfig.apiURL)")
+            print("📝 Request Body:")
+            if let requestStr = String(data: urlRequest.httpBody!, encoding: .utf8) {
+                print(requestStr)
             }
             
-            guard httpResponse.statusCode == 200 else {
-                throw NSError(domain: "XAIService",
-                            code: httpResponse.statusCode,
-                            userInfo: [NSLocalizedDescriptionKey: "Failed to get recommendation"])
+            let (data, response) = try await URLSession.shared.data(for: urlRequest)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                print("\n📡 Response Status: \(httpResponse.statusCode)")
             }
-        }
-        
-        let chatResponse = try JSONDecoder().decode(ChatResponse.self, from: data)
-        let recommendation = chatResponse.choices.first?.message.content ?? "No recommendation available"
-        
-        // Debug: Print final recommendation
-        print("\n🎯 Final Recommendation:")
-        print(recommendation)
-        
-        let lines = recommendation.components(separatedBy: .newlines)
-        
-        var foodType = "No food type recommendation available"
-        var feedingFrequency = "No feeding recommendation available"
-        var pondReport = "No pond report available"
-        
-        for line in lines {
-            if line.starts(with: "FOOD TYPE:") {
-                foodType = line.replacingOccurrences(of: "FOOD TYPE:", with: "").trimmingCharacters(in: .whitespaces)
-            } else if line.starts(with: "FEEDING FREQUENCY:") {
-                feedingFrequency = line.replacingOccurrences(of: "FEEDING FREQUENCY:", with: "").trimmingCharacters(in: .whitespaces)
-            } else if line.starts(with: "POND REPORT:") {
-                pondReport = line.replacingOccurrences(of: "POND REPORT:", with: "").trimmingCharacters(in: .whitespaces)
+            
+            print("\n📥 Raw Response:")
+            print(String(data: data, encoding: .utf8) ?? "Could not decode response")
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                print("❌ API Error: \(String(data: data, encoding: .utf8) ?? "No error details")")
+                throw NSError(domain: "XAIService", code: (response as? HTTPURLResponse)?.statusCode ?? 0)
             }
+            
+            let chatResponse = try JSONDecoder().decode(ChatResponse.self, from: data)
+            print("\n📥 AI Response:")
+            print(String(data: data, encoding: .utf8) ?? "Could not read response")
+            
+            let recommendation = chatResponse.choices.first?.message.content ?? "No recommendation available"
+            let lines = recommendation.components(separatedBy: .newlines)
+            
+            var foodType = "No food type recommendation available"
+            var feedingFrequency = "No feeding recommendation available"
+            var pondReport = "No pond report available"
+            
+            for line in lines {
+                if line.starts(with: "FOOD TYPE:") {
+                    foodType = line.replacingOccurrences(of: "FOOD TYPE:", with: "").trimmingCharacters(in: .whitespaces)
+                } else if line.starts(with: "FEEDING FREQUENCY:") {
+                    feedingFrequency = line.replacingOccurrences(of: "FEEDING FREQUENCY:", with: "").trimmingCharacters(in: .whitespaces)
+                } else if line.starts(with: "POND REPORT:") {
+                    pondReport = line.replacingOccurrences(of: "POND REPORT:", with: "").trimmingCharacters(in: .whitespaces)
+                }
+            }
+            
+            return Recommendations(
+                feedingFrequency: feedingFrequency,
+                foodType: foodType,
+                pondReport: pondReport
+            )
+        } catch {
+            print("❌ ERROR: \(error)")
+            throw error
         }
-        
-        return Recommendations(
-            feedingFrequency: feedingFrequency,
-            foodType: foodType,
-            pondReport: pondReport
-        )
     }
 } 
