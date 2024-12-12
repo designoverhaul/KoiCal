@@ -6,6 +6,7 @@ struct MainTabView: View {
     @StateObject private var feedingData = FeedingData()
     @StateObject private var xaiService = XAIService()
     @StateObject private var weatherManager = WeatherManager()
+    @StateObject private var waterQualityManager = WaterQualityManager()
     @State private var selectedAgeGroup = "Mixed"
     @State private var selectedObjective = "General Health"
     
@@ -96,6 +97,7 @@ struct MainTabView: View {
             .tag(4)
             .onAppear { print("📱 Tab 4: SettingsView appeared") }
         }
+        .environmentObject(waterQualityManager)
         .tint(activeColor)
         .onAppear {
             print("📱 MainTabView appeared")

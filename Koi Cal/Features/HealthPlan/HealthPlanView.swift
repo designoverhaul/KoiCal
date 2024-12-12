@@ -3,6 +3,7 @@ import SwiftUI
 struct HealthPlanView: View {
     @StateObject private var xaiService = XAIService()
     @StateObject private var weatherManager = WeatherManager()
+    @EnvironmentObject private var waterQualityManager: WaterQualityManager
     @State private var feedingFrequency = "Loading..."
     @State private var foodType = "Loading..."
     @State private var pondReport = "Loading..."
@@ -54,7 +55,7 @@ struct HealthPlanView: View {
         }
     }
     
-    private func getSelectedIssues() -> (goals: [String], problems: [String]) {
+    private func getSelectedIssues() -> ([String], [String]) {
         var selectedGoals: [String] = []
         var selectedProblems: [String] = []
         
@@ -96,30 +97,31 @@ struct HealthPlanView: View {
             print("Temperature: \(Int(temperature)) °F")
             print("Location: \(location)")
             print("Fish Age: \(getAgeString())")
-            print("Pond Volume: \(pondVolume)")
-            print("Current Food Type: \(currentFoodType)")
-            print("Measurements: \(useMetric ? "Metric" : "Imperial")")
-            print("Hours of Direct Sunlight: \(sunlightHours)")
-            print("Circulation Time: \(circulationTime) seconds")
-            
-            if !selectedGoals.isEmpty {
-                print("\n🎯 Selected Goals:")
-                selectedGoals.forEach { print("✅ \($0)") }
-            }
-            
-            if !selectedProblems.isEmpty {
-                print("\n⚠️ Reported Problems:")
-                selectedProblems.forEach { print("✅ \($0)") }
-            }
-            
-            if let clarityIssue = getWaterClarityIssue() {
-                print("\nWater Clarity Issues:")
-                print("✅ \(clarityIssue)")
-            }
             
             print("\n💧 Water Test:")
-            print("pH: \(String(format: "%.1f", pH))")
-            print("KH Carbonate Hardness: \(Int(kh))")
+            if let nitrate = waterQualityManager.measurements[.nitrate] {
+                print("Nitrate: \(nitrate)")
+            }
+            if let nitrite = waterQualityManager.measurements[.nitrite] {
+                print("Nitrite: \(nitrite)")
+            }
+            if let ph = waterQualityManager.measurements[.phLow] {
+                print("pH: \(ph)")
+            }
+            if let kh = waterQualityManager.measurements[.kh] {
+                print("KH Carbonate Hardness: \(kh)")
+            }
+            if let gh = waterQualityManager.measurements[.gh] {
+                print("GH General Hardness: \(gh)")
+            }
+            
+            let waterTestString = """
+                Nitrate: \(waterQualityManager.measurements[.nitrate]?.description ?? "Not tested")
+                Nitrite: \(waterQualityManager.measurements[.nitrite]?.description ?? "Not tested")
+                pH: \(waterQualityManager.measurements[.phLow]?.description ?? "Not tested")
+                KH: \(waterQualityManager.measurements[.kh]?.description ?? "Not tested")
+                GH: \(waterQualityManager.measurements[.gh]?.description ?? "Not tested")
+                """
             
             let recommendations = try await xaiService.getRecommendation(
                 temperature: temperature,
@@ -134,7 +136,7 @@ struct HealthPlanView: View {
                 obesityBloating: selectedProblems.contains("Obesity/bloating"),
                 constantHiding: selectedProblems.contains("Constant hiding"),
                 location: location,
-                waterTest: "pH: 7.0, Nitrate: 0, Nitrite: 0",
+                waterTest: waterTestString,
                 pondSize: pondVolume,
                 fishCount: "5",
                 feedingHistory: lastFeeding
@@ -199,9 +201,9 @@ struct HealthPlanView: View {
     }
 }
 
-#Preview {
+#Preview("Health Plan") {
     NavigationView {
         HealthPlanView()
+            .environmentObject(WaterQualityManager())
     }
-    .previewDisplayName("Health Plan")
 } 
