@@ -87,6 +87,31 @@ struct HealthPlanView: View {
         }
     }
     
+    private func getFeedingHistory() -> String {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let weekHistory = (0...6).map { dayOffset -> (date: Date, count: Int) in
+            let date = calendar.date(byAdding: .day, value: -dayOffset, to: today)!
+            return (date: date, count: feedingData.getFeedingCount(for: date))
+        }
+        
+        return weekHistory
+            .map { date, count in
+                let dayString: String
+                if calendar.isDateInToday(date) {
+                    dayString = "today"
+                } else if calendar.isDateInYesterday(date) {
+                    dayString = "yesterday"
+                } else {
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "EEEE"
+                    dayString = formatter.string(from: date).lowercased()
+                }
+                return "\(count) times \(dayString)"
+            }
+            .joined(separator: ", ")
+    }
+    
     private func updateRecommendations() async {
         guard let temperature = weatherManager.currentTemperature else {
             print("❌ No temperature available for recommendations")
@@ -170,7 +195,7 @@ struct HealthPlanView: View {
                 waterTest: waterTestString,
                 pondSize: pondVolume,
                 fishCount: fishCount.isEmpty ? "Not specified" : fishCount,
-                feedingHistory: lastFeeding
+                feedingHistory: ""
             )
             
             DispatchQueue.main.async {
