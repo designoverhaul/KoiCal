@@ -41,13 +41,13 @@ enum MeasurementType: String, CaseIterable {
     var values: [String] {
         switch self {
         case .nitrate:
-            return ["-", "0", "10", "25", "50", "100", "250", "500"]
+            return ["-", "0", "20", "40", "80", "160", "200", ""]
         case .nitrite:
-            return ["-", "0", "0.5", "1.0", "2.0", "5.0", "10.0", "20.0"]
+            return ["-", "0", "0.5", "1", "3", "5", "10", ""]
         case .phLow:
             return ["-", "6.0", "6.5", "7.0", "7.5", "8.0", "8.5", "9.0"]
         case .kh:
-            return ["-", "0", "40", "80", "120", "180", "240", "360"]
+            return ["-", "0", "40", "80", "120", "180", "240", ""]
         case .gh:
             return ["-", "0", "30", "60", "120", "180", "", ""]
         }
@@ -57,25 +57,25 @@ enum MeasurementType: String, CaseIterable {
         switch self {
         case .nitrate:
             return [
-                Color(red: 0.93, green: 0.93, blue: 0.93),  // Gray
+                Color(red: 0.93, green: 0.93, blue: 0.93),  // Gray for "-"
                 Color(hex: "FFFFFD"),  // 0
-                Color(hex: "F9E9EC"),  // 10
-                Color(hex: "E6B9CE"),  // 25
-                Color(hex: "D35698"),  // 50
-                Color(hex: "B72892"),  // 100
-                Color(hex: "B91888"),  // 250
-                Color(hex: "B91888")   // 500
+                Color(hex: "F9E9EC"),  // 20
+                Color(hex: "E6B9CE"),  // 40
+                Color(hex: "D35698"),  // 80
+                Color(hex: "B72892"),  // 160
+                Color(hex: "B91888"),  // 200
+                Color.clear            // Empty
             ]
         case .nitrite:
             return [
-                Color(red: 0.93, green: 0.93, blue: 0.93),  // Gray
+                Color(red: 0.93, green: 0.93, blue: 0.93),  // Gray for "-"
                 Color(hex: "FFFFFF"),  // 0
-                Color(hex: "FAEAED"),  // 1
-                Color(hex: "E6B9CE"),  // 5
-                Color(hex: "D768AA"),  // 10
-                Color(hex: "D354A1"),  // 20
-                Color(hex: "C62F90"),  // 40
-                Color(hex: "972268")   // 80
+                Color(hex: "FAEAED"),  // 0.5
+                Color(hex: "E6B9CE"),  // 1
+                Color(hex: "D768AA"),  // 3
+                Color(hex: "D354A1"),  // 5
+                Color(hex: "C62F90"),  // 10
+                Color.clear            // Empty
             ]
         case .phLow:
             return [
@@ -97,7 +97,7 @@ enum MeasurementType: String, CaseIterable {
                 Color(hex: "9FD1AB"),  // 120
                 Color(hex: "8BC7B1"),  // 180
                 Color(hex: "6BC5C5"),  // 240
-                Color(hex: "6BC5C5")   // 360
+                Color.clear            // Empty
             ]
         case .gh:
             return [
@@ -107,8 +107,8 @@ enum MeasurementType: String, CaseIterable {
                 Color(hex: "6CAEC9"),  // 60
                 Color(hex: "5C90C2"),  // 120
                 Color(hex: "6879C1"),  // 180
-                Color.clear,           // Empty placeholder
-                Color.clear            // Empty placeholder
+                Color.clear,           // Empty
+                Color.clear            // Empty
             ]
         }
     }
