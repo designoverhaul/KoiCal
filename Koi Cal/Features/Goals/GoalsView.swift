@@ -85,7 +85,7 @@ struct GoalsView: View {
                 .padding(.top, 24)
             }
         }
-        .navigationTitle("Fish Stats")
+        .navigationTitle("Goals")
         .navigationBarTitleDisplayMode(.large)
     }
 }

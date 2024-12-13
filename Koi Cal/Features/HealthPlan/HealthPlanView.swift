@@ -98,6 +98,27 @@ struct HealthPlanView: View {
             print("Location: \(location)")
             print("Fish Age: \(getAgeString())")
             
+            print("\n🎯 Objectives:")
+            if selectedGoals.isEmpty {
+                print("None selected")
+            } else {
+                selectedGoals.forEach { print("• \($0)") }
+            }
+            
+            print("\n⚠️ Problems:")
+            if selectedProblems.isEmpty {
+                print("None selected")
+            } else {
+                selectedProblems.forEach { print("• \($0)") }
+            }
+            
+            print("\n💧 Water Clarity:")
+            if let clarityIssue = getWaterClarityIssue() {
+                print("• \(clarityIssue)")
+            } else {
+                print("No issues reported")
+            }
+            
             print("\n💧 Water Test:")
             if let nitrate = waterQualityManager.measurements[.nitrate] {
                 print("Nitrate: \(nitrate)")

@@ -1,4 +1,8 @@
 import SwiftUI
+import Foundation
+import MapKit
+
+import Koi_Cal
 
 struct SettingsView: View {
     @Binding var selectedAgeGroup: String
@@ -19,6 +23,8 @@ struct SettingsView: View {
     @FocusState private var isCirculationFieldFocused: Bool
     @AppStorage("useMetric") private var useMetric = false
     @State private var updateTimer: Timer?
+    @AppStorage("fishSize") private var fishSize = FishSize.medium.rawValue
+    @AppStorage("fishCount") private var fishCount = ""
     
     private let ageGroups = ["Juvenile", "Adult", "Mixed"]
     private let foodTypes = ["High Protein", "Cool Season"]
@@ -144,6 +150,34 @@ struct SettingsView: View {
                             }
                     }
                 }
+                
+                Section(header: Text("Fish Information")) {
+                    Picker("What size are your fish?", selection: $fishSize) {
+                        ForEach(FishSize.allCases, id: \.rawValue) { size in
+                            Text(size.rawValue).tag(size.rawValue)
+                        }
+                    }
+                    
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("How many fish are in your pond?")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(hex: "565656"))
+                        
+                        TextField("Number of fish", text: $fishCount)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .keyboardType(.numberPad)
+                            .focused($isCirculationFieldFocused)
+                            .onChange(of: fishCount) { oldValue, newValue in
+                                let filtered = newValue.filter { $0.isNumber }
+                                if filtered != newValue {
+                                    fishCount = filtered
+                                }
+                                if let number = Int(filtered) {
+                                    fishCount = number.formatted(.number)
+                                }
+                            }
+                    }
+                }
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -202,7 +236,7 @@ struct SettingsView: View {
                     location: locationManager.cityName,
                     waterTest: "Not implemented yet",
                     pondSize: pondVolume,
-                    fishCount: "Not implemented yet",
+                    fishCount: fishCount,
                     feedingHistory: getFeedingHistory()
                 )
             }
