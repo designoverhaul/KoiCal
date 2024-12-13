@@ -15,36 +15,6 @@ struct MainTabView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            // Fish Stats Tab
-            NavigationView {
-                GoalsView()
-            }
-            .tabItem {
-                Label {
-                    Text("Goals")
-                } icon: {
-                    Image(systemName: "fish")
-                        .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
-                }
-            }
-            .tag(0)
-            .onAppear { print("📱 Tab 0: GoalsView appeared") }
-            
-            // Pond Stats Tab
-            NavigationView {
-                WaterTestView()
-            }
-            .tabItem {
-                Label {
-                    Text("Water Test")
-                } icon: {
-                    Image(systemName: "drop.fill")
-                        .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
-                }
-            }
-            .tag(1)
-            .onAppear { print("📱 Tab 1: WaterTestView appeared") }
-            
             // Feeding History Tab
             NavigationView {
                 FeedingHistoryView()
@@ -54,11 +24,26 @@ struct MainTabView: View {
                     Text("Feeding History")
                 } icon: {
                     Image(systemName: "calendar")
-                        .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
+                        .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
                 }
             }
-            .tag(2)
-            .onAppear { print("📱 Tab 2: FeedingHistoryView appeared") }
+            .tag(0)
+            .onAppear { print("📱 Tab 0: FeedingHistoryView appeared") }
+            
+            // Goals Tab
+            NavigationView {
+                GoalsView()
+            }
+            .tabItem {
+                Label {
+                    Text("Goals")
+                } icon: {
+                    Image(systemName: "fish")
+                        .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
+                }
+            }
+            .tag(1)
+            .onAppear { print("📱 Tab 1: GoalsView appeared") }
             
             // Health Plan Tab
             NavigationView {
@@ -69,11 +54,26 @@ struct MainTabView: View {
                     Text("Health Plan")
                 } icon: {
                     Image(systemName: "sparkles")
+                        .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
+                }
+            }
+            .tag(2)
+            .onAppear { print("📱 Tab 2: HealthPlanView appeared") }
+            
+            // Water Test Tab
+            NavigationView {
+                WaterTestView()
+            }
+            .tabItem {
+                Label {
+                    Text("Water Test")
+                } icon: {
+                    Image(systemName: "waterbottle")
                         .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
                 }
             }
             .tag(3)
-            .onAppear { print("📱 Tab 3: HealthPlanView appeared") }
+            .onAppear { print("📱 Tab 3: WaterTestView appeared") }
             
             // Settings Tab
             NavigationView {

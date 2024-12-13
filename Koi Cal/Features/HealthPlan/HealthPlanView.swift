@@ -3,10 +3,13 @@ import SwiftUI
 struct HealthPlanView: View {
     @StateObject private var xaiService = XAIService()
     @StateObject private var weatherManager = WeatherManager()
+    @StateObject private var feedingData = FeedingData()
     @EnvironmentObject private var waterQualityManager: WaterQualityManager
     @State private var feedingFrequency = "Loading..."
     @State private var foodType = "Loading..."
     @State private var pondReport = "Loading..."
+    @AppStorage("fishSize") private var fishSize = FishSize.medium.rawValue
+    @AppStorage("fishCount") private var fishCount = ""
     @AppStorage("selectedAge") private var selectedAge = 1
     @AppStorage("selectedObjective") private var selectedObjective = "General health"
     @AppStorage("location") private var location = ""
@@ -97,6 +100,13 @@ struct HealthPlanView: View {
             print("Temperature: \(Int(temperature)) °F")
             print("Location: \(location)")
             print("Fish Age: \(getAgeString())")
+            print("Fish Size: \(fishSize)")
+            print("Fish Count: \(fishCount.isEmpty ? "Not specified" : fishCount)")
+            print("Pond Volume: \(pondVolume.isEmpty ? "Not specified" : "\(pondVolume) \(useMetric ? "liters" : "gallons")")")
+            print("Sunlight Hours: \(sunlightHours.isEmpty ? "Not specified" : "\(sunlightHours) hours")")
+            print("Water Circulation: \(circulationTime.isEmpty ? "Not specified" : "\(circulationTime) seconds per gallon")")
+            print("Current Food Type: \(currentFoodType)")
+            print("Measurement System: \(useMetric ? "Metric" : "Imperial")")
             
             print("\n🎯 Objectives:")
             if selectedGoals.isEmpty {
@@ -159,7 +169,7 @@ struct HealthPlanView: View {
                 location: location,
                 waterTest: waterTestString,
                 pondSize: pondVolume,
-                fishCount: "5",
+                fishCount: fishCount.isEmpty ? "Not specified" : fishCount,
                 feedingHistory: lastFeeding
             )
             

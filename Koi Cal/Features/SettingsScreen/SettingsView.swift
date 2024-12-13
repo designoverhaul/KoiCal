@@ -25,6 +25,7 @@ struct SettingsView: View {
     @State private var updateTimer: Timer?
     @AppStorage("fishSize") private var fishSize = FishSize.medium.rawValue
     @AppStorage("fishCount") private var fishCount = ""
+    @FocusState private var isFishCountFieldFocused: Bool
     
     private let ageGroups = ["Juvenile", "Adult", "Mixed"]
     private let foodTypes = ["High Protein", "Cool Season"]
@@ -158,25 +159,23 @@ struct SettingsView: View {
                         }
                     }
                     
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("How many fish are in your pond?")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color(hex: "565656"))
-                        
-                        TextField("Number of fish", text: $fishCount)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.numberPad)
-                            .focused($isCirculationFieldFocused)
-                            .onChange(of: fishCount) { oldValue, newValue in
-                                let filtered = newValue.filter { $0.isNumber }
-                                if filtered != newValue {
-                                    fishCount = filtered
-                                }
-                                if let number = Int(filtered) {
-                                    fishCount = number.formatted(.number)
-                                }
+                    Text("How many fish are in your pond?")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(hex: "565656"))
+                    
+                    TextField("Number of fish", text: $fishCount)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .focused($isFishCountFieldFocused)
+                        .onChange(of: fishCount) { oldValue, newValue in
+                            let filtered = newValue.filter { $0.isNumber }
+                            if filtered != newValue {
+                                fishCount = filtered
                             }
-                    }
+                            if let number = Int(filtered) {
+                                fishCount = number.formatted(.number)
+                            }
+                        }
                 }
             }
             .navigationTitle("Settings")
@@ -189,6 +188,7 @@ struct SettingsView: View {
                         isSunlightFieldFocused = false
                         isLocationFieldFocused = false
                         isCirculationFieldFocused = false
+                        isFishCountFieldFocused = false
                     }
                 }
             }
