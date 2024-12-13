@@ -58,23 +58,23 @@ enum MeasurementType: String, CaseIterable {
         case .nitrate:
             return [
                 Color(red: 0.93, green: 0.93, blue: 0.93),  // Gray for "-"
-                Color(hex: "FFFFFD"),  // 0
-                Color(hex: "F9E9EC"),  // 20
-                Color(hex: "E6B9CE"),  // 40
-                Color(hex: "D35698"),  // 80
-                Color(hex: "B72892"),  // 160
-                Color(hex: "B91888"),  // 200
+                Color(hex: "F1E8D7"),  // 0
+                Color(hex: "F3E0D4"),  // 20
+                Color(hex: "F5D7CD"),  // 40
+                Color(hex: "FFC6C4"),  // 80
+                Color(hex: "FEADB4"),  // 160
+                Color(hex: "FF8EA0"),  // 200
                 Color.clear            // Empty
             ]
         case .nitrite:
             return [
                 Color(red: 0.93, green: 0.93, blue: 0.93),  // Gray for "-"
-                Color(hex: "FFFFFF"),  // 0
-                Color(hex: "FAEAED"),  // 0.5
-                Color(hex: "E6B9CE"),  // 1
-                Color(hex: "D768AA"),  // 3
-                Color(hex: "D354A1"),  // 5
-                Color(hex: "C62F90"),  // 10
+                Color(hex: "F1EAD0"),  // 0
+                Color(hex: "F2E4D9"),  // 0.5
+                Color(hex: "F3DAD3"),  // 1
+                Color(hex: "FCC4C4"),  // 3
+                Color(hex: "FFB3B7"),  // 5
+                Color(hex: "FF8EA1"),  // 10
                 Color.clear            // Empty
             ]
         case .phLow:

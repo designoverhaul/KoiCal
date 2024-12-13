@@ -40,25 +40,32 @@ struct WaterMeasurementView: View {
                                 Rectangle()
                                     .stroke(Color(red: 0.34, green: 0.34, blue: 0.34), lineWidth: selectedValue == index ? 1.85 : 0)
                                 
-                                if ((type == .nitrite && type.values[index] == "20") ||
-                                    (type == .nitrite && type.values[index] == "40") ||
-                                    (type == .nitrite && type.values[index] == "80")) ||
-                                   (type == .nitrate && type.values[index] == "100") ||
-                                   (type == .nitrate && type.values[index] == "250") ||
-                                   (type == .nitrate && type.values[index] == "500") ||
+                                // Warning triangles
+                                if ((type == .nitrite && type.values[index] == "3") ||
+                                    (type == .nitrite && type.values[index] == "5") ||
+                                    (type == .nitrite && type.values[index] == "10")) ||
+                                   (type == .nitrate && type.values[index] == "160") ||
+                                   (type == .nitrate && type.values[index] == "200") ||
                                    (type == .phLow && type.values[index] == "6.0") ||
                                    (type == .phLow && type.values[index] == "9.0") ||
                                    (type == .gh && type.values[index] == "0") ||
                                    (type == .gh && type.values[index] == "180") ||
                                    (type == .kh && type.values[index] == "0") ||
                                    (type == .kh && type.values[index] == "40") ||
-                                   (type == .kh && type.values[index] == "240") ||
-                                   (type == .kh && type.values[index] == "360") {
+                                   (type == .kh && type.values[index] == "240") {
                                     Image(systemName: "exclamationmark.triangle.fill")
                                         .foregroundColor(.yellow)
                                         .font(.system(size: 20))
                                         .position(x: 20, y: 20)
                                         .shadow(color: .black.opacity(0.3), radius: 1, x: 1, y: 1)
+                                }
+                                
+                                // Nil indicator for "-" values
+                                if type.values[index] == "-" {
+                                    Image(systemName: "slash.circle")
+                                        .foregroundColor(.gray)
+                                        .font(.system(size: 16))
+                                        .position(x: 20, y: 20)
                                 }
                             }
                         )
