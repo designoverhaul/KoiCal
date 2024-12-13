@@ -133,7 +133,7 @@ struct SettingsView: View {
                             .shadow(radius: 2)
                         }
                         
-                        Text("How many seconds does it take your water circulation to fill a gallon?")
+                        Text("How many seconds does it take your water circulation to fill a \(circulationLabel)?")
                             .font(.system(size: 16))
                             .foregroundColor(Color(hex: "565656"))
                         
@@ -151,7 +151,7 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("Fish Information")) {
-                    Picker("What size are your fish?", selection: $fishSize) {
+                    Picker("Average fish size", selection: $fishSize) {
                         ForEach(FishSize.allCases, id: \.rawValue) { size in
                             Text(size.rawValue).tag(size.rawValue)
                         }
@@ -268,6 +268,10 @@ struct SettingsView: View {
     
     private var volumeLabel: String {
         useMetric ? "Liters" : "Gallons"
+    }
+    
+    private var circulationLabel: String {
+        useMetric ? "liter" : "gallon"
     }
     
     private func debounceUpdate() {

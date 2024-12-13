@@ -24,9 +24,6 @@ public enum RecommendationState {
 
 public enum FishSize: String, CaseIterable {
     case small = "Small"
-    case smallMedium = "Small and medium"
     case medium = "Medium"
-    case mediumLarge = "Medium and large"
     case large = "Large"
-    case wideRange = "Wide range of sizes"
 } 

@@ -37,7 +37,7 @@ class WaterQualityManager: ObservableObject {
             if let nitrite = measurements[.nitrite] {
                 print("Nitrite: \(nitrite) mg/L")  // Keep decimal for nitrite
             }
-            if let ph = measurements[.phLow] {
+            if let ph = measurements[.pH] {
                 print("pH: \(String(format: "%.1f", ph))")  // Keep one decimal for pH
             }
             if let kh = measurements[.kh] {
