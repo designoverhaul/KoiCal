@@ -3,7 +3,7 @@ import SwiftUI
 enum MeasurementType: String, CaseIterable {
     case nitrate = "NO₃ Nitrate"
     case nitrite = "NO₂ Nitrite"
-    case phLow = "pH"
+    case pH = "pH"
     case kh = "KH Carbonate Hardness"
     case gh = "GH General Hardness"
     
@@ -14,7 +14,7 @@ enum MeasurementType: String, CaseIterable {
             return ("NO₃", "Nitrate")
         case .nitrite:
             return ("NO₂", "Nitrite")
-        case .phLow:
+        case .pH:
             return ("pH", nil)
         case .kh:
             return ("KH", "Carbonate Hardness")
@@ -29,7 +29,7 @@ enum MeasurementType: String, CaseIterable {
             return "Nitrate levels indicate the amount of waste products in the water. High levels can be harmful to fish and promote excessive algae growth."
         case .nitrite:
             return "Nitrite is highly toxic to fish and is an intermediate product in the nitrogen cycle. High levels can cause brown blood disease."
-        case .phLow:
+        case .pH:
             return "This is the acidity or alkalinity of water; it's crucial because it affects the health, growth, and reproduction of aquatic life."
         case .kh:
             return "KH measures how well water resists pH changes by assessing carbonate and bicarbonate levels, preventing harmful pH shifts for aquatic life."
@@ -44,7 +44,7 @@ enum MeasurementType: String, CaseIterable {
             return ["-", "0", "20", "40", "80", "160", "200", ""]
         case .nitrite:
             return ["-", "0", "0.5", "1", "3", "5", "10", ""]
-        case .phLow:
+        case .pH:
             return ["-", "6.0", "6.5", "7.0", "7.5", "8.0", "8.5", "9.0"]
         case .kh:
             return ["-", "0", "40", "80", "120", "180", "240", ""]
@@ -77,7 +77,7 @@ enum MeasurementType: String, CaseIterable {
                 Color(hex: "FF8EA1"),  // 10
                 Color.clear            // Empty
             ]
-        case .phLow:
+        case .pH:
             return [
                 Color(red: 0.93, green: 0.93, blue: 0.93),  // Gray for "-"
                 Color(hex: "FFC849"),  // 6.0

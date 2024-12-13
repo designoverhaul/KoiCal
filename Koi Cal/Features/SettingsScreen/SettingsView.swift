@@ -2,8 +2,6 @@ import SwiftUI
 import Foundation
 import MapKit
 
-import Koi_Cal
-
 struct SettingsView: View {
     @Binding var selectedAgeGroup: String
     @Binding var selectedObjective: String

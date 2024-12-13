@@ -7,7 +7,7 @@ struct WaterQualityView: View {
     private let orderedMeasurements: [MeasurementType] = [
         .nitrate,
         .nitrite,
-        .phLow,
+        .pH,
         .kh,
         .gh
     ]

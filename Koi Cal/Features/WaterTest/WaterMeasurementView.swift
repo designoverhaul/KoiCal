@@ -46,8 +46,8 @@ struct WaterMeasurementView: View {
                                     (type == .nitrite && type.values[index] == "10")) ||
                                    (type == .nitrate && type.values[index] == "160") ||
                                    (type == .nitrate && type.values[index] == "200") ||
-                                   (type == .phLow && type.values[index] == "6.0") ||
-                                   (type == .phLow && type.values[index] == "9.0") ||
+                                   (type == .pH && type.values[index] == "6.0") ||
+                                   (type == .pH && type.values[index] == "9.0") ||
                                    (type == .gh && type.values[index] == "0") ||
                                    (type == .gh && type.values[index] == "180") ||
                                    (type == .kh && type.values[index] == "0") ||

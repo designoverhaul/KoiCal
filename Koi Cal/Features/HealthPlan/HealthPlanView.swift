@@ -136,7 +136,7 @@ struct HealthPlanView: View {
             if let nitrite = waterQualityManager.measurements[.nitrite] {
                 print("Nitrite: \(nitrite)")
             }
-            if let ph = waterQualityManager.measurements[.phLow] {
+            if let ph = waterQualityManager.measurements[.pH] {
                 print("pH: \(ph)")
             }
             if let kh = waterQualityManager.measurements[.kh] {
@@ -147,11 +147,11 @@ struct HealthPlanView: View {
             }
             
             let waterTestString = """
-                Nitrate: \(waterQualityManager.measurements[.nitrate]?.description ?? "Not tested")
-                Nitrite: \(waterQualityManager.measurements[.nitrite]?.description ?? "Not tested")
-                pH: \(waterQualityManager.measurements[.phLow]?.description ?? "Not tested")
-                KH: \(waterQualityManager.measurements[.kh]?.description ?? "Not tested")
-                GH: \(waterQualityManager.measurements[.gh]?.description ?? "Not tested")
+                Nitrate: \(waterQualityManager.measurements[.nitrate].map { String(Int($0)) } ?? "Not tested") mg/L
+                Nitrite: \(waterQualityManager.measurements[.nitrite].map { String(format: "%.1f", $0) } ?? "Not tested") mg/L
+                pH: \(waterQualityManager.measurements[.pH].map { String(format: "%.1f", $0) } ?? "Not tested")
+                KH: \(waterQualityManager.measurements[.kh].map { String(Int($0)) } ?? "Not tested") ppm
+                GH: \(waterQualityManager.measurements[.gh].map { String(Int($0)) } ?? "Not tested") ppm
                 """
             
             let recommendations = try await xaiService.getRecommendation(

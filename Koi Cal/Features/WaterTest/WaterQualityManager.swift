@@ -22,7 +22,7 @@ class WaterQualityManager: ObservableObject {
     
     func updateMeasurement(_ type: MeasurementType, value: Int) {
         let valueString = type.values[value]
-        print("⚡️ Updating \(type) with value: \(valueString)")  // Debug print
+        print("⚡️ Updating \(type) with value: \(valueString)")
         
         if valueString == "-" {
             measurements[type] = nil
@@ -32,19 +32,19 @@ class WaterQualityManager: ObservableObject {
             // Print complete water test after each update
             print("\n💧 Water Test:")
             if let nitrate = measurements[.nitrate] {
-                print("Nitrate: \(nitrate) mg/L")
+                print("Nitrate: \(Int(nitrate)) mg/L")  // Remove decimal
             }
             if let nitrite = measurements[.nitrite] {
-                print("Nitrite: \(nitrite) mg/L")
+                print("Nitrite: \(nitrite) mg/L")  // Keep decimal for nitrite
             }
             if let ph = measurements[.phLow] {
-                print("pH: \(ph)")
+                print("pH: \(String(format: "%.1f", ph))")  // Keep one decimal for pH
             }
             if let kh = measurements[.kh] {
-                print("KH: \(kh) ppm")
+                print("KH: \(Int(kh)) ppm")  // Remove decimal
             }
             if let gh = measurements[.gh] {
-                print("GH: \(gh) ppm")  // Make sure this matches the format of other prints
+                print("GH: \(Int(gh)) ppm")  // Remove decimal
             }
         }
     }
