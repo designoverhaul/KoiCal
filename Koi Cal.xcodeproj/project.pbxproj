@@ -11,7 +11,6 @@
 		9308F23E2D09D710009B2951 /* GoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9308F23D2D09D710009B2951 /* GoalsView.swift */; };
 		932362102D0354560003DCCD /* WaterQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620F2D0354560003DCCD /* WaterQualityView.swift */; };
 		932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620E2D0354560003DCCD /* WaterMeasurementView.swift */; };
-		932362122D0354560003DCCD /* WaterMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620D2D0354560003DCCD /* WaterMeasurement.swift */; };
 		934336D92D00C12400A3689F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934336D82D00C12400A3689F /* MainTabView.swift */; };
 		9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */; };
 		9355BEEE2CF4EEEA007B1A78 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */; };
@@ -38,6 +37,8 @@
 		9389E21B2D04E7AF001BAAE7 /* XAIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E21A2D04E7AF001BAAE7 /* XAIConfig.swift */; };
 		9389E21D2D04E85D001BAAE7 /* FeedingHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E21C2D04E846001BAAE7 /* FeedingHistoryView.swift */; };
 		9389E2232D04FDD8001BAAE7 /* WaterTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E2222D04FDD1001BAAE7 /* WaterTestView.swift */; };
+		939605492D0C7EFA00AEEA5D /* MeasurementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939605482D0C7EFA00AEEA5D /* MeasurementType.swift */; };
+		9396054B2D0C818500AEEA5D /* WaterQualityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396054A2D0C818500AEEA5D /* WaterQualityManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +61,6 @@
 /* Begin PBXFileReference section */
 		9308F22F2D08C3A9009B2951 /* InfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardView.swift; sourceTree = "<group>"; };
 		9308F23D2D09D710009B2951 /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
-		9323620D2D0354560003DCCD /* WaterMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeasurement.swift; sourceTree = "<group>"; };
 		9323620E2D0354560003DCCD /* WaterMeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeasurementView.swift; sourceTree = "<group>"; };
 		9323620F2D0354560003DCCD /* WaterQualityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterQualityView.swift; sourceTree = "<group>"; };
 		934336D82D00C12400A3689F /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -73,7 +73,6 @@
 		9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		9355BEF92CF4F019007B1A78 /* FeedingEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingEntryView.swift; sourceTree = "<group>"; };
 		9355BEFB2CF4F019007B1A78 /* XAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIService.swift; sourceTree = "<group>"; };
 		9355BEFF2CF4F042007B1A78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9355BF002CF4F042007B1A78 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
@@ -94,6 +93,8 @@
 		9389E21A2D04E7AF001BAAE7 /* XAIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIConfig.swift; sourceTree = "<group>"; };
 		9389E21C2D04E846001BAAE7 /* FeedingHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingHistoryView.swift; sourceTree = "<group>"; };
 		9389E2222D04FDD1001BAAE7 /* WaterTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTestView.swift; sourceTree = "<group>"; };
+		939605482D0C7EFA00AEEA5D /* MeasurementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementType.swift; sourceTree = "<group>"; };
+		9396054A2D0C818500AEEA5D /* WaterQualityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterQualityManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,11 +155,11 @@
 			isa = PBXGroup;
 			children = (
 				9389E2052D04DE37001BAAE7 /* App */,
-				9389E2062D04DE40001BAAE7 /* Features */,
-				9389E2072D04DE4B001BAAE7 /* Services */,
-				9389E20A2D04DE69001BAAE7 /* Resources */,
-				9389E2082D04DE54001BAAE7 /* Models */,
 				9389E2092D04DE5D001BAAE7 /* Components */,
+				9389E2062D04DE40001BAAE7 /* Features */,
+				9389E2082D04DE54001BAAE7 /* Models */,
+				9389E20A2D04DE69001BAAE7 /* Resources */,
+				9389E2072D04DE4B001BAAE7 /* Services */,
 			);
 			path = "Koi Cal";
 			sourceTree = "<group>";
@@ -202,11 +203,11 @@
 		9389E2062D04DE40001BAAE7 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				9389E20E2D04DF73001BAAE7 /* HealthPlan */,
 				9389E20D2D04DF69001BAAE7 /* FeedingHIstory */,
-				9389E20C2D04DF53001BAAE7 /* WaterTest */,
 				9389E20B2D04DF3D001BAAE7 /* Goals */,
+				9389E20E2D04DF73001BAAE7 /* HealthPlan */,
 				9308F23A2D09CFF6009B2951 /* SettingsScreen */,
+				9389E20C2D04DF53001BAAE7 /* WaterTest */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -227,7 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */,
-				9323620D2D0354560003DCCD /* WaterMeasurement.swift */,
+				939605482D0C7EFA00AEEA5D /* MeasurementType.swift */,
 				9389E20F2D04E187001BAAE7 /* Types.swift */,
 			);
 			path = Models;
@@ -266,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				9323620E2D0354560003DCCD /* WaterMeasurementView.swift */,
+				9396054A2D0C818500AEEA5D /* WaterQualityManager.swift */,
 				9389E2222D04FDD1001BAAE7 /* WaterTestView.swift */,
 				9323620F2D0354560003DCCD /* WaterQualityView.swift */,
 			);
@@ -278,7 +280,6 @@
 				9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */,
 				9389E21C2D04E846001BAAE7 /* FeedingHistoryView.swift */,
 				9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */,
-				9355BEF92CF4F019007B1A78 /* FeedingEntryView.swift */,
 			);
 			path = FeedingHIstory;
 			sourceTree = "<group>";
@@ -433,11 +434,12 @@
 				937EB6172CF89CFF002C0B54 /* SplashScreenView.swift in Sources */,
 				9389E2102D04E187001BAAE7 /* Types.swift in Sources */,
 				934336D92D00C12400A3689F /* MainTabView.swift in Sources */,
+				939605492D0C7EFA00AEEA5D /* MeasurementType.swift in Sources */,
+				9396054B2D0C818500AEEA5D /* WaterQualityManager.swift in Sources */,
 				9387B5102D022E1E00F6B3B9 /* HeaderView.swift in Sources */,
 				932362102D0354560003DCCD /* WaterQualityView.swift in Sources */,
 				9389E2232D04FDD8001BAAE7 /* WaterTestView.swift in Sources */,
 				932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */,
-				932362122D0354560003DCCD /* WaterMeasurement.swift in Sources */,
 				9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */,
 				9355BEEE2CF4EEEA007B1A78 /* LocationManager.swift in Sources */,
 				9355BEEF2CF4EEEA007B1A78 /* SettingsManager.swift in Sources */,

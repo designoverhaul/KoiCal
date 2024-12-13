@@ -142,14 +142,18 @@ struct HealthPlanView: View {
                 feedingHistory: lastFeeding
             )
             
-            feedingFrequency = recommendations.feedingFrequency
-            foodType = recommendations.foodType
-            pondReport = recommendations.pondReport
+            DispatchQueue.main.async {
+                self.feedingFrequency = recommendations.feedingFrequency
+                self.foodType = recommendations.foodType
+                self.pondReport = recommendations.pondReport
+            }
         } catch {
             print("❌ Recommendation error: \(error)")
-            feedingFrequency = "Error getting recommendation"
-            foodType = "Error getting recommendation"
-            pondReport = "Error getting recommendation"
+            DispatchQueue.main.async {
+                self.feedingFrequency = "Error getting recommendation"
+                self.foodType = "Error getting recommendation"
+                self.pondReport = "Error getting recommendation"
+            }
         }
     }
     

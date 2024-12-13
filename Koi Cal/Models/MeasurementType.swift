@@ -1,4 +1,3 @@
-import Foundation
 import SwiftUI
 
 enum MeasurementType: String, CaseIterable {
@@ -44,7 +43,7 @@ enum MeasurementType: String, CaseIterable {
         case .nitrate:
             return ["-", "0", "10", "25", "50", "100", "250", "500"]
         case .nitrite:
-            return ["-", "0", "1", "5", "10", "20", "40", "80"]
+            return ["-", "0", "0.5", "1.0", "2.0", "5.0", "10.0", "20.0"]
         case .phLow:
             return ["-", "6.0", "6.5", "7.0", "7.5", "8.0", "8.5", "9.0"]
         case .kh:
@@ -98,7 +97,7 @@ enum MeasurementType: String, CaseIterable {
                 Color(hex: "9FD1AB"),  // 120
                 Color(hex: "8BC7B1"),  // 180
                 Color(hex: "6BC5C5"),  // 240
-                Color(hex: "6BC5C5")   // 360 (using 240 color)
+                Color(hex: "6BC5C5")   // 360
             ]
         case .gh:
             return [
@@ -112,39 +111,5 @@ enum MeasurementType: String, CaseIterable {
                 Color.clear            // Empty placeholder
             ]
         }
-    }
-}
-
-class WaterQualityManager: ObservableObject {
-    @AppStorage("waterQuality_nitrate") private var nitrateValue: Int = 0
-    @AppStorage("waterQuality_nitrite") private var nitriteValue: Int = 0
-    @AppStorage("waterQuality_ph") private var phValue: Int = 0
-    @AppStorage("waterQuality_kh") private var khValue: Int = 0
-    @AppStorage("waterQuality_gh") private var ghValue: Int = 0
-    
-    @Published var measurements: [MeasurementType: Int] = [:] {
-        didSet {
-            // Save values to persistent storage
-            nitrateValue = measurements[.nitrate] ?? nitrateValue
-            nitriteValue = measurements[.nitrite] ?? nitriteValue
-            phValue = measurements[.phLow] ?? phValue
-            khValue = measurements[.kh] ?? khValue
-            ghValue = measurements[.gh] ?? ghValue
-        }
-    }
-    
-    init() {
-        // Initialize measurements with stored values
-        measurements = [
-            .nitrate: nitrateValue,
-            .nitrite: nitriteValue,
-            .phLow: phValue,
-            .kh: khValue,
-            .gh: ghValue
-        ]
-    }
-    
-    func updateMeasurement(_ type: MeasurementType, value: Int) {
-        measurements[type] = value
     }
 } 

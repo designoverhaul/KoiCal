@@ -1,43 +1,50 @@
+import SwiftUI
+import Foundation
+
 class WaterQualityManager: ObservableObject {
-    @Published var measurements: [MeasurementType: Int] = [:] {
+    @Published var measurements: [MeasurementType: Double] = [:] {
         didSet {
-            // Save values to persistent storage
-            UserDefaults.standard.set(measurements[.nitrate] ?? 0, forKey: "waterQuality_nitrate")
-            UserDefaults.standard.set(measurements[.nitrite] ?? 0, forKey: "waterQuality_nitrite")
-            UserDefaults.standard.set(measurements[.phLow] ?? 0, forKey: "waterQuality_ph")
-            UserDefaults.standard.set(measurements[.kh] ?? 0, forKey: "waterQuality_kh")
-            UserDefaults.standard.set(measurements[.gh] ?? 0, forKey: "waterQuality_gh")
+            // Print all current measurements whenever they change
+            print("\n💧 Water Test:")
+            if let nitrate = measurements[.nitrate] {
+                print("Nitrate: \(nitrate) mg/L")
+            }
+            if let nitrite = measurements[.nitrite] {
+                print("Nitrite: \(nitrite) mg/L")
+            }
+            if let ph = measurements[.phLow] {
+                print("pH: \(ph)")
+            }
+            if let kh = measurements[.kh] {
+                print("KH: \(kh) ppm")
+            }
+            if let gh = measurements[.gh] {
+                print("GH: \(gh) ppm")
+            }
+            
+            // Save values to UserDefaults
+            for (key, value) in measurements {
+                UserDefaults.standard.set(value, forKey: "waterQuality_\(key.rawValue)")
+            }
         }
     }
     
     init() {
-        // Initialize measurements with stored values
-        measurements = [
-            .nitrate: UserDefaults.standard.integer(forKey: "waterQuality_nitrate"),
-            .nitrite: UserDefaults.standard.integer(forKey: "waterQuality_nitrite"),
-            .phLow: UserDefaults.standard.integer(forKey: "waterQuality_ph"),
-            .kh: UserDefaults.standard.integer(forKey: "waterQuality_kh"),
-            .gh: UserDefaults.standard.integer(forKey: "waterQuality_gh")
-        ]
-    }
-    
-    func getWaterQuality() -> WaterQuality {
-        let quality = WaterQuality(
-            nitrate: getMeasurementValue(for: .nitrate),
-            nitrite: getMeasurementValue(for: .nitrite),
-            ph: getMeasurementValue(for: .phLow),
-            carbonateHardness: getMeasurementValue(for: .kh),
-            generalHardness: getMeasurementValue(for: .gh)
-        )
-        return quality
-    }
-    
-    private func getMeasurementValue(for type: MeasurementType) -> Double? {
-        guard let index = measurements[type], index > 0 else { return nil }
-        return Double(type.values[index].replacingOccurrences(of: "-", with: ""))
+        // Load saved values
+        for type in MeasurementType.allCases {
+            if let savedValue = UserDefaults.standard.object(forKey: "waterQuality_\(type.rawValue)") as? Double {
+                measurements[type] = savedValue
+            }
+        }
     }
     
     func updateMeasurement(_ type: MeasurementType, value: Int) {
-        measurements[type] = value
+        let valueString = type.values[value]
+        if valueString == "-" {
+            measurements[type] = nil
+        } else if let doubleValue = Double(valueString.replacingOccurrences(of: ",", with: "")) {
+            measurements[type] = doubleValue
+            print("Updated \(type) to: \(doubleValue)")
+        }
     }
 } 

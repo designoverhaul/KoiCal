@@ -100,8 +100,8 @@ class XAIService: ObservableObject {
         let request = ChatRequest(
             messages: messages,
             model: "grok-beta",
-            temperature: 0.7,
-            max_tokens: 300
+            temperature: 0.6,
+            max_tokens: 250
         )
         
         var urlRequest = URLRequest(url: URL(string: XAIConfig.apiURL)!)
@@ -144,14 +144,14 @@ class XAIService: ObservableObject {
             var capturingPondReport = false
             
             for line in lines {
-                if line.starts(with: "**FOOD TYPE:**") {
-                    foodType = line.replacingOccurrences(of: "**FOOD TYPE:**", with: "").trimmingCharacters(in: .whitespaces)
+                if line.starts(with: "FOOD TYPE:") {
+                    foodType = line.replacingOccurrences(of: "FOOD TYPE:", with: "").trimmingCharacters(in: .whitespaces)
                     capturingPondReport = false
-                } else if line.starts(with: "**FEEDING FREQUENCY:**") {
-                    feedingFrequency = line.replacingOccurrences(of: "**FEEDING FREQUENCY:**", with: "").trimmingCharacters(in: .whitespaces)
+                } else if line.starts(with: "FEEDING FREQUENCY:") {
+                    feedingFrequency = line.replacingOccurrences(of: "FEEDING FREQUENCY:", with: "").trimmingCharacters(in: .whitespaces)
                     capturingPondReport = false
-                } else if line.starts(with: "**POND REPORT:**") {
-                    pondReport = line.replacingOccurrences(of: "**POND REPORT:**", with: "").trimmingCharacters(in: .whitespaces)
+                } else if line.starts(with: "POND REPORT:") {
+                    pondReport = line.replacingOccurrences(of: "POND REPORT:", with: "").trimmingCharacters(in: .whitespaces)
                     capturingPondReport = true
                 } else if capturingPondReport && !line.isEmpty {
                     pondReport += "\n" + line.trimmingCharacters(in: .whitespaces)

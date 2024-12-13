@@ -19,10 +19,21 @@ struct WaterQualityView: View {
                     WaterMeasurementView(
                         type: type,
                         selectedValue: Binding(
-                            get: { waterQualityManager.measurements[type] ?? 0 },
+                            get: { 
+                                if let value = waterQualityManager.measurements[type] {
+                                    // Find the index of the closest value
+                                    return type.values.firstIndex { valueStr in
+                                        if let doubleValue = Double(valueStr.replacingOccurrences(of: ",", with: "")) {
+                                            return abs(doubleValue - value) < 0.01
+                                        }
+                                        return false
+                                    }
+                                }
+                                return nil
+                            },
                             set: { newValue in
-                                if let unwrappedValue = newValue {
-                                    waterQualityManager.updateMeasurement(type, value: unwrappedValue)
+                                if let index = newValue {
+                                    waterQualityManager.updateMeasurement(type, value: index)
                                 }
                             }
                         )
