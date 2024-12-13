@@ -21,7 +21,7 @@ struct MainTabView: View {
             }
             .tabItem {
                 Label {
-                    Text("Feeding History")
+                    Text("Koi Cal")
                 } icon: {
                     Image(systemName: "calendar")
                         .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)

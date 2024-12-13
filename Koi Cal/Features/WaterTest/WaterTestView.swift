@@ -33,6 +33,23 @@ struct WaterTestView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
+                // Order Test Strips Button
+                Button(action: {
+                    if let url = URL(string: "https://a.co/d/1bkuSDW") {
+                        UIApplication.shared.open(url)
+                    }
+                }) {
+                    Text("Order test strips")
+                        .font(.system(size: 16))
+                        .foregroundColor(.blue)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                }
+                .buttonStyle(.borderless)
+                .padding(.horizontal, 20)
+                .padding(.top, 16)
+                .padding(.bottom, 8)
+                
                 VStack(alignment: .leading, spacing: 24) {
                     // Water Quality Measurements
                     WaterQualityView()

@@ -23,11 +23,18 @@ struct GoalsView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                VStack(alignment: .leading, spacing: 24) {
+                Text("Get daily advice on each selections based on your unique fish and pond conditions.")
+                    .font(.subheadline)
+                    .foregroundColor(.primary)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 8)
+                    .padding(.bottom, 16)
+                
+                VStack(alignment: .leading, spacing: 32) {
                     
                     // Objectives Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Objectives")
+                        Text("Swimprovements")
                             .font(.headline)
                         
                         VStack(alignment: .leading, spacing: 8) {
@@ -39,7 +46,7 @@ struct GoalsView: View {
                     
                     // Problems Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Problems")
+                        Text("Concerns")
                             .font(.headline)
                         
                         VStack(alignment: .leading, spacing: 8) {
@@ -54,9 +61,10 @@ struct GoalsView: View {
                     
                     // Water Clarity Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Are you having water clarity issues?")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color(hex: "565656"))
+                        Text("Water Clarity Issues")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.primary)
                         
                         VStack(alignment: .leading, spacing: 8) {
                             ForEach(0..<4) { index in
@@ -85,7 +93,14 @@ struct GoalsView: View {
                 .padding(.top, 24)
             }
         }
-        .navigationTitle("Goals")
+        .navigationTitle("🎯 Goals")
         .navigationBarTitleDisplayMode(.large)
+       
+    }
+}
+
+#Preview {
+    NavigationView {
+        GoalsView()
     }
 }
