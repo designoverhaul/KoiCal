@@ -67,13 +67,6 @@ class XAIService: ObservableObject {
         if lackAppetite { selectedConcerns.append("Lack of appetite") }
         if obesityBloating { selectedConcerns.append("Obesity/bloating") }
         if constantHiding { selectedConcerns.append("Constant hiding") }
-        if waterClarity > 0 {
-            selectedConcerns.append(waterClarityText.replacingOccurrences(of: " ", with: ""))
-        }
-
-        let concernsPrompt = selectedConcerns.isEmpty ? "" : 
-            "\n\nFor each of these specific concerns, provide targeted advice:\n" + 
-            selectedConcerns.joined(separator: "\n")
 
         let messages = [
             Message(role: "system", content: XAIConfig.systemPrompt),
@@ -100,22 +93,25 @@ class XAIService: ObservableObject {
                 - Obesity/Bloating: \(obesityBloating)
                 - Constant Hiding: \(constantHiding)
                 
-                Provide three recommendations:
-                1. FOOD TYPE: Recommend the appropriate food type.
-                2. FEEDING FREQUENCY: Provide the feeding frequency in the specified format.
-                3. POND REPORT: Analyze water test results and provide recommendations.
+                Provide these recommendations in the exact format shown, keeping responses brief and focused:
                 
-                Format your response exactly like this:
-                FOOD TYPE: [your recommendation]
-                FEEDING FREQUENCY: [your recommendation]
-                POND REPORT: [your analysis and recommendations]
+                FOOD TYPE: [One or two sentences recommending appropriate food type]
                 
-                \(selectedConcerns.isEmpty ? "" : "\nThen provide specific advice for each concern:")
+                FEEDING FREQUENCY: [One sentence about feeding frequency considering location, date, and temperature]
+                
+                POND REPORT: [Maximum two key points about pond health]
+                
+                \(waterClarity > 0 ? """
+                CONCERN: \(waterClarityText)
+                ADVICE: [Two sentences maximum addressing this water clarity issue]
+                """ : "")
+                
+                \(selectedConcerns.isEmpty ? "" : "\nFor each concern, provide a focused two-sentence recommendation:")
                 \(selectedConcerns.map { concern in 
                     """
                     
                     CONCERN: \(concern)
-                    ADVICE: [Provide specific recommendation for \(concern)]
+                    ADVICE: [Two sentences maximum addressing this specific issue]
                     """
                 }.joined(separator: "\n"))
                 """)
@@ -173,22 +169,23 @@ class XAIService: ObservableObject {
             var currentConcern = ""
             
             for line in lines {
-                if line.starts(with: "FOOD TYPE:") {
-                    foodType = line.replacingOccurrences(of: "FOOD TYPE:", with: "").trimmingCharacters(in: .whitespaces)
-                    capturingPondReport = false
-                } else if line.starts(with: "FEEDING FREQUENCY:") {
-                    feedingFrequency = line.replacingOccurrences(of: "FEEDING FREQUENCY:", with: "").trimmingCharacters(in: .whitespaces)
-                    capturingPondReport = false
-                } else if line.starts(with: "POND REPORT:") {
-                    pondReport = line.replacingOccurrences(of: "POND REPORT:", with: "").trimmingCharacters(in: .whitespaces)
+                let cleanLine = line.replacingOccurrences(of: "**", with: "")
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                if cleanLine.starts(with: "FOOD TYPE:") {
+                    foodType = cleanLine.replacingOccurrences(of: "FOOD TYPE:", with: "").trimmingCharacters(in: .whitespaces)
+                } else if cleanLine.starts(with: "FEEDING FREQUENCY:") {
+                    feedingFrequency = cleanLine.replacingOccurrences(of: "FEEDING FREQUENCY:", with: "").trimmingCharacters(in: .whitespaces)
+                } else if cleanLine.starts(with: "POND REPORT:") {
+                    pondReport = cleanLine.replacingOccurrences(of: "POND REPORT:", with: "").trimmingCharacters(in: .whitespaces)
                     capturingPondReport = true
-                } else if capturingPondReport && !line.isEmpty && !line.starts(with: "CONCERN:") {
-                    pondReport += "\n" + line.trimmingCharacters(in: .whitespaces)
-                } else if line.starts(with: "CONCERN:") {
+                } else if capturingPondReport && !cleanLine.isEmpty && !cleanLine.starts(with: "CONCERN:") {
+                    pondReport += "\n" + cleanLine.trimmingCharacters(in: .whitespaces)
+                } else if cleanLine.starts(with: "CONCERN:") {
                     capturingPondReport = false
-                    currentConcern = line.replacingOccurrences(of: "CONCERN:", with: "").trimmingCharacters(in: .whitespaces)
-                } else if line.starts(with: "ADVICE:") {
-                    let advice = line.replacingOccurrences(of: "ADVICE:", with: "").trimmingCharacters(in: .whitespaces)
+                    currentConcern = cleanLine.replacingOccurrences(of: "CONCERN:", with: "").trimmingCharacters(in: .whitespaces)
+                } else if cleanLine.starts(with: "ADVICE:") {
+                    let advice = cleanLine.replacingOccurrences(of: "ADVICE:", with: "").trimmingCharacters(in: .whitespaces)
                     if !currentConcern.isEmpty {
                         concernRecommendations[currentConcern] = advice
                         currentConcern = ""

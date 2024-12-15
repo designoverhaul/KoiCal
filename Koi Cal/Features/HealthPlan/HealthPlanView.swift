@@ -217,6 +217,12 @@ struct HealthPlanView: View {
                 self.foodType = recommendations.foodType
                 self.pondReport = recommendations.pondReport
                 self.concernRecommendations = recommendations.concernRecommendations
+                
+                // Debug prints
+                print("\n🔍 Debug Concerns:")
+                print("Water Clarity Status: \(waterClarity)")
+                print("Water Clarity Text: \(getWaterClarityText())")
+                print("All Recommendations: \(concernRecommendations)")
             }
         } catch {
             print("❌ Recommendation error: \(error)")
@@ -280,7 +286,7 @@ struct HealthPlanView: View {
                     if waterClarity > 0 {
                         InfoCardView(
                             title: getWaterClarityTitle(),
-                            content: concernRecommendations[getWaterClarityText().replacingOccurrences(of: " ", with: "")] ?? "Loading...",
+                            content: concernRecommendations[getWaterClarityText()] ?? "Loading...",
                             showSparkle: true
                         )
                     }
