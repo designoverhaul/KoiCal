@@ -36,6 +36,8 @@ struct HealthPlanView: View {
     private static var hasLogged = false
     #endif
     
+    @State private var concernRecommendations: [String: String] = [:]
+    
     init() {
         #if DEBUG
         // Only log once in debug builds
@@ -78,12 +80,12 @@ struct HealthPlanView: View {
         return (selectedGoals, selectedProblems)
     }
     
-    private func getWaterClarityIssue() -> String? {
+    private func getWaterClarityText() -> String {
         switch waterClarity {
-        case 1: return "Green water"
-        case 2: return "Black or dark water"
-        case 3: return "Cloudy water"
-        default: return nil
+        case 1: return "🟢 Green Water"
+        case 2: return "⚫ Black or dark water"
+        case 3: return "☁️ Cloudy water"
+        default: return ""
         }
     }
     
@@ -148,7 +150,8 @@ struct HealthPlanView: View {
             }
             
             print("\n💧 Water Clarity:")
-            if let clarityIssue = getWaterClarityIssue() {
+            let clarityIssue = getWaterClarityText()
+            if !clarityIssue.isEmpty {
                 print("• \(clarityIssue)")
             } else {
                 print("No issues reported")
@@ -202,6 +205,7 @@ struct HealthPlanView: View {
                 self.feedingFrequency = recommendations.feedingFrequency
                 self.foodType = recommendations.foodType
                 self.pondReport = recommendations.pondReport
+                self.concernRecommendations = recommendations.concernRecommendations
             }
         } catch {
             print("❌ Recommendation error: \(error)")
@@ -242,12 +246,22 @@ struct HealthPlanView: View {
                     )
                     
                     // Pond Report Section Title
-                    HStack(spacing: 8) {
-                        Image(systemName: "water.waves")
-                            .foregroundColor(.orange)
-                        Text("Pond Report")
-                            .font(.title2)
-                            .fontWeight(.semibold)
+                    HStack {
+                        HStack(spacing: 8) {
+                            Image(systemName: "water.waves")
+                                .foregroundColor(.orange)
+                            Text("Pond Report")
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                        }
+                        
+                        Spacer()
+                        
+                        if waterClarity > 0 {
+                            Text(getWaterClarityText())
+                                .font(.system(size: 13))
+                                .foregroundColor(.secondary)
+                        }
                     }
                     .padding(.top, 8)
                     .padding(.bottom, 4)
@@ -269,6 +283,55 @@ struct HealthPlanView: View {
                     }
                     .padding(.top, 8)
                     .padding(.bottom, 4)
+                    
+                    // Individual Concern Sections
+                    if sicknessOrDeath {
+                        InfoCardView(
+                            title: "Sickness or Death",
+                            content: concernRecommendations["Sickness or death"] ?? "Loading...",
+                            showSparkle: true
+                        )
+                    }
+                    
+                    if lowEnergy {
+                        InfoCardView(
+                            title: "Low Energy",
+                            content: concernRecommendations["Low energy"] ?? "Loading...",
+                            showSparkle: true
+                        )
+                    }
+                    
+                    if stuntedGrowth {
+                        InfoCardView(
+                            title: "Stunted Growth",
+                            content: concernRecommendations["Stunted growth"] ?? "Loading...",
+                            showSparkle: true
+                        )
+                    }
+                    
+                    if lackOfAppetite {
+                        InfoCardView(
+                            title: "Lack of Appetite",
+                            content: concernRecommendations["Lack of appetite"] ?? "Loading...",
+                            showSparkle: true
+                        )
+                    }
+                    
+                    if obesity {
+                        InfoCardView(
+                            title: "Obesity or Bloating",
+                            content: concernRecommendations["Obesity/bloating"] ?? "Loading...",
+                            showSparkle: true
+                        )
+                    }
+                    
+                    if constantHiding {
+                        InfoCardView(
+                            title: "Constant Hiding",
+                            content: concernRecommendations["Constant hiding"] ?? "Loading...",
+                            showSparkle: true
+                        )
+                    }
                     
                     // Water Temperature Section
                     InfoCardView(

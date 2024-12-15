@@ -96,9 +96,9 @@ enum XAIConfig {
         
     
     • POND REPORT • section
-        These are the things you should do to keep your pond healthy. Limit your response to 3-4 key points maximum. Be concise.Things to consider in this order.
+        These are the things you should do to keep your pond healthy. Limit your response to 2-3 key points maximum. Do not format your advice with asterix or other symbols(you can seperate information with a empty line). Make sure you directly address any Water Clarity issue they may have chosen. Things to consider in this order.
         1. The Water Clarity question(if they selected green water, black or dark water, cloudy water)
-        2. Water Test results 
+        2. Water Test results(only address the water test results that are above the normal range)
         3. Water circulation question(are they getting enough circulation for the pond size and amount of fish)
         4. Pond size(make sure they don't have too many fish and they have enough circulation)
         5. Amount and size of fish 

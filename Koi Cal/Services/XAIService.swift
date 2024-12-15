@@ -31,6 +31,7 @@ class XAIService: ObservableObject {
         let feedingFrequency: String
         let foodType: String
         let pondReport: String
+        let concernRecommendations: [String: String]
     }
     
     func getRecommendation(
@@ -57,6 +58,18 @@ class XAIService: ObservableObject {
         dateFormatter.dateFormat = "MMMM d"
         let currentDate = dateFormatter.string(from: Date())
         
+        var selectedConcerns: [String] = []
+        if sicknessDeath { selectedConcerns.append("Sickness or death") }
+        if lowEnergy { selectedConcerns.append("Low energy") }
+        if stuntedGrowth { selectedConcerns.append("Stunted growth") }
+        if lackAppetite { selectedConcerns.append("Lack of appetite") }
+        if obesityBloating { selectedConcerns.append("Obesity/bloating") }
+        if constantHiding { selectedConcerns.append("Constant hiding") }
+
+        let concernsPrompt = selectedConcerns.isEmpty ? "" : 
+            "\n\nFor each of these specific concerns, provide targeted advice:\n" + 
+            selectedConcerns.joined(separator: "\n")
+
         let messages = [
             Message(role: "system", content: XAIConfig.systemPrompt),
             Message(role: "user", content: """
@@ -91,6 +104,15 @@ class XAIService: ObservableObject {
                 FOOD TYPE: [your recommendation]
                 FEEDING FREQUENCY: [your recommendation]
                 POND REPORT: [your analysis and recommendations]
+                
+                \(selectedConcerns.isEmpty ? "" : "\nThen provide specific advice for each concern:")
+                \(selectedConcerns.map { concern in 
+                    """
+                    
+                    CONCERN: \(concern)
+                    ADVICE: [Provide specific recommendation for \(concern)]
+                    """
+                }.joined(separator: "\n"))
                 """)
         ]
         
@@ -142,26 +164,35 @@ class XAIService: ObservableObject {
             var feedingFrequency = "No feeding recommendation available"
             var pondReport = "No pond report available"
             var capturingPondReport = false
+            var concernRecommendations: [String: String] = [:]
+            var currentConcern = ""
             
             for line in lines {
                 if line.starts(with: "FOOD TYPE:") {
                     foodType = line.replacingOccurrences(of: "FOOD TYPE:", with: "").trimmingCharacters(in: .whitespaces)
-                    capturingPondReport = false
                 } else if line.starts(with: "FEEDING FREQUENCY:") {
                     feedingFrequency = line.replacingOccurrences(of: "FEEDING FREQUENCY:", with: "").trimmingCharacters(in: .whitespaces)
-                    capturingPondReport = false
                 } else if line.starts(with: "POND REPORT:") {
                     pondReport = line.replacingOccurrences(of: "POND REPORT:", with: "").trimmingCharacters(in: .whitespaces)
                     capturingPondReport = true
-                } else if capturingPondReport && !line.isEmpty {
+                } else if capturingPondReport && !line.isEmpty && !line.starts(with: "CONCERN:") {
                     pondReport += "\n" + line.trimmingCharacters(in: .whitespaces)
+                } else if line.starts(with: "CONCERN:") {
+                    capturingPondReport = false
+                    currentConcern = line.replacingOccurrences(of: "CONCERN:", with: "").trimmingCharacters(in: .whitespaces)
+                } else if line.starts(with: "ADVICE:") && !capturingPondReport {
+                    let advice = line.replacingOccurrences(of: "ADVICE:", with: "").trimmingCharacters(in: .whitespaces)
+                    if !currentConcern.isEmpty {
+                        concernRecommendations[currentConcern] = advice
+                    }
                 }
             }
             
             return Recommendations(
                 feedingFrequency: feedingFrequency,
                 foodType: foodType,
-                pondReport: pondReport
+                pondReport: pondReport,
+                concernRecommendations: concernRecommendations
             )
         } catch {
             print("❌ ERROR: \(error)")
