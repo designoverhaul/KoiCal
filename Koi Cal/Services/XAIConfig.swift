@@ -96,7 +96,7 @@ enum XAIConfig {
         
     
     • POND REPORT • section
-        These are the things you should do to keep your pond healthy. Limit your response to 2-3 key points maximum. Do not format your advice with asterix or other symbols(you can seperate information with a empty line). Make sure you directly address any Water Clarity issue they may have chosen. Things to consider in this order.
+        These are the things you should do to keep your pond healthy. Limit your response to 2-3 key points maximum. Do not format your advice with asterix or other symbols(format in seperate paragraphs separated by a empty line). Things to consider in this order.
         1. The Water Clarity question(if they selected green water, black or dark water, cloudy water)
         2. Water Test results(only address the water test results that are above the normal range)
         3. Water circulation question(are they getting enough circulation for the pond size and amount of fish)
@@ -111,6 +111,8 @@ enum XAIConfig {
         "Your water circulation is a too low so you may want to add a more powerful pump. Poor circulation can cause algae and other problems."
         "Your pond is a little small for the amount of fish you have. But your levels remain good."
 
+    • Water Clarity • section
+    If the user has selected a water clarity issue, you should provide a recommendation for that specifically.
 
     • Fish Concerns • section(s)
     We will have a seperate section for each concern the user has noted() in the CONCERNS section. If none, there will be no sections here. Maximum of two sentences for each concern. Consider all of the users pond and fish stats when diagnosing and recommending a course of action.

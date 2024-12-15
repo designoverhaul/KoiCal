@@ -89,6 +89,15 @@ struct HealthPlanView: View {
         }
     }
     
+    private func getWaterClarityTitle() -> String {
+        switch waterClarity {
+        case 1: return "Green Water 🟢"
+        case 2: return "Black or Dark Water "
+        case 3: return "Cloudy Water ☁️"
+        default: return ""
+        }
+    }
+    
     private func getFeedingHistory() -> String {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
@@ -198,7 +207,9 @@ struct HealthPlanView: View {
                 waterTest: waterTestString,
                 pondSize: pondVolume,
                 fishCount: fishCount.isEmpty ? "Not specified" : fishCount,
-                feedingHistory: ""
+                feedingHistory: "",
+                waterClarity: waterClarity,
+                waterClarityText: getWaterClarityText()
             )
             
             DispatchQueue.main.async {
@@ -250,17 +261,9 @@ struct HealthPlanView: View {
                         HStack(spacing: 8) {
                             Image(systemName: "water.waves")
                                 .foregroundColor(.orange)
-                            Text("Pond Report")
+                            Text("Water")
                                 .font(.title2)
                                 .fontWeight(.semibold)
-                        }
-                        
-                        Spacer()
-                        
-                        if waterClarity > 0 {
-                            Text(getWaterClarityText())
-                                .font(.system(size: 13))
-                                .foregroundColor(.secondary)
                         }
                     }
                     .padding(.top, 8)
@@ -268,10 +271,19 @@ struct HealthPlanView: View {
                     
                     // Pond Report Section
                     InfoCardView(
-                        title: "",
+                        title: "Pond Report",
                         content: pondReport,
                         showSparkle: true
                     )
+                    
+                    // Water Clarity Section (only if an issue is selected)
+                    if waterClarity > 0 {
+                        InfoCardView(
+                            title: getWaterClarityTitle(),
+                            content: concernRecommendations[getWaterClarityText().replacingOccurrences(of: " ", with: "")] ?? "Loading...",
+                            showSparkle: true
+                        )
+                    }
                     
                     // Fish Concerns Section Title
                     HStack(spacing: 8) {
@@ -283,6 +295,16 @@ struct HealthPlanView: View {
                     }
                     .padding(.top, 8)
                     .padding(.bottom, 4)
+                    
+                    // Show "None 👍" if no concerns are selected
+                    if !sicknessOrDeath && !lowEnergy && !stuntedGrowth && 
+                       !lackOfAppetite && !obesity && !constantHiding {
+                        InfoCardView(
+                            title: "",
+                            content: "None 👍",
+                            showSparkle: false
+                        )
+                    }
                     
                     // Individual Concern Sections
                     if sicknessOrDeath {
@@ -332,13 +354,6 @@ struct HealthPlanView: View {
                             showSparkle: true
                         )
                     }
-                    
-                    // Water Temperature Section
-                    InfoCardView(
-                        title: "Water Temperature",
-                        content: "\(Int(weatherManager.currentTemperature ?? 0))°F",
-                        showSparkle: false
-                    )
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 16)

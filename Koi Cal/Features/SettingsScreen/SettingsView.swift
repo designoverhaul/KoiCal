@@ -235,7 +235,9 @@ struct SettingsView: View {
                     waterTest: "Not implemented yet",
                     pondSize: pondVolume,
                     fishCount: fishCount,
-                    feedingHistory: getFeedingHistory()
+                    feedingHistory: getFeedingHistory(),
+                    waterClarity: 0,
+                    waterClarityText: ""
                 )
             }
         }

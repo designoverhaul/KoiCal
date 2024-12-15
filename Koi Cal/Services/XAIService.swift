@@ -50,7 +50,9 @@ class XAIService: ObservableObject {
         waterTest: String,
         pondSize: String,
         fishCount: String, 
-        feedingHistory: String
+        feedingHistory: String,
+        waterClarity: Int,
+        waterClarityText: String
     ) async throws -> Recommendations {
         print("\n🚀 === Starting XAI Request ===")
         
@@ -65,6 +67,9 @@ class XAIService: ObservableObject {
         if lackAppetite { selectedConcerns.append("Lack of appetite") }
         if obesityBloating { selectedConcerns.append("Obesity/bloating") }
         if constantHiding { selectedConcerns.append("Constant hiding") }
+        if waterClarity > 0 {
+            selectedConcerns.append(waterClarityText.replacingOccurrences(of: " ", with: ""))
+        }
 
         let concernsPrompt = selectedConcerns.isEmpty ? "" : 
             "\n\nFor each of these specific concerns, provide targeted advice:\n" + 
@@ -170,8 +175,10 @@ class XAIService: ObservableObject {
             for line in lines {
                 if line.starts(with: "FOOD TYPE:") {
                     foodType = line.replacingOccurrences(of: "FOOD TYPE:", with: "").trimmingCharacters(in: .whitespaces)
+                    capturingPondReport = false
                 } else if line.starts(with: "FEEDING FREQUENCY:") {
                     feedingFrequency = line.replacingOccurrences(of: "FEEDING FREQUENCY:", with: "").trimmingCharacters(in: .whitespaces)
+                    capturingPondReport = false
                 } else if line.starts(with: "POND REPORT:") {
                     pondReport = line.replacingOccurrences(of: "POND REPORT:", with: "").trimmingCharacters(in: .whitespaces)
                     capturingPondReport = true
@@ -180,10 +187,11 @@ class XAIService: ObservableObject {
                 } else if line.starts(with: "CONCERN:") {
                     capturingPondReport = false
                     currentConcern = line.replacingOccurrences(of: "CONCERN:", with: "").trimmingCharacters(in: .whitespaces)
-                } else if line.starts(with: "ADVICE:") && !capturingPondReport {
+                } else if line.starts(with: "ADVICE:") {
                     let advice = line.replacingOccurrences(of: "ADVICE:", with: "").trimmingCharacters(in: .whitespaces)
                     if !currentConcern.isEmpty {
                         concernRecommendations[currentConcern] = advice
+                        currentConcern = ""
                     }
                 }
             }
