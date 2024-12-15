@@ -25,10 +25,33 @@ struct FeedingHistoryView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-               
-                
-                // Top Bar with Temperature
-                temperatureView
+                // Logo and Temperature in same HStack
+                HStack {
+                    Image("logoSVG")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 30)
+                    
+                    Spacer()
+                    
+                    // Temperature section
+                    VStack(alignment: .trailing) {
+                        Text("Water Temp")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        if let temp = weatherManager.currentTemperature {
+                            Text(formatTemperature(temp - 4))
+                                .font(.title)
+                        } else {
+                            Text(useMetric ? "--°C" : "--°F")
+                                .font(.title)
+                        }
+                    }
+                    .task {
+                        await weatherManager.updateTemperature()
+                    }
+                }
+                .padding(.horizontal)
                 
                 // Food Image Button
                 feedingButton
@@ -41,10 +64,9 @@ struct FeedingHistoryView: View {
                 // Feeding entries list
                 feedingEntriesList
             }
-            .padding(.top, 16) // Add padding here, adjust the value as needed
+            .padding(.top, 16)
+            .onAppear { hasSeenFeedTooltip = false }
         }
-        .navigationTitle("Feeding History")
-        .navigationBarTitleDisplayMode(.inline)
         .overlay {
             ForEach(animations, id: \.self) { id in
                 FallingPelletsView()
@@ -52,28 +74,6 @@ struct FeedingHistoryView: View {
         }
     }
 
-    private var temperatureView: some View {
-        HStack {
-            Spacer()
-            VStack(alignment: .trailing) {
-                Text("Water Temp")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                if let temp = weatherManager.currentTemperature {
-                    Text(formatTemperature(temp - 4))
-                        .font(.title)
-                } else {
-                    Text(useMetric ? "--°C" : "--°F")
-                        .font(.title)
-                }
-            }
-        }
-        .padding(.horizontal)
-        .task {
-            await weatherManager.updateTemperature()
-        }
-    }
-    
     private var feedingButton: some View {
         ZStack(alignment: .top) {
             VStack(spacing: 12) {

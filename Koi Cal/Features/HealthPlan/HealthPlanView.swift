@@ -217,6 +217,16 @@ struct HealthPlanView: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 12) {
+                    // Feeding Section Title
+                    HStack(spacing: 8) {
+                        Image(systemName: "fork.knife")
+                            .foregroundColor(.orange)
+                        Text("Feeding")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                    }
+                    .padding(.bottom, 4)
+                    
                     // Food Type Section
                     InfoCardView(
                         title: "Food Type",
@@ -231,12 +241,34 @@ struct HealthPlanView: View {
                         showSparkle: true
                     )
                     
+                    // Pond Report Section Title
+                    HStack(spacing: 8) {
+                        Image(systemName: "water.waves")
+                            .foregroundColor(.orange)
+                        Text("Pond Report")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                    }
+                    .padding(.top, 8)
+                    .padding(.bottom, 4)
+                    
                     // Pond Report Section
                     InfoCardView(
-                        title: "Pond Report",
+                        title: "",
                         content: pondReport,
                         showSparkle: true
                     )
+                    
+                    // Fish Concerns Section Title
+                    HStack(spacing: 8) {
+                        Image(systemName: "fish")
+                            .foregroundColor(.orange)
+                        Text("Fish Concerns")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                    }
+                    .padding(.top, 8)
+                    .padding(.bottom, 4)
                     
                     // Water Temperature Section
                     InfoCardView(

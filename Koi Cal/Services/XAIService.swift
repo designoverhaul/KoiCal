@@ -61,9 +61,9 @@ class XAIService: ObservableObject {
             Message(role: "system", content: XAIConfig.systemPrompt),
             Message(role: "user", content: """
                 The current date is \(currentDate).
-                Temperature: \(temperature)°F
+                Temperature: \(temperature)
                 Fish Age: \(fishAge)
-                Location: \(location)
+                PondLocation: \(location)
                 Water Test: \(waterTest)
                 Pond Size: \(pondSize)
                 Fish Count: \(fishCount)

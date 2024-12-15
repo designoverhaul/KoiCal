@@ -20,8 +20,9 @@ struct InfoCardView: View {
             HStack {
                 Text(title)
                     .font(.headline)
+                Spacer()
                 if showSparkle {
-                    Image(systemName: "sparkles")
+                    Image(systemName: "sparkle")
                         .foregroundColor(.orange)
                 }
             }
