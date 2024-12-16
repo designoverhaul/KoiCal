@@ -3,7 +3,7 @@ import SwiftUI
 struct HealthPlanView: View {
     @StateObject private var xaiService = XAIService()
     @StateObject private var weatherManager = WeatherManager()
-    @StateObject private var feedingData = FeedingData()
+    @EnvironmentObject private var feedingData: FeedingData
     @EnvironmentObject private var waterQualityManager: WaterQualityManager
     @State private var feedingFrequency = "Loading..."
     @State private var foodType = "Loading..."
@@ -381,6 +381,7 @@ struct HealthPlanView: View {
                 await updateRecommendations()
             }
             .refreshable {
+                print("♻️ User manually refreshed Health Plan")
                 await updateRecommendations()
             }
         }
@@ -391,5 +392,6 @@ struct HealthPlanView: View {
     NavigationView {
         HealthPlanView()
             .environmentObject(WaterQualityManager())
+            .environmentObject(FeedingData())
     }
 } 

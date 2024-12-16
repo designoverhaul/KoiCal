@@ -18,6 +18,7 @@ struct MainTabView: View {
             // Feeding History Tab
             NavigationView {
                 FeedingHistoryView()
+                    .environmentObject(feedingData)
             }
             .tabItem {
                 Label {
@@ -48,6 +49,8 @@ struct MainTabView: View {
             // Health Plan Tab
             NavigationView {
                 HealthPlanView()
+                    .environmentObject(feedingData)
+                    .environmentObject(waterQualityManager)
             }
             .tabItem {
                 Label {
@@ -63,6 +66,7 @@ struct MainTabView: View {
             // Water Test Tab
             NavigationView {
                 WaterTestView()
+                    .environmentObject(waterQualityManager)
             }
             .tabItem {
                 Label {
@@ -98,6 +102,7 @@ struct MainTabView: View {
             .onAppear { print("📱 Tab 4: SettingsView appeared") }
         }
         .environmentObject(waterQualityManager)
+        .environmentObject(feedingData)
         .tint(activeColor)
         .onAppear {
             print("📱 MainTabView appeared")
