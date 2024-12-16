@@ -245,145 +245,149 @@ struct HealthPlanView: View {
     }
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 12) {
-                    // Feeding Section Title
-                    HStack(spacing: 8) {
-                        Image(systemName: "fork.knife")
-                            .foregroundColor(.orange)
-                        Text("Feeding")
-                            .font(.title2)
-                            .fontWeight(.semibold)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 32) {
+                // Generate Health Plan Button
+                Button {
+                    Task {
+                        print("🔄 Generating new health plan...")
+                        await updateRecommendations()
                     }
-                    .padding(.bottom, 4)
+                } label: {
+                    Text("Generate New Health Plan")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.orange)
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 24)
+                
+                // Rest of the content sections
+                VStack(alignment: .leading, spacing: 24) {
+                    // Feeding Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Feeding")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.primary)
+                        
+                        InfoCardView(
+                            title: "Food Type",
+                            content: foodType,
+                            showSparkle: true
+                        )
+                        
+                        InfoCardView(
+                            title: "Feeding Frequency",
+                            content: feedingFrequency,
+                            showSparkle: true
+                        )
+                    }
+                    .padding(.horizontal, 20)
                     
-                    // Food Type Section
-                    InfoCardView(
-                        title: "Food Type",
-                        content: foodType,
-                        showSparkle: true
-                    )
-                    
-                    // Feeding Frequency Section
-                    InfoCardView(
-                        title: "Feeding Frequency",
-                        content: feedingFrequency,
-                        showSparkle: true
-                    )
-                    
-                    // Pond Report Section Title
-                    HStack {
-                        HStack(spacing: 8) {
-                            Image(systemName: "water.waves")
-                                .foregroundColor(.orange)
-                            Text("Water")
-                                .font(.title2)
-                                .fontWeight(.semibold)
+                    // Water Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Water")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.primary)
+                        
+                        InfoCardView(
+                            title: "Pond Report",
+                            content: pondReport,
+                            showSparkle: true
+                        )
+                        
+                        if waterClarity > 0 {
+                            InfoCardView(
+                                title: getWaterClarityTitle(),
+                                content: concernRecommendations[getWaterClarityText()] ?? "Loading...",
+                                showSparkle: true
+                            )
                         }
                     }
-                    .padding(.top, 8)
-                    .padding(.bottom, 4)
+                    .padding(.horizontal, 20)
                     
-                    // Pond Report Section
-                    InfoCardView(
-                        title: "Pond Report",
-                        content: pondReport,
-                        showSparkle: true
-                    )
-                    
-                    // Water Clarity Section (only if an issue is selected)
-                    if waterClarity > 0 {
-                        InfoCardView(
-                            title: getWaterClarityTitle(),
-                            content: concernRecommendations[getWaterClarityText()] ?? "Loading...",
-                            showSparkle: true
-                        )
-                    }
-                    
-                    // Fish Concerns Section Title
-                    HStack(spacing: 8) {
-                        Image(systemName: "fish")
-                            .foregroundColor(.orange)
+                    // Fish Concerns Section
+                    VStack(alignment: .leading, spacing: 12) {
                         Text("Fish Concerns")
-                            .font(.title2)
+                            .font(.title3)
                             .fontWeight(.semibold)
+                            .foregroundColor(.primary)
+                        
+                        if !sicknessOrDeath && !lowEnergy && !stuntedGrowth && 
+                           !lackOfAppetite && !obesity && !constantHiding {
+                            InfoCardView(
+                                title: "",
+                                content: "None 👍",
+                                showSparkle: false
+                            )
+                        }
+                        
+                        if sicknessOrDeath {
+                            InfoCardView(
+                                title: "Sickness or Death",
+                                content: concernRecommendations["Sickness or death"] ?? "Loading...",
+                                showSparkle: true
+                            )
+                        }
+                        
+                        if lowEnergy {
+                            InfoCardView(
+                                title: "Low Energy",
+                                content: concernRecommendations["Low energy"] ?? "Loading...",
+                                showSparkle: true
+                            )
+                        }
+                        
+                        if stuntedGrowth {
+                            InfoCardView(
+                                title: "Stunted Growth",
+                                content: concernRecommendations["Stunted growth"] ?? "Loading...",
+                                showSparkle: true
+                            )
+                        }
+                        
+                        if lackOfAppetite {
+                            InfoCardView(
+                                title: "Lack of Appetite",
+                                content: concernRecommendations["Lack of appetite"] ?? "Loading...",
+                                showSparkle: true
+                            )
+                        }
+                        
+                        if obesity {
+                            InfoCardView(
+                                title: "Obesity or Bloating",
+                                content: concernRecommendations["Obesity/bloating"] ?? "Loading...",
+                                showSparkle: true
+                            )
+                        }
+                        
+                        if constantHiding {
+                            InfoCardView(
+                                title: "Constant Hiding",
+                                content: concernRecommendations["Constant hiding"] ?? "Loading...",
+                                showSparkle: true
+                            )
+                        }
                     }
-                    .padding(.top, 8)
-                    .padding(.bottom, 4)
+                    .padding(.horizontal, 20)
                     
-                    // Show "None 👍" if no concerns are selected
-                    if !sicknessOrDeath && !lowEnergy && !stuntedGrowth && 
-                       !lackOfAppetite && !obesity && !constantHiding {
-                        InfoCardView(
-                            title: "",
-                            content: "None 👍",
-                            showSparkle: false
-                        )
-                    }
-                    
-                    // Individual Concern Sections
-                    if sicknessOrDeath {
-                        InfoCardView(
-                            title: "Sickness or Death",
-                            content: concernRecommendations["Sickness or death"] ?? "Loading...",
-                            showSparkle: true
-                        )
-                    }
-                    
-                    if lowEnergy {
-                        InfoCardView(
-                            title: "Low Energy",
-                            content: concernRecommendations["Low energy"] ?? "Loading...",
-                            showSparkle: true
-                        )
-                    }
-                    
-                    if stuntedGrowth {
-                        InfoCardView(
-                            title: "Stunted Growth",
-                            content: concernRecommendations["Stunted growth"] ?? "Loading...",
-                            showSparkle: true
-                        )
-                    }
-                    
-                    if lackOfAppetite {
-                        InfoCardView(
-                            title: "Lack of Appetite",
-                            content: concernRecommendations["Lack of appetite"] ?? "Loading...",
-                            showSparkle: true
-                        )
-                    }
-                    
-                    if obesity {
-                        InfoCardView(
-                            title: "Obesity or Bloating",
-                            content: concernRecommendations["Obesity/bloating"] ?? "Loading...",
-                            showSparkle: true
-                        )
-                    }
-                    
-                    if constantHiding {
-                        InfoCardView(
-                            title: "Constant Hiding",
-                            content: concernRecommendations["Constant hiding"] ?? "Loading...",
-                            showSparkle: true
-                        )
-                    }
+                    // Bottom padding
+                    Spacer()
+                        .frame(height: 100)
                 }
-                .padding(.horizontal, 16)
-                .padding(.top, 16)
             }
-            .navigationTitle("Health Plan")
-            .navigationBarTitleDisplayMode(.large)
-            .task {
-                await weatherManager.updateTemperature()
-                await updateRecommendations()
-            }
-            .refreshable {
-                print("♻️ User manually refreshed Health Plan")
-                await updateRecommendations()
-            }
+        }
+        .navigationTitle("✨ Health Plan")
+        .navigationBarTitleDisplayMode(.large)
+        .task {
+            await weatherManager.updateTemperature()
+            await updateRecommendations()
         }
     }
 }
