@@ -133,16 +133,17 @@ struct HealthPlanView: View {
             let (selectedGoals, selectedProblems) = getSelectedIssues()
             
             print("\n📊 Settings:")
-            print("Temperature: \(Int(temperature)) °F")
-            print("Location: \(location)")
-            print("Fish Age: \(getAgeString())")
-            print("Fish Size: \(fishSize)")
+            print("Temperature: \(weatherManager.currentTemperature != nil ? formatTemperature(weatherManager.currentTemperature! - 4) : "Not available")")
+            print("Location: \(location.isEmpty ? "Not specified" : location)")
+            print("Fish Age: \(selectedAge == 1 ? "Adult" : selectedAge == 2 ? "Juvenile" : "Mixed")")
+            print("Fish Size: \(fishSize == FishSize.small.rawValue ? "Small" : fishSize == FishSize.medium.rawValue ? "Medium" : "Large")")
             print("Fish Count: \(fishCount.isEmpty ? "Not specified" : fishCount)")
-            print("Pond Volume: \(pondVolume.isEmpty ? "Not specified" : "\(pondVolume) \(useMetric ? "liters" : "gallons")")")
-            print("Sunlight Hours: \(sunlightHours.isEmpty ? "Not specified" : "\(sunlightHours) hours")")
-            print("Water Circulation: \(circulationTime.isEmpty ? "Not specified" : "\(circulationTime) seconds per gallon")")
+            print("Pond Volume: \(pondVolume.isEmpty ? "Not specified" : pondVolume)")
+            print("Sunlight Hours: \(sunlightHours.isEmpty ? "Not specified" : sunlightHours)")
+            print("Water Circulation: \(circulationTime.isEmpty ? "Not specified" : circulationTime)")
             print("Current Food Type: \(currentFoodType)")
             print("Measurement System: \(useMetric ? "Metric" : "Imperial")")
+            print("Fed Yesterday: \(feedingData.fedYesterday ? "Yes" : "No")")
             
             print("\n🎯 Objectives:")
             if selectedGoals.isEmpty {
@@ -231,6 +232,15 @@ struct HealthPlanView: View {
                 self.foodType = "Error getting recommendation"
                 self.pondReport = "Error getting recommendation"
             }
+        }
+    }
+    
+    private func formatTemperature(_ fahrenheit: Double) -> String {
+        if useMetric {
+            let celsius = (fahrenheit - 32) * 5/9
+            return String(format: "%.0f°C", celsius)
+        } else {
+            return String(format: "%.0f°F", fahrenheit)
         }
     }
     

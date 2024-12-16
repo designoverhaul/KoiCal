@@ -16,17 +16,21 @@ class FeedingData: ObservableObject {
     @Published var feedings: [Date: Int] = [:] {
         didSet {
             saveFeedingData()
+            updateFedYesterday()
         }
     }
     @Published var feedingEntries: [FeedingEntry] = [] {
         didSet {
             saveFeedingData()
+            updateFedYesterday()
         }
     }
     @Published var currentFoodType: String = "High Protein"
+    @Published private(set) var fedYesterday: Bool = false
     
     init() {
         loadFeedingData()
+        updateFedYesterday()
     }
     
     private func saveFeedingData() {
@@ -79,6 +83,12 @@ class FeedingData: ObservableObject {
                 )
             }
         }
+    }
+    
+    private func updateFedYesterday() {
+        let calendar = Calendar.current
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: Date())!
+        fedYesterday = getFeedingCount(for: yesterday) > 0
     }
     
     func toggleFeeding(for date: Date) {
