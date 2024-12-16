@@ -246,7 +246,15 @@ struct HealthPlanView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 32) {
+            VStack(alignment: .leading, spacing: 16) {
+                // Warning message
+                Text("Health Plan recommendations should be used as a guide only. Consult a professional before making drastic changes.")
+                    .font(.subheadline)
+                    .foregroundColor(.primary)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 8)
+                    .padding(.bottom, 8)
+                
                 // Generate Health Plan Button
                 Button {
                     Task {
@@ -254,16 +262,20 @@ struct HealthPlanView: View {
                         await updateRecommendations()
                     }
                 } label: {
-                    Text("Generate New Health Plan")
+                    Text("Get New Plan")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(hex: "F18833"))
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.orange)
+                        .background(Color(hex: "FFEDDA"))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color(hex: "F18833"), lineWidth: 1)
+                        )
                         .cornerRadius(10)
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 24)
+                .padding(.bottom, 12)
                 
                 // Rest of the content sections
                 VStack(alignment: .leading, spacing: 24) {

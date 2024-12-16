@@ -29,134 +29,29 @@ struct SettingsView: View {
     private let foodTypes = ["High Protein", "Cool Season"]
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section("Fish Details") {
-                    Picker("Age of Fish", selection: $selectedAgeGroup) {
-                        ForEach(ageGroups, id: \.self) { age in
-                            Text(age).tag(age)
-                        }
+        Form {
+            Section("Food") {
+                Picker("Current Food Type", selection: $feedingData.currentFoodType) {
+                    ForEach(foodTypes, id: \.self) { food in
+                        Text(food).tag(food)
+                    }
+                }
+            }
+            
+            Section("Fish Information") {
+                Picker("Average fish size", selection: $fishSize) {
+                    ForEach(FishSize.allCases, id: \.rawValue) { size in
+                        Text(size.rawValue).tag(size.rawValue)
                     }
                 }
                 
-                Section("Food") {
-                    Picker("Current Food Type", selection: $feedingData.currentFoodType) {
-                        ForEach(foodTypes, id: \.self) { food in
-                            Text(food).tag(food)
-                        }
+                Picker("Age of Fish", selection: $selectedAgeGroup) {
+                    ForEach(ageGroups, id: \.self) { age in
+                        Text(age).tag(age)
                     }
                 }
                 
-                Section("Measurements") {
-                    Picker("Measurement System", selection: $useMetric) {
-                        Text("Imperial").tag(false)
-                        Text("Metric").tag(true)
-                    }
-                    .pickerStyle(.segmented)
-                }
-                
-                Section {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("How many \(volumeLabel.lowercased()) is your pond?")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color(hex: "565656"))
-                        
-                        TextField(volumeLabel, text: $pondVolume)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.numberPad)
-                            .focused($isVolumeFieldFocused)
-                            .onChange(of: pondVolume) { oldValue, newValue in
-                                let filtered = newValue.filter { $0.isNumber }
-                                if filtered != newValue {
-                                    pondVolume = filtered
-                                }
-                                if let number = Int(filtered) {
-                                    pondVolume = number.formatted(.number)
-                                }
-                            }
-                        
-                        Text("How many hours of direct sunlight does your pond get per day?")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color(hex: "565656"))
-                        
-                        TextField("Hours", text: $sunlightHours)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.numberPad)
-                            .focused($isSunlightFieldFocused)
-                        
-                        Text("Where is your pond located?")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color(hex: "565656"))
-                        
-                        TextField("Enter location", text: $searchText)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .autocorrectionDisabled()
-                            .focused($isLocationFieldFocused)
-                            .onChange(of: searchText) { oldValue, newValue in
-                                if newValue.count > 2 {
-                                    searchCompleter.search(query: newValue)
-                                }
-                            }
-                        
-                        if !searchCompleter.suggestions.isEmpty && searchText.count > 2 && isLocationFieldFocused {
-                            VStack(alignment: .leading, spacing: 8) {
-                                ForEach(searchCompleter.suggestions, id: \.self) { suggestion in
-                                    Button(action: {
-                                        savedLocation = suggestion.title
-                                        searchText = suggestion.title
-                                        isLocationFieldFocused = false
-                                        Task {
-                                            await weatherManager.updateTemperature()
-                                        }
-                                    }) {
-                                        VStack(alignment: .leading, spacing: 4) {
-                                            Text(suggestion.title)
-                                                .foregroundColor(.primary)
-                                            Text(suggestion.subtitle)
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
-                                        }
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .contentShape(Rectangle())
-                                    }
-                                    .buttonStyle(.plain)
-                                    .padding(.vertical, 8)
-                                    
-                                    if suggestion != searchCompleter.suggestions.last {
-                                        Divider()
-                                    }
-                                }
-                            }
-                            .padding(8)
-                            .background(Color(.systemBackground))
-                            .cornerRadius(8)
-                            .shadow(radius: 2)
-                        }
-                        
-                        Text("How many seconds does it take your water circulation to fill a \(circulationLabel)?")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color(hex: "565656"))
-                        
-                        TextField("Seconds", text: $circulationTime)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.numberPad)
-                            .focused($isCirculationFieldFocused)
-                            .onChange(of: circulationTime) { oldValue, newValue in
-                                let filtered = newValue.filter { $0.isNumber }
-                                if filtered != newValue {
-                                    circulationTime = filtered
-                                }
-                            }
-                    }
-                }
-                
-                Section(header: Text("Fish Information")) {
-                    Picker("Average fish size", selection: $fishSize) {
-                        ForEach(FishSize.allCases, id: \.rawValue) { size in
-                            Text(size.rawValue).tag(size.rawValue)
-                        }
-                    }
-                    
+                VStack(alignment: .leading, spacing: 8) {
                     Text("How many fish are in your pond?")
                         .font(.system(size: 16))
                         .foregroundColor(Color(hex: "565656"))
@@ -176,41 +71,144 @@ struct SettingsView: View {
                         }
                 }
             }
-            .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button("Done") {
-                        isVolumeFieldFocused = false
-                        isSunlightFieldFocused = false
-                        isLocationFieldFocused = false
-                        isCirculationFieldFocused = false
-                        isFishCountFieldFocused = false
+            
+            Section("Pond Information") {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Where is your pond located?")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(hex: "565656"))
+                    
+                    TextField("Enter location", text: $searchText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .autocorrectionDisabled()
+                        .focused($isLocationFieldFocused)
+                        .onChange(of: searchText) { oldValue, newValue in
+                            if newValue.count > 2 {
+                                searchCompleter.search(query: newValue)
+                            }
+                        }
+                    
+                    if !searchCompleter.suggestions.isEmpty && searchText.count > 2 && isLocationFieldFocused {
+                        VStack(alignment: .leading, spacing: 8) {
+                            ForEach(searchCompleter.suggestions, id: \.self) { suggestion in
+                                Button(action: {
+                                    savedLocation = suggestion.title
+                                    searchText = suggestion.title
+                                    isLocationFieldFocused = false
+                                    Task {
+                                        await weatherManager.updateTemperature()
+                                    }
+                                }) {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(suggestion.title)
+                                            .foregroundColor(.primary)
+                                        Text(suggestion.subtitle)
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .contentShape(Rectangle())
+                                }
+                                .buttonStyle(.plain)
+                                .padding(.vertical, 8)
+                                
+                                if suggestion != searchCompleter.suggestions.last {
+                                    Divider()
+                                }
+                            }
+                        }
+                        .padding(8)
+                        .background(Color(.systemBackground))
+                        .cornerRadius(8)
+                        .shadow(radius: 2)
                     }
+                    
+                    Text("How many \(volumeLabel.lowercased()) is your pond?")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(hex: "565656"))
+                    
+                    TextField(volumeLabel, text: $pondVolume)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .focused($isVolumeFieldFocused)
+                        .onChange(of: pondVolume) { oldValue, newValue in
+                            let filtered = newValue.filter { $0.isNumber }
+                            if filtered != newValue {
+                                pondVolume = filtered
+                            }
+                            if let number = Int(filtered) {
+                                pondVolume = number.formatted(.number)
+                            }
+                        }
+                    
+                    Text("How many hours of direct sunlight does your pond get per day?")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(hex: "565656"))
+                    
+                    TextField("Hours", text: $sunlightHours)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .focused($isSunlightFieldFocused)
+                    
+                    Text("How many seconds does it take your water circulation to fill a \(circulationLabel)?")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(hex: "565656"))
+                    
+                    TextField("Seconds", text: $circulationTime)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .focused($isCirculationFieldFocused)
+                        .onChange(of: circulationTime) { oldValue, newValue in
+                            let filtered = newValue.filter { $0.isNumber }
+                            if filtered != newValue {
+                                circulationTime = filtered
+                            }
+                        }
                 }
             }
-            .onChange(of: selectedAgeGroup) { _, _ in
-                debounceUpdate()
+            
+            Section {
+                Picker("Measurement System", selection: $useMetric) {
+                    Text("Imperial").tag(false)
+                    Text("Metric").tag(true)
+                }
+                .pickerStyle(.segmented)
             }
-            .onChange(of: selectedObjective) { _, _ in
-                debounceUpdate()
+        }
+        .navigationTitle("⚙️ Settings")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isVolumeFieldFocused = false
+                    isSunlightFieldFocused = false
+                    isLocationFieldFocused = false
+                    isCirculationFieldFocused = false
+                    isFishCountFieldFocused = false
+                }
             }
-            .onChange(of: feedingData.currentFoodType) { _, _ in
-                debounceUpdate()
-            }
-            .onChange(of: useMetric) { oldValue, newValue in
-                if !pondVolume.isEmpty {
-                    let cleanVolume = pondVolume.replacingOccurrences(of: ",", with: "")
-                    if let volume = Double(cleanVolume) {
-                        let converted: Double
-                        if newValue {
-                            converted = volume * 3.78541
-                        } else {
-                            converted = volume / 3.78541
-                        }
-                        pondVolume = Int(converted).formatted(.number)
+        }
+        .onChange(of: selectedAgeGroup) { _, _ in
+            debounceUpdate()
+        }
+        .onChange(of: selectedObjective) { _, _ in
+            debounceUpdate()
+        }
+        .onChange(of: feedingData.currentFoodType) { _, _ in
+            debounceUpdate()
+        }
+        .onChange(of: useMetric) { oldValue, newValue in
+            if !pondVolume.isEmpty {
+                let cleanVolume = pondVolume.replacingOccurrences(of: ",", with: "")
+                if let volume = Double(cleanVolume) {
+                    let converted: Double
+                    if newValue {
+                        converted = volume * 3.78541
+                    } else {
+                        converted = volume / 3.78541
                     }
+                    pondVolume = Int(converted).formatted(.number)
                 }
             }
         }
@@ -281,6 +279,19 @@ struct SettingsView: View {
         updateTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
             updateRecommendation()
         }
+    }
+}
+
+#Preview("Settings") {
+    NavigationView {
+        SettingsView(
+            selectedAgeGroup: .constant("Mixed"),
+            selectedObjective: .constant("General Health"),
+            feedingData: FeedingData(),
+            xaiService: XAIService(),
+            weatherManager: WeatherManager(),
+            locationManager: LocationManager()
+        )
     }
 } 
 
