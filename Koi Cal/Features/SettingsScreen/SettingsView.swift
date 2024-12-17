@@ -217,9 +217,11 @@ struct SettingsView: View {
     private func updateRecommendation() {
         Task {
             if let temperature = weatherManager.currentTemperature {
-                _ = try? await xaiService.getRecommendation(
+                let recommendations = try await xaiService.getRecommendation(
                     temperature: temperature,
                     fishAge: selectedAgeGroup,
+                    fishSize: fishSize == FishSize.small.rawValue ? "Small" : 
+                             fishSize == FishSize.medium.rawValue ? "Medium" : "Large",
                     improveColor: false,
                     growthAndBreeding: false,
                     improvedBehavior: false,

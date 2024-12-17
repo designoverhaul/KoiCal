@@ -139,6 +139,7 @@ struct HealthPlanView: View {
             print("pH: \(waterQualityManager.measurements[.pH] ?? 0)")
             print("KH: \(waterQualityManager.measurements[.kh] ?? 0)")
             print("GH: \(waterQualityManager.measurements[.gh] ?? 0)")
+            print("Fish Size: \(fishSize == FishSize.small.rawValue ? "Small" : fishSize == FishSize.medium.rawValue ? "Medium" : "Large")")
             
             let waterTestString = """
                 Nitrate: \(waterQualityManager.measurements[.nitrate].map { "\(Int($0))" } ?? "Not tested") mg/L
@@ -154,6 +155,8 @@ struct HealthPlanView: View {
             let recommendations = try await xaiService.getRecommendation(
                 temperature: temperature,
                 fishAge: getAgeString(),
+                fishSize: fishSize == FishSize.small.rawValue ? "Small" : 
+                         fishSize == FishSize.medium.rawValue ? "Medium" : "Large",
                 improveColor: selectedGoals.contains("Improve color"),
                 growthAndBreeding: selectedGoals.contains("Growth and breeding"),
                 improvedBehavior: selectedGoals.contains("Improved behavior"),
@@ -360,33 +363,6 @@ struct HealthPlanView: View {
                     }
                     .padding(.horizontal, 20)
                     
-                    // Add this view section before the bottom padding
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "drop.fill")
-                                .foregroundColor(Color(hex: "F18833"))
-                                .font(.title3)
-                            
-                            Text("Current Water Parameters")
-                                .font(.title3)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.primary)
-                        }
-                        
-                        InfoCardView(
-                            title: "Water Test Results",
-                            content: """
-                                Nitrate: \(waterQualityManager.measurements[.nitrate].map { "\(Int($0)) mg/L" } ?? "Not tested")
-                                Nitrite: \(waterQualityManager.measurements[.nitrite].map { String(format: "%.1f mg/L", $0) } ?? "Not tested")
-                                pH: \(waterQualityManager.measurements[.pH].map { String(format: "%.1f", $0) } ?? "Not tested")
-                                KH: \(waterQualityManager.measurements[.kh].map { "\(Int($0)) ppm" } ?? "Not tested")
-                                GH: \(waterQualityManager.measurements[.gh].map { "\(Int($0)) ppm" } ?? "Not tested")
-                                """,
-                            showSparkle: false
-                        )
-                    }
-                    .padding(.horizontal, 20)
-                    
                     // Bottom padding
                     Spacer()
                         .frame(height: 100)
@@ -395,14 +371,14 @@ struct HealthPlanView: View {
         }
         .navigationTitle("✨ Health Plan")
         .navigationBarTitleDisplayMode(.large)
-        .onChange(of: waterQualityManager.measurements) { oldValue, newValue in
-            Task {
+        .task {
+            // Only get temperature on initial load
+            await weatherManager.updateTemperature()
+            
+            // Only get initial recommendations if we don't have any yet
+            if feedingFrequency == "Loading..." {
                 await updateRecommendations()
             }
-        }
-        .task {
-            await weatherManager.updateTemperature()
-            await updateRecommendations()
         }
     }
 }

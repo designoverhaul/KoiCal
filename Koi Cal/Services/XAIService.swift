@@ -37,6 +37,7 @@ class XAIService: ObservableObject {
     func getRecommendation(
         temperature: Double,
         fishAge: String,
+        fishSize: String,
         improveColor: Bool,
         growthAndBreeding: Bool,
         improvedBehavior: Bool,
@@ -99,6 +100,7 @@ class XAIService: ObservableObject {
                 The current date is \(currentDate).
                 Sunlight adjusted water temp: \(String(format: "%.0f°F", temperature))
                 Fish Age: \(fishAge)
+                Fish Size: \(fishSize)
                 PondLocation: \(location)
                 Water Test: \(waterTest)
                 Pond Size: \(pondSize)
