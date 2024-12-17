@@ -1,51 +1,58 @@
 import SwiftUI
-import Foundation
 
 class WaterQualityManager: ObservableObject {
-    @Published var measurements: [MeasurementType: Double] = [:] {
-        didSet {
-            // Just save to UserDefaults, no printing
-            for (key, value) in measurements {
-                UserDefaults.standard.set(value, forKey: "waterQuality_\(key.rawValue)")
-            }
-        }
-    }
+    @AppStorage("waterQuality.nitrate") private var nitrateValue: Double?
+    @AppStorage("waterQuality.nitrite") private var nitriteValue: Double?
+    @AppStorage("waterQuality.pH") private var pHValue: Double?
+    @AppStorage("waterQuality.kh") private var khValue: Double?
+    @AppStorage("waterQuality.gh") private var ghValue: Double?
+    
+    @Published var measurements: [MeasurementType: Double] = [:]
     
     init() {
-        // Load saved values
-        for type in MeasurementType.allCases {
-            if let savedValue = UserDefaults.standard.object(forKey: "waterQuality_\(type.rawValue)") as? Double {
-                measurements[type] = savedValue
-            }
-        }
+        // Load from AppStorage
+        if let nitrate = nitrateValue { measurements[.nitrate] = nitrate }
+        if let nitrite = nitriteValue { measurements[.nitrite] = nitrite }
+        if let pH = pHValue { measurements[.pH] = pH }
+        if let kh = khValue { measurements[.kh] = kh }
+        if let gh = ghValue { measurements[.gh] = gh }
     }
     
     func updateMeasurement(_ type: MeasurementType, value: Int) {
         let valueString = type.values[value]
-        print("⚡️ Updating \(type) with value: \(valueString)")
+        print("\n🔄 Updating measurement:")
+        print("Type: \(type)")
+        print("Value index: \(value)")
+        print("Value string: \(valueString)")
         
         if valueString == "-" {
             measurements[type] = nil
+            // Clear AppStorage
+            switch type {
+            case .nitrate: nitrateValue = nil
+            case .nitrite: nitriteValue = nil
+            case .pH: pHValue = nil
+            case .kh: khValue = nil
+            case .gh: ghValue = nil
+            }
         } else if let doubleValue = Double(valueString.replacingOccurrences(of: ",", with: "")) {
             measurements[type] = doubleValue
-            
-            // Print complete water test after each update
-            print("\n💧 Water Test:")
-            if let nitrate = measurements[.nitrate] {
-                print("Nitrate: \(Int(nitrate)) mg/L")  // Remove decimal
-            }
-            if let nitrite = measurements[.nitrite] {
-                print("Nitrite: \(nitrite) mg/L")  // Keep decimal for nitrite
-            }
-            if let ph = measurements[.pH] {
-                print("pH: \(String(format: "%.1f", ph))")  // Keep one decimal for pH
-            }
-            if let kh = measurements[.kh] {
-                print("KH: \(Int(kh)) ppm")  // Remove decimal
-            }
-            if let gh = measurements[.gh] {
-                print("GH: \(Int(gh)) ppm")  // Remove decimal
+            // Update AppStorage
+            switch type {
+            case .nitrate: nitrateValue = doubleValue
+            case .nitrite: nitriteValue = doubleValue
+            case .pH: pHValue = doubleValue
+            case .kh: khValue = doubleValue
+            case .gh: ghValue = doubleValue
             }
         }
+        
+        // Debug print current values
+        print("\n💧 Water Test Values:")
+        if let nitrate = measurements[.nitrate] { print("Nitrate: \(Int(nitrate)) mg/L") }
+        if let nitrite = measurements[.nitrite] { print("Nitrite: \(nitrite) mg/L") }
+        if let ph = measurements[.pH] { print("pH: \(String(format: "%.1f", ph))") }
+        if let kh = measurements[.kh] { print("KH: \(Int(kh)) ppm") }
+        if let gh = measurements[.gh] { print("GH: \(Int(gh)) ppm") }
     }
 } 

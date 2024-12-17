@@ -132,65 +132,24 @@ struct HealthPlanView: View {
         do {
             let (selectedGoals, selectedProblems) = getSelectedIssues()
             
-            print("\n📊 Settings:")
-            print("Temperature: \(weatherManager.currentTemperature != nil ? formatTemperature(weatherManager.currentTemperature! - 4) : "Not available")")
-            print("Location: \(location.isEmpty ? "Not specified" : location)")
-            print("Fish Age: \(selectedAge == 1 ? "Adult" : selectedAge == 2 ? "Juvenile" : "Mixed")")
-            print("Fish Size: \(fishSize == FishSize.small.rawValue ? "Small" : fishSize == FishSize.medium.rawValue ? "Medium" : "Large")")
-            print("Fish Count: \(fishCount.isEmpty ? "Not specified" : fishCount)")
-            print("Pond Volume: \(pondVolume.isEmpty ? "Not specified" : pondVolume)")
-            print("Sunlight Hours: \(sunlightHours.isEmpty ? "Not specified" : sunlightHours)")
-            print("Water Circulation: \(circulationTime.isEmpty ? "Not specified" : circulationTime)")
-            print("Current Food Type: \(currentFoodType)")
-            print("Measurement System: \(useMetric ? "Metric" : "Imperial")")
-            print("Fed Yesterday: \(feedingData.fedYesterday ? "Yes" : "No")")
-            
-            print("\n🎯 Objectives:")
-            if selectedGoals.isEmpty {
-                print("None selected")
-            } else {
-                selectedGoals.forEach { print("• \($0)") }
-            }
-            
-            print("\n⚠️ Problems:")
-            if selectedProblems.isEmpty {
-                print("None selected")
-            } else {
-                selectedProblems.forEach { print("• \($0)") }
-            }
-            
-            print("\n💧 Water Clarity:")
-            let clarityIssue = getWaterClarityText()
-            if !clarityIssue.isEmpty {
-                print("• \(clarityIssue)")
-            } else {
-                print("No issues reported")
-            }
-            
-            print("\n💧 Water Test:")
-            if let nitrate = waterQualityManager.measurements[.nitrate] {
-                print("Nitrate: \(nitrate)")
-            }
-            if let nitrite = waterQualityManager.measurements[.nitrite] {
-                print("Nitrite: \(nitrite)")
-            }
-            if let ph = waterQualityManager.measurements[.pH] {
-                print("pH: \(ph)")
-            }
-            if let kh = waterQualityManager.measurements[.kh] {
-                print("KH Carbonate Hardness: \(kh)")
-            }
-            if let gh = waterQualityManager.measurements[.gh] {
-                print("GH General Hardness: \(gh)")
-            }
+            // Debug print current measurements
+            print("\n🔍 Current Water Quality Measurements:")
+            print("Nitrate: \(waterQualityManager.measurements[.nitrate] ?? 0)")
+            print("Nitrite: \(waterQualityManager.measurements[.nitrite] ?? 0)")
+            print("pH: \(waterQualityManager.measurements[.pH] ?? 0)")
+            print("KH: \(waterQualityManager.measurements[.kh] ?? 0)")
+            print("GH: \(waterQualityManager.measurements[.gh] ?? 0)")
             
             let waterTestString = """
-                Nitrate: \(waterQualityManager.measurements[.nitrate].map { String(Int($0)) } ?? "Not tested") mg/L
+                Nitrate: \(waterQualityManager.measurements[.nitrate].map { "\(Int($0))" } ?? "Not tested") mg/L
                 Nitrite: \(waterQualityManager.measurements[.nitrite].map { String(format: "%.1f", $0) } ?? "Not tested") mg/L
                 pH: \(waterQualityManager.measurements[.pH].map { String(format: "%.1f", $0) } ?? "Not tested")
-                KH: \(waterQualityManager.measurements[.kh].map { String(Int($0)) } ?? "Not tested") ppm
-                GH: \(waterQualityManager.measurements[.gh].map { String(Int($0)) } ?? "Not tested") ppm
+                KH: \(waterQualityManager.measurements[.kh].map { "\(Int($0))" } ?? "Not tested") ppm
+                GH: \(waterQualityManager.measurements[.gh].map { "\(Int($0))" } ?? "Not tested") ppm
                 """
+            
+            print("\n📝 Water Test String being sent:")
+            print(waterTestString)
             
             let recommendations = try await xaiService.getRecommendation(
                 temperature: temperature,
@@ -208,7 +167,7 @@ struct HealthPlanView: View {
                 waterTest: waterTestString,
                 pondSize: pondVolume,
                 fishCount: fishCount.isEmpty ? "Not specified" : fishCount,
-                feedingHistory: "",
+                feedingHistory: getFeedingHistory(),
                 waterClarity: waterClarity,
                 waterClarityText: getWaterClarityText()
             )
@@ -218,12 +177,6 @@ struct HealthPlanView: View {
                 self.foodType = recommendations.foodType
                 self.pondReport = recommendations.pondReport
                 self.concernRecommendations = recommendations.concernRecommendations
-                
-                // Debug prints
-                print("\n🔍 Debug Concerns:")
-                print("Water Clarity Status: \(waterClarity)")
-                print("Water Clarity Text: \(getWaterClarityText())")
-                print("All Recommendations: \(concernRecommendations)")
             }
         } catch {
             print("❌ Recommendation error: \(error)")
@@ -407,6 +360,33 @@ struct HealthPlanView: View {
                     }
                     .padding(.horizontal, 20)
                     
+                    // Add this view section before the bottom padding
+                    VStack(alignment: .leading, spacing: 12) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "drop.fill")
+                                .foregroundColor(Color(hex: "F18833"))
+                                .font(.title3)
+                            
+                            Text("Current Water Parameters")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.primary)
+                        }
+                        
+                        InfoCardView(
+                            title: "Water Test Results",
+                            content: """
+                                Nitrate: \(waterQualityManager.measurements[.nitrate].map { "\(Int($0)) mg/L" } ?? "Not tested")
+                                Nitrite: \(waterQualityManager.measurements[.nitrite].map { String(format: "%.1f mg/L", $0) } ?? "Not tested")
+                                pH: \(waterQualityManager.measurements[.pH].map { String(format: "%.1f", $0) } ?? "Not tested")
+                                KH: \(waterQualityManager.measurements[.kh].map { "\(Int($0)) ppm" } ?? "Not tested")
+                                GH: \(waterQualityManager.measurements[.gh].map { "\(Int($0)) ppm" } ?? "Not tested")
+                                """,
+                            showSparkle: false
+                        )
+                    }
+                    .padding(.horizontal, 20)
+                    
                     // Bottom padding
                     Spacer()
                         .frame(height: 100)
@@ -415,6 +395,11 @@ struct HealthPlanView: View {
         }
         .navigationTitle("✨ Health Plan")
         .navigationBarTitleDisplayMode(.large)
+        .onChange(of: waterQualityManager.measurements) { oldValue, newValue in
+            Task {
+                await updateRecommendations()
+            }
+        }
         .task {
             await weatherManager.updateTemperature()
             await updateRecommendations()
