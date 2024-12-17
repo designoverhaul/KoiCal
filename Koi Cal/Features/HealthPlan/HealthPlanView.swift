@@ -281,10 +281,16 @@ struct HealthPlanView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     // Feeding Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Feeding")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
+                        HStack(spacing: 4) {
+                            Image(systemName: "fork.knife")
+                                .foregroundColor(Color(hex: "F18833"))
+                                .font(.title3)
+                            
+                            Text("Feeding")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.primary)
+                        }
                         
                         InfoCardView(
                             title: "Food Type",
@@ -302,10 +308,16 @@ struct HealthPlanView: View {
                     
                     // Water Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Water")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
+                        HStack(spacing: 4) {
+                            Image(systemName: "water.waves")
+                                .foregroundColor(Color(hex: "F18833"))
+                                .font(.title3)
+                            
+                            Text("Water")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.primary)
+                        }
                         
                         InfoCardView(
                             title: "Pond Report",
@@ -325,10 +337,16 @@ struct HealthPlanView: View {
                     
                     // Fish Concerns Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Fish Concerns")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
+                        HStack(spacing: 4) {
+                            Image(systemName: "cross.case.fill")
+                                .foregroundColor(Color(hex: "F18833"))
+                                .font(.title3)
+                            
+                            Text("Fish Concerns")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.primary)
+                        }
                         
                         if !sicknessOrDeath && !lowEnergy && !stuntedGrowth && 
                            !lackOfAppetite && !obesity && !constantHiding {

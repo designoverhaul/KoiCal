@@ -30,7 +30,7 @@ struct FeedingHistoryView: View {
                     Image("logoSVG")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 30)
+                        .frame(height: 43)
                     
                     Spacer()
                     
@@ -65,7 +65,6 @@ struct FeedingHistoryView: View {
                 feedingEntriesList
             }
             .padding(.top, 16)
-            .onAppear { hasSeenFeedTooltip = false }
         }
         .overlay {
             ForEach(animations, id: \.self) { id in
@@ -105,7 +104,7 @@ struct FeedingHistoryView: View {
                     .padding(.vertical, 6)
                     .background(Color.orange)
                     .cornerRadius(16)
-                    .offset(y: -25)
+                    .offset(y: -5)
                     .transition(.opacity)
             }
         }
