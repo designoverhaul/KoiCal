@@ -17,26 +17,29 @@ struct InfoCardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
+            if !title.isEmpty {
                 Text(title)
                     .font(.headline)
-                Spacer()
-                if showSparkle {
-                    Image(systemName: "sparkle")
-                        .foregroundColor(.orange)
-                }
+                    .foregroundColor(.primary)
             }
             
-            Text(content)
+            Text(content.trimmingCharacters(in: .whitespacesAndNewlines))
                 .font(.body)
-                .foregroundColor(.secondary)
+                .foregroundColor(.primary)
                 .fixedSize(horizontal: false, vertical: true)
-                .multilineTextAlignment(.leading)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(Color(.systemBackground))
+        .background(Color(UIColor.systemBackground))
         .cornerRadius(12)
-        .shadow(radius: 2)
+        .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 2)
+        .overlay(alignment: .topTrailing) {
+            if showSparkle {
+                Image(systemName: "sparkle")
+                    .foregroundColor(Color(hex: "F18833"))
+                    .font(.system(size: 14))
+                    .padding(8)
+            }
+        }
     }
 } 
