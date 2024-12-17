@@ -68,6 +68,31 @@ class XAIService: ObservableObject {
         if obesityBloating { selectedConcerns.append("Obesity/bloating") }
         if constantHiding { selectedConcerns.append("Constant hiding") }
 
+        var activeGoals: [String] = []
+        if improveColor { activeGoals.append("Improve Color") }
+        if growthAndBreeding { activeGoals.append("Growth and Breeding") }
+        if improvedBehavior { activeGoals.append("Improved Behavior") }
+
+        var activeProblems: [String] = []
+        if sicknessDeath { activeProblems.append("Sickness/Death") }
+        if lowEnergy { activeProblems.append("Low Energy") }
+        if stuntedGrowth { activeProblems.append("Stunted Growth") }
+        if lackAppetite { activeProblems.append("Lack Appetite") }
+        if obesityBloating { activeProblems.append("Obesity/Bloating") }
+        if constantHiding { activeProblems.append("Constant Hiding") }
+
+        let goalsSection = activeGoals.isEmpty ? "" : """
+            
+            Goals:
+            \(activeGoals.map { "- \($0)" }.joined(separator: "\n"))
+            """
+
+        let problemsSection = activeProblems.isEmpty ? "" : """
+            
+            Problems:
+            \(activeProblems.map { "- \($0)" }.joined(separator: "\n"))
+            """
+
         let messages = [
             Message(role: "system", content: XAIConfig.systemPrompt),
             Message(role: "user", content: """
@@ -78,20 +103,7 @@ class XAIService: ObservableObject {
                 Water Test: \(waterTest)
                 Pond Size: \(pondSize)
                 Fish Count: \(fishCount)
-                Feeding History: \(feedingHistory)
-                
-                Goals:
-                - Improve Color: \(improveColor)
-                - Growth and Breeding: \(growthAndBreeding)
-                - Improved Behavior: \(improvedBehavior)
-                
-                Problems:
-                - Sickness/Death: \(sicknessDeath)
-                - Low Energy: \(lowEnergy)
-                - Stunted Growth: \(stuntedGrowth)
-                - Lack Appetite: \(lackAppetite)
-                - Obesity/Bloating: \(obesityBloating)
-                - Constant Hiding: \(constantHiding)
+                Feeding History: \(feedingHistory)\(goalsSection)\(problemsSection)
                 
                 Provide these recommendations in the exact format shown, keeping responses brief and focused:
                 
