@@ -36,11 +36,11 @@ struct FeedingHistoryView: View {
                     
                     // Temperature section
                     VStack(alignment: .trailing) {
-                        Text("Water Temp")
+                        Text("Est. Water Temp")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         if let temp = weatherManager.currentTemperature {
-                            Text(formatTemperature(temp - 4))
+                            Text(formatTemperature(temp))
                                 .font(.title)
                         } else {
                             Text(useMetric ? "--°C" : "--°F")
