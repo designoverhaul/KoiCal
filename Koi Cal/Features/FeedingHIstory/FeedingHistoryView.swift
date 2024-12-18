@@ -11,15 +11,19 @@ import CoreLocation
 
 struct FeedingHistoryView: View {
     @State private var selectedDate = Date()
-    @StateObject private var feedingData = FeedingData()
+    @EnvironmentObject private var feedingData: FeedingData
     @State private var animations: [UUID] = []
     @StateObject private var weatherManager = WeatherManager()
     @AppStorage("useMetric") private var useMetric = false
     @AppStorage("hasSeenFeedTooltip") private var hasSeenFeedTooltip = false
     
     private var sortedEntries: [FeedingEntry] {
-        feedingData.getEntries(for: selectedDate)
+        let entries = feedingData.getEntries(for: selectedDate)
             .sorted(by: { $0.date > $1.date })
+        print("📅 Date selected: \(selectedDate)")
+        print("🔢 Number of entries: \(entries.count)")
+        print("📝 Entries: \(entries)")
+        return entries
     }
     
     var body: some View {
