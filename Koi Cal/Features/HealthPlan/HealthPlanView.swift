@@ -202,39 +202,34 @@ struct HealthPlanView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                // Warning message
-                Text("Health Plan recommendations should be used as a guide only. Consult a professional before making drastic changes.")
-                    .font(.subheadline)
-                    .foregroundColor(.primary)
-                    .padding(.horizontal, 20)
-                    .padding(.top, 8)
-                    .padding(.bottom, 8)
-                
-                // Generate Health Plan Button
-                Button {
-                    Task {
-                        print("🔄 Generating new health plan...")
-                        await updateRecommendations()
+            VStack(spacing: 24) {
+                // Logo and Temperature in same HStack
+                HStack {
+                    Image("logoSVG")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 43)
+                    
+                    Spacer()
+                    
+                    // Temperature section
+                    VStack(alignment: .trailing) {
+                        Text("Est. Water Temp")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        if let temp = weatherManager.currentTemperature {
+                            Text(formatTemperature(temp))
+                                .font(.title)
+                        } else {
+                            Text(useMetric ? "--°C" : "--°F")
+                                .font(.title)
+                        }
                     }
-                } label: {
-                    Text("Get New Plan")
-                        .font(.headline)
-                        .foregroundColor(Color(hex: "F18833"))
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color(hex: "FFEDDA"))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(hex: "F18833"), lineWidth: 1)
-                        )
-                        .cornerRadius(10)
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 12)
+                .padding(.horizontal)
                 
-                // Rest of the content sections
-                VStack(alignment: .leading, spacing: 24) {
+                // Rest of content
+                VStack(spacing: 0) {
                     // Feeding Section
                     VStack(alignment: .leading, spacing: 12) {
                         HStack(spacing: 4) {
@@ -368,7 +363,9 @@ struct HealthPlanView: View {
                         .frame(height: 100)
                 }
             }
+            .padding(.top, 16)
         }
+        .background(Color(.systemGroupedBackground))
         .navigationTitle("✨ Health Plan")
         .navigationBarTitleDisplayMode(.large)
         .task {
