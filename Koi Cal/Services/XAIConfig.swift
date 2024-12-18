@@ -77,8 +77,6 @@ enum XAIConfig {
     Here the user may log up to 3 fish feedings per day. Each log included date and type of food(High Protein, Low Protein). Only watch for overfeeding, not underfeeding. Overfeeding can effect fish health and pond health.
 
 
-
-
     ------------------HEALTH PLAN PAGE(XAI/Grok Recommendations)------------------------
     In each of these sections use the users information and your own XAI intelligence to produce accurate thoughtful recommendations. 
     Below are instructions for each of the Health Plan sections. 

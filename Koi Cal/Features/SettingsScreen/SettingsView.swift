@@ -249,7 +249,8 @@ struct SettingsView: View {
                         fishCount: fishCount,
                         feedingHistory: getFeedingHistory(),
                         waterClarity: waterClarity,
-                        waterClarityText: getWaterClarityText()
+                        waterClarityText: getWaterClarityText(),
+                        useMetric: useMetric
                     )
                 } catch {
                     print("❌ Failed to update recommendation: \(error)")

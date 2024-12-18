@@ -172,7 +172,8 @@ struct HealthPlanView: View {
                 fishCount: fishCount.isEmpty ? "Not specified" : fishCount,
                 feedingHistory: getFeedingHistory(),
                 waterClarity: waterClarity,
-                waterClarityText: getWaterClarityText()
+                waterClarityText: getWaterClarityText(),
+                useMetric: useMetric
             )
             
             DispatchQueue.main.async {

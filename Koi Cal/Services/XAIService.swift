@@ -50,10 +50,11 @@ class XAIService: ObservableObject {
         location: String,
         waterTest: String,
         pondSize: String,
-        fishCount: String, 
+        fishCount: String,
         feedingHistory: String,
         waterClarity: Int,
-        waterClarityText: String
+        waterClarityText: String,
+        useMetric: Bool
     ) async throws -> Recommendations {
         print("\n🚀 === Starting XAI Request ===")
         
@@ -103,7 +104,7 @@ class XAIService: ObservableObject {
                 Fish Size: \(fishSize)
                 PondLocation: \(location)
                 Water Test: \(waterTest)
-                Pond Size: \(pondSize)
+                Pond Size: \(pondSize) \(useMetric ? "liters" : "gallons")
                 Fish Count: \(fishCount)
                 Feeding History: \(feedingHistory)\(goalsSection)\(problemsSection)
                 
