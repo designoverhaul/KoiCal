@@ -14,7 +14,7 @@ struct SettingsView: View {
     @AppStorage("sunlightHours") private var sunlightHours = ""
     @AppStorage("location") private var savedLocation = ""
     @AppStorage("circulationTime") private var circulationTime = ""
-    @State private var searchText = ""
+    @State private var searchText = UserDefaults.standard.string(forKey: "location") ?? ""
     @FocusState private var isVolumeFieldFocused: Bool
     @FocusState private var isSunlightFieldFocused: Bool
     @FocusState private var isLocationFieldFocused: Bool
@@ -24,6 +24,17 @@ struct SettingsView: View {
     @AppStorage("fishSize") private var fishSize = FishSize.medium.rawValue
     @AppStorage("fishCount") private var fishCount = ""
     @FocusState private var isFishCountFieldFocused: Bool
+    @AppStorage("improveColor") private var improveColor = false
+    @AppStorage("growthAndBreeding") private var growthAndBreeding = false
+    @AppStorage("improvedBehavior") private var improvedBehavior = false
+    @AppStorage("sicknessOrDeath") private var sicknessOrDeath = false
+    @AppStorage("lowEnergy") private var lowEnergy = false
+    @AppStorage("stuntedGrowth") private var stuntedGrowth = false
+    @AppStorage("lackOfAppetite") private var lackOfAppetite = false
+    @AppStorage("obesity") private var obesity = false
+    @AppStorage("constantHiding") private var constantHiding = false
+    @AppStorage("waterClarity") private var waterClarity = 0
+    @EnvironmentObject var waterQualityManager: WaterQualityManager
     
     private let ageGroups = ["Juvenile", "Adult", "Mixed"]
     private let foodTypes = ["High Protein", "Cool Season"]
@@ -86,6 +97,7 @@ struct SettingsView: View {
                             if newValue.count > 2 {
                                 searchCompleter.search(query: newValue)
                             }
+                            savedLocation = newValue
                         }
                     
                     if !searchCompleter.suggestions.isEmpty && searchText.count > 2 && isLocationFieldFocused {
@@ -222,22 +234,22 @@ struct SettingsView: View {
                     fishAge: selectedAgeGroup,
                     fishSize: fishSize == FishSize.small.rawValue ? "Small" : 
                              fishSize == FishSize.medium.rawValue ? "Medium" : "Large",
-                    improveColor: false,
-                    growthAndBreeding: false,
-                    improvedBehavior: false,
-                    sicknessDeath: false,
-                    lowEnergy: false,
-                    stuntedGrowth: false,
-                    lackAppetite: false,
-                    obesityBloating: false,
-                    constantHiding: false,
+                    improveColor: improveColor,
+                    growthAndBreeding: growthAndBreeding,
+                    improvedBehavior: improvedBehavior,
+                    sicknessDeath: sicknessOrDeath,
+                    lowEnergy: lowEnergy,
+                    stuntedGrowth: stuntedGrowth,
+                    lackAppetite: lackOfAppetite,
+                    obesityBloating: obesity,
+                    constantHiding: constantHiding,
                     location: locationManager.cityName,
-                    waterTest: "Not implemented yet",
+                    waterTest: getWaterTestString(),
                     pondSize: pondVolume,
                     fishCount: fishCount,
                     feedingHistory: getFeedingHistory(),
-                    waterClarity: 0,
-                    waterClarityText: ""
+                    waterClarity: waterClarity,
+                    waterClarityText: getWaterClarityText()
                 )
             }
         }
@@ -268,6 +280,25 @@ struct SettingsView: View {
             .joined(separator: ", ")
     }
     
+    private func getWaterTestString() -> String {
+        return """
+            Nitrate: \(waterQualityManager.measurements[.nitrate].map { "\(Int($0))" } ?? "Not tested") mg/L
+            Nitrite: \(waterQualityManager.measurements[.nitrite].map { String(format: "%.1f", $0) } ?? "Not tested") mg/L
+            pH: \(waterQualityManager.measurements[.pH].map { String(format: "%.1f", $0) } ?? "Not tested")
+            KH: \(waterQualityManager.measurements[.kh].map { "\(Int($0))" } ?? "Not tested") ppm
+            GH: \(waterQualityManager.measurements[.gh].map { "\(Int($0))" } ?? "Not tested") ppm
+            """
+    }
+    
+    private func getWaterClarityText() -> String {
+        switch waterClarity {
+        case 1: return "🟢 Green Water"
+        case 2: return "⚫ Black or dark water"
+        case 3: return "☁️ Cloudy water"
+        default: return ""
+        }
+    }
+    
     private var volumeLabel: String {
         useMetric ? "Liters" : "Gallons"
     }
@@ -294,6 +325,7 @@ struct SettingsView: View {
             weatherManager: WeatherManager(),
             locationManager: LocationManager()
         )
+        .environmentObject(WaterQualityManager())
     }
 } 
 
