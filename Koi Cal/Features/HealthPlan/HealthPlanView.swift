@@ -39,6 +39,7 @@ struct HealthPlanView: View {
     
     @State private var concernRecommendations: [String: String] = [:]
     @State private var isLoading = false
+    @State private var lastUpdateTime: Date?
     
     init() {
         #if DEBUG
@@ -131,7 +132,6 @@ struct HealthPlanView: View {
             return
         }
         
-        // Set loading to true when starting
         DispatchQueue.main.async {
             self.isLoading = true
         }
@@ -188,7 +188,8 @@ struct HealthPlanView: View {
                 self.foodType = recommendations.foodType
                 self.pondReport = recommendations.pondReport
                 self.concernRecommendations = recommendations.concernRecommendations
-                self.isLoading = false  // Set loading to false when done
+                self.isLoading = false
+                self.lastUpdateTime = Date()
             }
         } catch {
             print("❌ Recommendation error: \(error)")
@@ -196,7 +197,7 @@ struct HealthPlanView: View {
                 self.feedingFrequency = "Error getting recommendation"
                 self.foodType = "Error getting recommendation"
                 self.pondReport = "Error getting recommendation"
-                self.isLoading = false  // Set loading to false on error
+                self.isLoading = false
             }
         }
     }
@@ -221,7 +222,7 @@ struct HealthPlanView: View {
                     }
                 } label: {
                     HStack {
-                        Text("Get New Plan")
+                        Text(isLoading ? "Thinking..." : "Get New Plan")
                         if isLoading {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color(hex: "F18833")))
@@ -241,8 +242,16 @@ struct HealthPlanView: View {
                     .cornerRadius(10)
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 12)
                 .disabled(isLoading)
+                
+                // Timestamp
+                if let lastUpdate = lastUpdateTime {
+                    Text("Updated: \(lastUpdate.formatted(date: .abbreviated, time: .shortened))")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 12)
+                }
                 
                 // Rest of content
                 VStack(spacing: 0) {
