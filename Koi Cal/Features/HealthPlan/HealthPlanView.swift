@@ -1,4 +1,5 @@
 import SwiftUI
+import Lottie
 
 struct HealthPlanView: View {
     @StateObject private var xaiService = XAIService()
@@ -37,6 +38,7 @@ struct HealthPlanView: View {
     #endif
     
     @State private var concernRecommendations: [String: String] = [:]
+    @State private var isLoading = false
     
     init() {
         #if DEBUG
@@ -129,6 +131,11 @@ struct HealthPlanView: View {
             return
         }
         
+        // Set loading to true when starting
+        DispatchQueue.main.async {
+            self.isLoading = true
+        }
+        
         do {
             let (selectedGoals, selectedProblems) = getSelectedIssues()
             
@@ -181,6 +188,7 @@ struct HealthPlanView: View {
                 self.foodType = recommendations.foodType
                 self.pondReport = recommendations.pondReport
                 self.concernRecommendations = recommendations.concernRecommendations
+                self.isLoading = false  // Set loading to false when done
             }
         } catch {
             print("❌ Recommendation error: \(error)")
@@ -188,6 +196,7 @@ struct HealthPlanView: View {
                 self.feedingFrequency = "Error getting recommendation"
                 self.foodType = "Error getting recommendation"
                 self.pondReport = "Error getting recommendation"
+                self.isLoading = false  // Set loading to false on error
             }
         }
     }
@@ -211,20 +220,29 @@ struct HealthPlanView: View {
                         await updateRecommendations()
                     }
                 } label: {
-                    Text("Get New Plan")
-                        .font(.headline)
-                        .foregroundColor(Color(hex: "F18833"))
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color(hex: "FFEDDA"))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(hex: "F18833"), lineWidth: 1)
-                        )
-                        .cornerRadius(10)
+                    HStack {
+                        Text("Get New Plan")
+                        if isLoading {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color(hex: "F18833")))
+                                .scaleEffect(0.8)
+                                .padding(.leading, 4)
+                        }
+                    }
+                    .font(.headline)
+                    .foregroundColor(Color(hex: "F18833"))
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color(hex: "FFEDDA"))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(hex: "F18833"), lineWidth: 1)
+                    )
+                    .cornerRadius(10)
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 12)
+                .disabled(isLoading)
                 
                 // Rest of content
                 VStack(spacing: 0) {
