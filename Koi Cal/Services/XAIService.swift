@@ -57,6 +57,8 @@ class XAIService: ObservableObject {
         useMetric: Bool
     ) async throws -> Recommendations {
         print("\n🚀 === Starting XAI Request ===")
+        print("Received waterTest string:")
+        print(waterTest)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM d"
@@ -95,7 +97,7 @@ class XAIService: ObservableObject {
                 Fish Age: \(fishAge)
                 Fish Size: \(fishSize)
                 PondLocation: \(location)
-                Water Test: \(waterTest)
+                \(waterTest)
                 Pond Size: \(pondSize) \(useMetric ? "liters" : "gallons")
                 Fish Count: \(fishCount)
                 Feeding History: \(feedingHistory)

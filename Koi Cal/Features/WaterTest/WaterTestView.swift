@@ -29,6 +29,7 @@ class LocationSearchCompleter: NSObject, ObservableObject, MKLocalSearchComplete
 struct WaterTestView: View {
     @AppStorage("useCelsius") private var useCelsius = false
     @AppStorage("useMetric") private var useMetric = false
+    @EnvironmentObject private var waterQualityManager: WaterQualityManager
     
     var body: some View {
         ScrollView {
@@ -95,5 +96,6 @@ struct WaterTestView: View {
 #Preview {
     NavigationView {
         WaterTestView()
+            .environmentObject(WaterQualityManager())
     }
 }

@@ -114,6 +114,10 @@ struct MainTabView: View {
         }
         .onChange(of: selectedTab) { oldValue, newValue in
             print("📱 Tab changed from \(oldValue) to \(newValue)")
+            if newValue == 2 { // Health Plan tab
+                // Force refresh of health plan when switching to that tab
+                NotificationCenter.default.post(name: .refreshHealthPlan, object: nil)
+            }
         }
     }
 }

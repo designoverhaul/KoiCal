@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct WaterQualityView: View {
-    @StateObject private var waterQualityManager = WaterQualityManager()
+    @EnvironmentObject private var waterQualityManager: WaterQualityManager
     
     // Define the order of measurements
     private let orderedMeasurements: [MeasurementType] = [

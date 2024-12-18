@@ -7,7 +7,19 @@ class WaterQualityManager: ObservableObject {
     @AppStorage("waterQuality.kh") private var khValue: Double?
     @AppStorage("waterQuality.gh") private var ghValue: Double?
     
-    @Published var measurements: [MeasurementType: Double] = [:]
+    @Published var measurements: [MeasurementType: Double] = [:] {
+        didSet {
+            // Save to AppStorage whenever measurements change
+            if let nitrate = measurements[.nitrate] { nitrateValue = nitrate }
+            if let nitrite = measurements[.nitrite] { nitriteValue = nitrite }
+            if let pH = measurements[.pH] { pHValue = pH }
+            if let kh = measurements[.kh] { khValue = kh }
+            if let gh = measurements[.gh] { ghValue = gh }
+            
+            // Force immediate save
+            UserDefaults.standard.synchronize()
+        }
+    }
     
     init() {
         // Load from AppStorage

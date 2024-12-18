@@ -1,6 +1,10 @@
 import SwiftUI
 import Lottie
 
+extension Notification.Name {
+    static let refreshHealthPlan = Notification.Name("refreshHealthPlan")
+}
+
 struct HealthPlanView: View {
     @StateObject private var xaiService = XAIService()
     @StateObject private var weatherManager = WeatherManager()
@@ -132,6 +136,41 @@ struct HealthPlanView: View {
             return
         }
         
+        // Add debug prints to verify current values
+        print("\n🔍 CURRENT WATER QUALITY VALUES:")
+        print("Raw measurements: \(waterQualityManager.measurements)")
+        
+        print("\n🔍 RAW MEASUREMENTS DUMP:")
+        waterQualityManager.measurements.forEach { key, value in
+            print("\(key): \(value)")
+        }
+        
+        // Get fresh values from WaterQualityManager
+        let nitrate = waterQualityManager.measurements[.nitrate] ?? 0
+        let nitrite = waterQualityManager.measurements[.nitrite] ?? 0
+        let pH = waterQualityManager.measurements[.pH] ?? 0
+        let kh = waterQualityManager.measurements[.kh] ?? 0
+        let gh = waterQualityManager.measurements[.gh] ?? 0
+        
+        print("🔍 DEBUG VALUES:")
+        print("Nitrate: \(nitrate)")
+        print("Nitrite: \(nitrite)")
+        print("pH: \(pH)")
+        print("KH: \(kh)")
+        print("GH: \(gh)")
+        
+        let waterTestString = """
+            Water Test:
+            Nitrate: \(Int(nitrate)) mg/L
+            Nitrite: \(String(format: "%.1f", nitrite)) mg/L
+            pH: \(String(format: "%.1f", pH))
+            KH: \(Int(kh)) ppm
+            GH: \(Int(gh)) ppm
+            """
+        
+        print("\n📝 Final Water Test String:")
+        print(waterTestString)
+        
         DispatchQueue.main.async {
             self.isLoading = true
         }
@@ -147,17 +186,6 @@ struct HealthPlanView: View {
             print("KH: \(waterQualityManager.measurements[.kh] ?? 0)")
             print("GH: \(waterQualityManager.measurements[.gh] ?? 0)")
             print("Fish Size: \(fishSize == FishSize.small.rawValue ? "Small" : fishSize == FishSize.medium.rawValue ? "Medium" : "Large")")
-            
-            let waterTestString = """
-                Nitrate: \(waterQualityManager.measurements[.nitrate].map { "\(Int($0))" } ?? "Not tested") mg/L
-                Nitrite: \(waterQualityManager.measurements[.nitrite].map { String(format: "%.1f", $0) } ?? "Not tested") mg/L
-                pH: \(waterQualityManager.measurements[.pH].map { String(format: "%.1f", $0) } ?? "Not tested")
-                KH: \(waterQualityManager.measurements[.kh].map { "\(Int($0))" } ?? "Not tested") ppm
-                GH: \(waterQualityManager.measurements[.gh].map { "\(Int($0))" } ?? "Not tested") ppm
-                """
-            
-            print("\n📝 Water Test String being sent:")
-            print(waterTestString)
             
             let recommendations = try await xaiService.getRecommendation(
                 temperature: temperature,
@@ -400,6 +428,23 @@ struct HealthPlanView: View {
             
             // Only get initial recommendations if we don't have any yet
             if feedingFrequency == "Loading..." {
+                await updateRecommendations()
+            }
+        }
+        .onAppear {
+            // Refresh recommendations if we have new water quality data
+            Task {
+                await updateRecommendations()
+            }
+        }
+        .onChange(of: waterQualityManager.measurements) { _, _ in
+            // Update recommendations when water quality changes
+            Task {
+                await updateRecommendations()
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .refreshHealthPlan)) { _ in
+            Task {
                 await updateRecommendations()
             }
         }
