@@ -3,8 +3,6 @@ import Foundation
 import MapKit
 
 struct SettingsView: View {
-    @Binding var selectedAgeGroup: String
-    @Binding var selectedObjective: String
     @ObservedObject var feedingData: FeedingData
     @ObservedObject var xaiService: XAIService
     @ObservedObject var weatherManager: WeatherManager
@@ -14,7 +12,7 @@ struct SettingsView: View {
     @AppStorage("sunlightHours") private var sunlightHours = ""
     @AppStorage("location") private var savedLocation = ""
     @AppStorage("circulationTime") private var circulationTime = ""
-    @State private var searchText = UserDefaults.standard.string(forKey: "location") ?? ""
+    @State private var searchText = ""
     @FocusState private var isVolumeFieldFocused: Bool
     @FocusState private var isSunlightFieldFocused: Bool
     @FocusState private var isLocationFieldFocused: Bool
@@ -34,6 +32,7 @@ struct SettingsView: View {
     @AppStorage("obesity") private var obesity = false
     @AppStorage("constantHiding") private var constantHiding = false
     @AppStorage("waterClarity") private var waterClarity = 0
+    @AppStorage("selectedAgeGroup") private var selectedAgeGroup = "Mixed"
     @EnvironmentObject var waterQualityManager: WaterQualityManager
     
     private let ageGroups = ["Juvenile", "Adult", "Mixed"]
@@ -204,9 +203,6 @@ struct SettingsView: View {
         .onChange(of: selectedAgeGroup) { _, _ in
             debounceUpdate()
         }
-        .onChange(of: selectedObjective) { _, _ in
-            debounceUpdate()
-        }
         .onChange(of: feedingData.currentFoodType) { _, _ in
             debounceUpdate()
         }
@@ -224,33 +220,42 @@ struct SettingsView: View {
                 }
             }
         }
+        .onAppear {
+            searchText = savedLocation
+        }
     }
     
     private func updateRecommendation() {
         Task {
             if let temperature = weatherManager.currentTemperature {
-                _ = try await xaiService.getRecommendation(
-                    temperature: temperature,
-                    fishAge: selectedAgeGroup,
-                    fishSize: fishSize == FishSize.small.rawValue ? "Small" : 
-                             fishSize == FishSize.medium.rawValue ? "Medium" : "Large",
-                    improveColor: improveColor,
-                    growthAndBreeding: growthAndBreeding,
-                    improvedBehavior: improvedBehavior,
-                    sicknessDeath: sicknessOrDeath,
-                    lowEnergy: lowEnergy,
-                    stuntedGrowth: stuntedGrowth,
-                    lackAppetite: lackOfAppetite,
-                    obesityBloating: obesity,
-                    constantHiding: constantHiding,
-                    location: locationManager.cityName,
-                    waterTest: getWaterTestString(),
-                    pondSize: pondVolume,
-                    fishCount: fishCount,
-                    feedingHistory: getFeedingHistory(),
-                    waterClarity: waterClarity,
-                    waterClarityText: getWaterClarityText()
-                )
+                do {
+                    _ = try await xaiService.getRecommendation(
+                        temperature: temperature,
+                        fishAge: selectedAgeGroup,
+                        fishSize: fishSize == FishSize.small.rawValue ? "Small" : 
+                                 fishSize == FishSize.medium.rawValue ? "Medium" : "Large",
+                        improveColor: improveColor,
+                        growthAndBreeding: growthAndBreeding,
+                        improvedBehavior: improvedBehavior,
+                        sicknessDeath: sicknessOrDeath,
+                        lowEnergy: lowEnergy,
+                        stuntedGrowth: stuntedGrowth,
+                        lackAppetite: lackOfAppetite,
+                        obesityBloating: obesity,
+                        constantHiding: constantHiding,
+                        location: locationManager.cityName,
+                        waterTest: getWaterTestString(),
+                        pondSize: pondVolume,
+                        fishCount: fishCount,
+                        feedingHistory: getFeedingHistory(),
+                        waterClarity: waterClarity,
+                        waterClarityText: getWaterClarityText()
+                    )
+                } catch {
+                    print("❌ Failed to update recommendation: \(error)")
+                }
+            } else {
+                print("❌ No temperature available for recommendation")
             }
         }
     }
@@ -318,8 +323,6 @@ struct SettingsView: View {
 #Preview("Settings") {
     NavigationView {
         SettingsView(
-            selectedAgeGroup: .constant("Mixed"),
-            selectedObjective: .constant("General Health"),
             feedingData: FeedingData(),
             xaiService: XAIService(),
             weatherManager: WeatherManager(),

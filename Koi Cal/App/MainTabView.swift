@@ -7,8 +7,6 @@ struct MainTabView: View {
     @StateObject private var xaiService = XAIService()
     @StateObject private var weatherManager = WeatherManager()
     @StateObject private var waterQualityManager = WaterQualityManager()
-    @State private var selectedAgeGroup = "Mixed"
-    @State private var selectedObjective = "General Health"
     
     private let inactiveColor = Color(hex: "A1A1A1")
     private let activeColor = Color(hex: "F18833")
@@ -82,13 +80,12 @@ struct MainTabView: View {
             // Settings Tab
             NavigationView {
                 SettingsView(
-                    selectedAgeGroup: $selectedAgeGroup,
-                    selectedObjective: $selectedObjective,
                     feedingData: feedingData,
                     xaiService: xaiService,
                     weatherManager: weatherManager,
                     locationManager: locationManager
                 )
+                .environmentObject(waterQualityManager)
             }
             .tabItem {
                 Label {

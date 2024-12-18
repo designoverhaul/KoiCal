@@ -11,7 +11,6 @@ struct HealthPlanView: View {
     @AppStorage("fishSize") private var fishSize = FishSize.medium.rawValue
     @AppStorage("fishCount") private var fishCount = ""
     @AppStorage("selectedAge") private var selectedAge = 1
-    @AppStorage("selectedObjective") private var selectedObjective = "General health"
     @AppStorage("location") private var location = ""
     @AppStorage("lastFeeding") private var lastFeeding = ""
     @AppStorage("improveColor") private var improveColor = false
@@ -31,6 +30,7 @@ struct HealthPlanView: View {
     @AppStorage("waterClarity") private var waterClarity = 0 // 0: None, 1: Green, 2: Black/Dark, 3: Cloudy
     @AppStorage("pH") private var pH = 8.0
     @AppStorage("kh") private var kh = 40.0
+    @AppStorage("selectedAgeGroup") private var selectedAgeGroup = "Mixed"
     
     #if DEBUG
     private static var hasLogged = false
