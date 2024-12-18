@@ -70,7 +70,11 @@ struct WaterMeasurementView: View {
                             }
                         )
                         .onTapGesture {
+                            print("Before tap - selectedValue: \(String(describing: selectedValue))")
+                            print("Tapped index: \(index)")
+                            print("Value at index: \(type.values[index])")
                             selectedValue = index
+                            print("After tap - selectedValue: \(String(describing: selectedValue))")
                         }
                 }
             }

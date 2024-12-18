@@ -22,7 +22,8 @@ class WaterQualityManager: ObservableObject {
     }
     
     init() {
-        // Load from AppStorage
+        // Only load values that are actually set
+        // Don't set any default values
         if let nitrate = nitrateValue { measurements[.nitrate] = nitrate }
         if let nitrite = nitriteValue { measurements[.nitrite] = nitrite }
         if let pH = pHValue { measurements[.pH] = pH }

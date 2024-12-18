@@ -20,8 +20,13 @@ struct WaterQualityView: View {
                         type: type,
                         selectedValue: Binding(
                             get: { 
+                                // If the value is nil, return the index of "-"
+                                if waterQualityManager.measurements[type] == nil {
+                                    return type.values.firstIndex(of: "-")
+                                }
+                                
+                                // Otherwise find the closest value
                                 if let value = waterQualityManager.measurements[type] {
-                                    // Find the index of the closest value
                                     return type.values.firstIndex { valueStr in
                                         if let doubleValue = Double(valueStr.replacingOccurrences(of: ",", with: "")) {
                                             return abs(doubleValue - value) < 0.01
