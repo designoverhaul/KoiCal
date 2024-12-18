@@ -75,24 +75,16 @@ class XAIService: ObservableObject {
         if growthAndBreeding { activeGoals.append("Growth and Breeding") }
         if improvedBehavior { activeGoals.append("Improved Behavior") }
 
-        var activeProblems: [String] = []
-        if sicknessDeath { activeProblems.append("Sickness/Death") }
-        if lowEnergy { activeProblems.append("Low Energy") }
-        if stuntedGrowth { activeProblems.append("Stunted Growth") }
-        if lackAppetite { activeProblems.append("Lack Appetite") }
-        if obesityBloating { activeProblems.append("Obesity/Bloating") }
-        if constantHiding { activeProblems.append("Constant Hiding") }
-
         let goalsSection = activeGoals.isEmpty ? "" : """
             
             Goals:
             \(activeGoals.map { "- \($0)" }.joined(separator: "\n"))
             """
 
-        let problemsSection = activeProblems.isEmpty ? "" : """
+        let problemsSection = selectedConcerns.isEmpty ? "" : """
             
             Problems:
-            \(activeProblems.map { "- \($0)" }.joined(separator: "\n"))
+            \(selectedConcerns.map { "- \($0)" }.joined(separator: "\n"))
             """
 
         let messages = [
@@ -106,19 +98,21 @@ class XAIService: ObservableObject {
                 Water Test: \(waterTest)
                 Pond Size: \(pondSize) \(useMetric ? "liters" : "gallons")
                 Fish Count: \(fishCount)
-                Feeding History: \(feedingHistory)\(goalsSection)\(problemsSection)
+                Feeding History: \(feedingHistory)
+                \(goalsSection)
+                \(problemsSection)
                 
                 Provide these recommendations in the exact format shown, keeping responses brief and focused:
                 
-                FOOD TYPE: [One or two sentences recommending appropriate food type]
+                FOOD TYPE: [One or two sentences. Never recommend high protein in Dec or Jan. Check feeding history for overfeeding.]
                 
                 FEEDING FREQUENCY: [One sentence about feeding frequency considering location, date, and temperature]
                 
-                POND REPORT: [Maximum two key points about pond health]
+                POND REPORT: [Maximum three key points about pond health. Check all user input for potential problems and reference user's information.]
                 
                 \(waterClarity > 0 ? """
                 CONCERN: \(waterClarityText)
-                ADVICE: [Two sentences maximum addressing this water clarity issue]
+                ADVICE: [Two sentences maximum addressing this water clarity issue. Consider ALL user input.]
                 """ : "")
                 
                 \(selectedConcerns.isEmpty ? "" : "\nFor each concern, provide a focused two-sentence recommendation:")
@@ -126,7 +120,7 @@ class XAIService: ObservableObject {
                     """
                     
                     CONCERN: \(concern)
-                    ADVICE: [Two sentences maximum addressing this specific issue]
+                    ADVICE: [Two sentences maximum addressing the specific concern. First check for problems based on the user's input.]
                     """
                 }.joined(separator: "\n"))
                 """)
@@ -139,7 +133,7 @@ class XAIService: ObservableObject {
             messages: messages,
             model: "grok-beta",
             temperature: 0.6,
-            max_tokens: 250
+            max_tokens: 300
         )
         
         var urlRequest = URLRequest(url: URL(string: XAIConfig.apiURL)!)

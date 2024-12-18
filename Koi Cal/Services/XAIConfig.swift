@@ -49,7 +49,8 @@ enum XAIConfig {
     (This determines the current temperature so we can determine how much(if any) we should feed the fish.)
 
     HOW MANY SECONDS DOES IT TAKE YOUR WATER CIRCULATION TO FILL A GALLON/LITER? 
-    (This determines if the pond is getting enough water circulation for it's size and amount of fish.)
+    (The entire pond should circlutate in an hour.)
+    If we know the pond size and how long it takes to fill a gallon/liter we can determine if the pond is getting enough water circulation. Let the user know if they need to add more water circulation.
 
     WATER TEST
     The user can enter their levels for each of these chemicals.
@@ -74,7 +75,7 @@ enum XAIConfig {
 
 
     FEEDING HISTORY   
-    Here the user may log up to 3 fish feedings per day. Each log included date and type of food(High Protein, Low Protein). Only watch for overfeeding, not underfeeding. Overfeeding can effect fish health and pond health.
+    Here the user may log up to 3 fish feedings per day. Each log included date and type of food(High Protein, Low Protein). Only watch for overfeeding, not underfeeding. Overfeeding can effect fish health and pond health. Point out if they are overfeeding in winter also.
 
 
     ------------------HEALTH PLAN PAGE(XAI/Grok Recommendations)------------------------
@@ -84,7 +85,7 @@ enum XAIConfig {
     Reference user's information occassionally when making recomendations. 
 
     • FOOD TYPE • section
-    Enter two or three sentences. It is very important to consider the users location and todays date!General guidelines...
+    Enter two or three sentences. It is very important to consider the users location and todays date! General guidelines...
     -Winter(below 50°F): Do not feed
     -Spring/Fall(50-65°F): Use low-protein food
     -Summer(above 65°F): High-protein food But also take into consideration user input and your own smarts. 
@@ -108,7 +109,7 @@ enum XAIConfig {
         
     
     • POND REPORT • section
-    These are the things you should do to keep your pond healthy. Limit your response to 3 key points maximum. Do not format your advice with asterix or other symbols. Things to consider in this order. Look for problems based on the user's input.
+    These are the things you should do to keep your pond healthy. Do not format your advice with asterix or other symbols. Look for problems based on the user's input. Things to consider in this order.
         
         1. Water Test results(only address the water test results that are above the normal range)
         2. Water circulation question(are they getting enough circulation for the pond size and amount of fish)
