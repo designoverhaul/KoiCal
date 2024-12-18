@@ -282,6 +282,7 @@ struct HealthPlanView: View {
                         }
                     }
                     .padding(.horizontal, 20)
+                    .padding(.top, 20)
                     
                     // Fish Concerns Section
                     VStack(alignment: .leading, spacing: 12) {
@@ -354,7 +355,7 @@ struct HealthPlanView: View {
                         }
                     }
                     .padding(.horizontal, 20)
-                    
+                    .padding(.top, 20)
                     // Bottom padding
                     Spacer()
                         .frame(height: 100)
