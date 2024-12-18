@@ -51,8 +51,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
             guard let self = self else { return }
             
-            if let error = error {
+            if error != nil {
                 self.errorMessage = "Unable to determine location name"
+                self.cityName = "Location error"
                 return
             }
             
@@ -66,6 +67,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        errorMessage = "Unable to determine location"
+        errorMessage = "Unable to determine location: \(error.localizedDescription)"
+        cityName = "Location error"
     }
 } 
