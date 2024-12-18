@@ -202,31 +202,28 @@ struct HealthPlanView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {
-                // Logo and Temperature in same HStack
-                HStack {
-                    Image("logoSVG")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 43)
-                    
-                    Spacer()
-                    
-                    // Temperature section
-                    VStack(alignment: .trailing) {
-                        Text("Est. Water Temp")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        if let temp = weatherManager.currentTemperature {
-                            Text(formatTemperature(temp))
-                                .font(.title)
-                        } else {
-                            Text(useMetric ? "--°C" : "--°F")
-                                .font(.title)
-                        }
+            VStack(alignment: .leading, spacing: 16) {
+                // Generate Health Plan Button
+                Button {
+                    Task {
+                        print("🔄 Generating new health plan...")
+                        await updateRecommendations()
                     }
+                } label: {
+                    Text("Get New Plan")
+                        .font(.headline)
+                        .foregroundColor(Color(hex: "F18833"))
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color(hex: "FFEDDA"))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color(hex: "F18833"), lineWidth: 1)
+                        )
+                        .cornerRadius(10)
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 12)
                 
                 // Rest of content
                 VStack(spacing: 0) {
