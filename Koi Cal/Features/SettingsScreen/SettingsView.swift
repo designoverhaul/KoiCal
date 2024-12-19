@@ -34,6 +34,7 @@ struct SettingsView: View {
     @AppStorage("waterClarity") private var waterClarity = 0
     @AppStorage("selectedAgeGroup") private var selectedAgeGroup = "Mixed"
     @EnvironmentObject var waterQualityManager: WaterQualityManager
+    @State private var showMailError = false
     
     private let ageGroups = ["Juvenile", "Adult", "Mixed"]
     private let foodTypes = ["High Protein", "Cool Season"]
@@ -185,6 +186,35 @@ struct SettingsView: View {
                 }
                 .pickerStyle(.segmented)
             }
+            
+            Section {
+                Button(action: {
+                    let emailTo = "aaronheine@gmail.com"
+                    let subject = "Koi Cal Feature Request"
+                    let urlString = "mailto:\(emailTo)?subject=\(subject)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                    
+                    if let url = URL(string: urlString) {
+                        if UIApplication.shared.canOpenURL(url) {
+                            UIApplication.shared.open(url)
+                        } else {
+                            showMailError = true
+                        }
+                    }
+                }) {
+                    HStack {
+                        Text("Request a Feature")
+                            .foregroundColor(Color(hex: "565656"))
+                        Spacer()
+                        Image(systemName: "envelope")
+                            .foregroundColor(Color(hex: "F18833"))
+                    }
+                }
+            }
+            .alert("Email Not Available", isPresented: $showMailError) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("Your device is not configured to send emails. Please check your email settings and try again.")
+            }
         }
         .navigationTitle("⚙️ Settings")
         .navigationBarTitleDisplayMode(.large)
@@ -229,6 +259,16 @@ struct SettingsView: View {
         Task {
             if let temperature = weatherManager.currentTemperature {
                 do {
+                    // Debug print the raw measurements
+                    print("\n🔍 Raw Measurements in Dictionary:")
+                    print(waterQualityManager.measurements)
+                    
+                    let waterTest = getWaterTestString()
+                    
+                    // Debug print the formatted string
+                    print("\n📝 Formatted Water Test String:")
+                    print(waterTest)
+                    
                     _ = try await xaiService.getRecommendation(
                         temperature: temperature,
                         fishAge: selectedAgeGroup,
@@ -244,7 +284,7 @@ struct SettingsView: View {
                         obesityBloating: obesity,
                         constantHiding: constantHiding,
                         location: locationManager.cityName,
-                        waterTest: getWaterTestString(),
+                        waterTest: waterTest,
                         pondSize: pondVolume,
                         fishCount: fishCount,
                         feedingHistory: getFeedingHistory(),
@@ -286,19 +326,9 @@ struct SettingsView: View {
             .joined(separator: ", ")
     }
     
-    private func getWaterTestString() -> String {
-        return """
-            Nitrate: \(waterQualityManager.measurements[.nitrate].map { "\(Int($0))" } ?? "Not tested") mg/L
-            Nitrite: \(waterQualityManager.measurements[.nitrite].map { String(format: "%.1f", $0) } ?? "Not tested") mg/L
-            pH: \(waterQualityManager.measurements[.pH].map { String(format: "%.1f", $0) } ?? "Not tested")
-            KH: \(waterQualityManager.measurements[.kh].map { "\(Int($0))" } ?? "Not tested") ppm
-            GH: \(waterQualityManager.measurements[.gh].map { "\(Int($0))" } ?? "Not tested") ppm
-            """
-    }
-    
     private func getWaterClarityText() -> String {
         switch waterClarity {
-        case 1: return "🟢 Green Water"
+        case 1: return "�� Green Water"
         case 2: return "⚫ Black or dark water"
         case 3: return "☁️ Cloudy water"
         default: return ""
@@ -318,6 +348,19 @@ struct SettingsView: View {
         updateTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
             updateRecommendation()
         }
+    }
+    
+    private func getWaterTestString() -> String {
+        let measurements = waterQualityManager.measurements
+        
+        return """
+            Water Test:
+            \(measurements.keys.contains(.nitrate) ? "Nitrate: \(Int(measurements[.nitrate]!)) mg/L" : "Nitrate: No Entry")
+            \(measurements.keys.contains(.nitrite) ? "Nitrite: \(String(format: "%.1f", measurements[.nitrite]!)) mg/L" : "Nitrite: No Entry")
+            \(measurements.keys.contains(.pH) ? "pH: \(String(format: "%.1f", measurements[.pH]!))" : "pH: No Entry")
+            \(measurements.keys.contains(.kh) ? "KH: \(Int(measurements[.kh]!)) ppm" : "KH: No Entry")
+            \(measurements.keys.contains(.gh) ? "GH: \(Int(measurements[.gh]!)) ppm" : "GH: No Entry")
+            """
     }
 }
 

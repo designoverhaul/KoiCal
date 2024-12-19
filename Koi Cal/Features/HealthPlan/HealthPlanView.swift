@@ -140,33 +140,8 @@ struct HealthPlanView: View {
         print("\n🔍 CURRENT WATER QUALITY VALUES:")
         print("Raw measurements: \(waterQualityManager.measurements)")
         
-        print("\n🔍 RAW MEASUREMENTS DUMP:")
-        waterQualityManager.measurements.forEach { key, value in
-            print("\(key): \(value)")
-        }
-        
-        // Get fresh values from WaterQualityManager
-        let nitrate = waterQualityManager.measurements[.nitrate] ?? 0
-        let nitrite = waterQualityManager.measurements[.nitrite] ?? 0
-        let pH = waterQualityManager.measurements[.pH] ?? 0
-        let kh = waterQualityManager.measurements[.kh] ?? 0
-        let gh = waterQualityManager.measurements[.gh] ?? 0
-        
-        print("🔍 DEBUG VALUES:")
-        print("Nitrate: \(nitrate)")
-        print("Nitrite: \(nitrite)")
-        print("pH: \(pH)")
-        print("KH: \(kh)")
-        print("GH: \(gh)")
-        
-        let waterTestString = """
-            Water Test:
-            Nitrate: \(Int(nitrate)) mg/L
-            Nitrite: \(String(format: "%.1f", nitrite)) mg/L
-            pH: \(String(format: "%.1f", pH))
-            KH: \(Int(kh)) ppm
-            GH: \(Int(gh)) ppm
-            """
+        // Use our getWaterTestString() function directly
+        let waterTestString = getWaterTestString()
         
         print("\n📝 Final Water Test String:")
         print(waterTestString)
@@ -237,6 +212,19 @@ struct HealthPlanView: View {
         } else {
             return String(format: "%.0f°F", fahrenheit)
         }
+    }
+    
+    private func getWaterTestString() -> String {
+        let measurements = waterQualityManager.measurements
+        
+        return """
+            Water Test:
+            \(measurements.keys.contains(.nitrate) ? "Nitrate: \(Int(measurements[.nitrate]!)) mg/L" : "Nitrate: No Entry")
+            \(measurements.keys.contains(.nitrite) ? "Nitrite: \(String(format: "%.1f", measurements[.nitrite]!)) mg/L" : "Nitrite: No Entry")
+            \(measurements.keys.contains(.pH) ? "pH: \(String(format: "%.1f", measurements[.pH]!))" : "pH: No Entry")
+            \(measurements.keys.contains(.kh) ? "KH: \(Int(measurements[.kh]!)) ppm" : "KH: No Entry")
+            \(measurements.keys.contains(.gh) ? "GH: \(Int(measurements[.gh]!)) ppm" : "GH: No Entry")
+            """
     }
     
     var body: some View {

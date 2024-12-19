@@ -9,6 +9,10 @@ class WaterQualityManager: ObservableObject {
     
     @Published var measurements: [MeasurementType: Double] = [:] {
         didSet {
+            // Debug print
+            print("\n🔄 WaterQualityManager - Measurements Updated:")
+            print("Current measurements: \(measurements)")
+            
             // Save to AppStorage whenever measurements change
             if let nitrate = measurements[.nitrate] { nitrateValue = nitrate }
             if let nitrite = measurements[.nitrite] { nitriteValue = nitrite }
@@ -33,39 +37,40 @@ class WaterQualityManager: ObservableObject {
     
     func updateMeasurement(_ type: MeasurementType, value: Int) {
         let valueString = type.values[value]
-        print("\n🔄 Updating measurement:")
-        print("Type: \(type)")
-        print("Value index: \(value)")
-        print("Value string: \(valueString)")
+        
+        print("\n🚨 DEBUG:")
+        print("Selected value: \(valueString)")
+        print("For measurement: \(type)")
         
         if valueString == "-" {
-            measurements[type] = nil
-            // Clear AppStorage
+            print("❌ REMOVING measurement for \(type)")
+            measurements.removeValue(forKey: type)
+            
+            // Clear AppStorage values
             switch type {
-            case .nitrate: nitrateValue = nil
-            case .nitrite: nitriteValue = nil
-            case .pH: pHValue = nil
-            case .kh: khValue = nil
-            case .gh: ghValue = nil
+            case .nitrate:
+                nitrateValue = nil
+                UserDefaults.standard.removeObject(forKey: "waterQuality.nitrate")
+            case .nitrite:
+                nitriteValue = nil
+                UserDefaults.standard.removeObject(forKey: "waterQuality.nitrite")
+            case .pH:
+                pHValue = nil
+                UserDefaults.standard.removeObject(forKey: "waterQuality.pH")
+            case .kh:
+                khValue = nil
+                UserDefaults.standard.removeObject(forKey: "waterQuality.kh")
+            case .gh:
+                ghValue = nil
+                UserDefaults.standard.removeObject(forKey: "waterQuality.gh")
             }
+            
+            UserDefaults.standard.synchronize()
+            print("📊 Measurements after removal: \(measurements)")
         } else if let doubleValue = Double(valueString.replacingOccurrences(of: ",", with: "")) {
+            print("✅ SETTING measurement for \(type) to \(doubleValue)")
             measurements[type] = doubleValue
-            // Update AppStorage
-            switch type {
-            case .nitrate: nitrateValue = doubleValue
-            case .nitrite: nitriteValue = doubleValue
-            case .pH: pHValue = doubleValue
-            case .kh: khValue = doubleValue
-            case .gh: ghValue = doubleValue
-            }
+            print("📊 Measurements after setting: \(measurements)")
         }
-        
-        // Debug print current values
-        print("\n💧 Water Test Values:")
-        if let nitrate = measurements[.nitrate] { print("Nitrate: \(Int(nitrate)) mg/L") }
-        if let nitrite = measurements[.nitrite] { print("Nitrite: \(nitrite) mg/L") }
-        if let ph = measurements[.pH] { print("pH: \(String(format: "%.1f", ph))") }
-        if let kh = measurements[.kh] { print("KH: \(Int(kh)) ppm") }
-        if let gh = measurements[.gh] { print("GH: \(Int(gh)) ppm") }
     }
 } 

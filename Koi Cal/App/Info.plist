@@ -18,5 +18,19 @@
 	<string></string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>mailto</string>
+		<string>itms-apps</string>
+	</array>
+	<key>ITSAppDeepLinkingKeys</key>
+	<dict>
+		<key>com.apple.developer.associated-domains</key>
+		<array>
+			<string>applinks:apps.apple.com</string>
+		</array>
+	</dict>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Help us improve Koi Cal by sharing why you're deleting the app</string>
 </dict>
 </plist>
