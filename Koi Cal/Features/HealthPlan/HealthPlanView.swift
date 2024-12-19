@@ -431,18 +431,6 @@ struct HealthPlanView: View {
                 await updateRecommendations()
             }
         }
-        .onAppear {
-            // Refresh recommendations if we have new water quality data
-            Task {
-                await updateRecommendations()
-            }
-        }
-        .onChange(of: waterQualityManager.measurements) { _, _ in
-            // Update recommendations when water quality changes
-            Task {
-                await updateRecommendations()
-            }
-        }
         .onReceive(NotificationCenter.default.publisher(for: .refreshHealthPlan)) { _ in
             Task {
                 await updateRecommendations()
