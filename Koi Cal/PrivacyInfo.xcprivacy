@@ -1,0 +1,11 @@
+{
+    "NSPrivacyTracking": false,
+    "NSPrivacyTrackingDomains": [],
+    "NSPrivacyCollectedDataTypes": [],
+    "NSPrivacyAccessedAPITypes": [
+        {
+            "type": "NSLocationWhenInUseUsageDescription",
+            "purpose": "To provide accurate water temperature recommendations based on your location"
+        }
+    ]
+} 
