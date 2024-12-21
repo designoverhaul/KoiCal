@@ -16,6 +16,7 @@ struct FeedingHistoryView: View {
     @StateObject private var weatherManager = WeatherManager()
     @AppStorage("useMetric") private var useMetric = false
     @AppStorage("hasSeenFeedTooltip") private var hasSeenFeedTooltip = false
+    @State private var showOnboarding = false
     
     private var sortedEntries: [FeedingEntry] {
         let entries = feedingData.getEntries(for: selectedDate)
@@ -35,6 +36,9 @@ struct FeedingHistoryView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(height: 43)
+                        .onTapGesture {
+                            showOnboarding = true
+                        }
                     
                     Spacer()
                     
@@ -73,6 +77,11 @@ struct FeedingHistoryView: View {
         .overlay {
             ForEach(animations, id: \.self) { id in
                 FallingPelletsView()
+            }
+        }
+        .fullScreenCover(isPresented: $showOnboarding) {
+            NavigationStack {
+                FishProblemsView()
             }
         }
     }

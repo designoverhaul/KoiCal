@@ -157,7 +157,7 @@ struct HealthPlanView: View {
         }
         
         do {
-            let (selectedGoals, selectedProblems) = getSelectedIssues()
+            _ = getSelectedIssues()
             
             // Use a default location if none is set
             let currentLocation = location.isEmpty ? "Unknown Location" : location

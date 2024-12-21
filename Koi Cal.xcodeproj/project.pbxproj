@@ -40,6 +40,8 @@
 		9389E2232D04FDD8001BAAE7 /* WaterTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E2222D04FDD1001BAAE7 /* WaterTestView.swift */; };
 		939605492D0C7EFA00AEEA5D /* MeasurementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939605482D0C7EFA00AEEA5D /* MeasurementType.swift */; };
 		9396054B2D0C818500AEEA5D /* WaterQualityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396054A2D0C818500AEEA5D /* WaterQualityManager.swift */; };
+		93A3D1D72D177247005D17AB /* FishProblemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1D52D177247005D17AB /* FishProblemsView.swift */; };
+		93A3D1D82D177247005D17AB /* PondProblemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1D62D177247005D17AB /* PondProblemsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		9389E2222D04FDD1001BAAE7 /* WaterTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTestView.swift; sourceTree = "<group>"; };
 		939605482D0C7EFA00AEEA5D /* MeasurementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementType.swift; sourceTree = "<group>"; };
 		9396054A2D0C818500AEEA5D /* WaterQualityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterQualityManager.swift; sourceTree = "<group>"; };
+		93A3D1D52D177247005D17AB /* FishProblemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishProblemsView.swift; sourceTree = "<group>"; };
+		93A3D1D62D177247005D17AB /* PondProblemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PondProblemsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +166,7 @@
 				9389E2082D04DE54001BAAE7 /* Models */,
 				9389E20A2D04DE69001BAAE7 /* Resources */,
 				9389E2072D04DE4B001BAAE7 /* Services */,
+				93A3D1CE2D172E38005D17AB /* Onboarding */,
 			);
 			path = "Koi Cal";
 			sourceTree = "<group>";
@@ -294,6 +299,15 @@
 				9308F22F2D08C3A9009B2951 /* InfoCardView.swift */,
 			);
 			path = HealthPlan;
+			sourceTree = "<group>";
+		};
+		93A3D1CE2D172E38005D17AB /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				93A3D1D52D177247005D17AB /* FishProblemsView.swift */,
+				93A3D1D62D177247005D17AB /* PondProblemsView.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -430,6 +444,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93A3D1D72D177247005D17AB /* FishProblemsView.swift in Sources */,
+				93A3D1D82D177247005D17AB /* PondProblemsView.swift in Sources */,
 				9389E21B2D04E7AF001BAAE7 /* XAIConfig.swift in Sources */,
 				9355BEFC2CF4F019007B1A78 /* XAIService.swift in Sources */,
 				9355BF022CF4F042007B1A78 /* WeatherManager.swift in Sources */,
