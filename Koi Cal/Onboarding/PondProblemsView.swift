@@ -101,8 +101,7 @@ struct PondProblemsView: View {
             }
             
             NavigationLink {
-                // Next view in onboarding flow will go here
-                Text("Next Screen")
+                FishInformationView()
             } label: {
                 Text("Next")
                     .font(.headline)

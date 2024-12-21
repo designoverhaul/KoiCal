@@ -42,6 +42,7 @@
 		9396054B2D0C818500AEEA5D /* WaterQualityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396054A2D0C818500AEEA5D /* WaterQualityManager.swift */; };
 		93A3D1D72D177247005D17AB /* FishProblemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1D52D177247005D17AB /* FishProblemsView.swift */; };
 		93A3D1D82D177247005D17AB /* PondProblemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1D62D177247005D17AB /* PondProblemsView.swift */; };
+		93A3D1DA2D177831005D17AB /* FishInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1D92D177831005D17AB /* FishInformationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		9396054A2D0C818500AEEA5D /* WaterQualityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterQualityManager.swift; sourceTree = "<group>"; };
 		93A3D1D52D177247005D17AB /* FishProblemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishProblemsView.swift; sourceTree = "<group>"; };
 		93A3D1D62D177247005D17AB /* PondProblemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PondProblemsView.swift; sourceTree = "<group>"; };
+		93A3D1D92D177831005D17AB /* FishInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishInformationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +308,7 @@
 			children = (
 				93A3D1D52D177247005D17AB /* FishProblemsView.swift */,
 				93A3D1D62D177247005D17AB /* PondProblemsView.swift */,
+				93A3D1D92D177831005D17AB /* FishInformationView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				9389E21D2D04E85D001BAAE7 /* FeedingHistoryView.swift in Sources */,
 				9355BEF32CF4EEEA007B1A78 /* FallingPelletView.swift in Sources */,
 				9355BEF42CF4EEEA007B1A78 /* FeedingEntryView.swift in Sources */,
+				93A3D1DA2D177831005D17AB /* FishInformationView.swift in Sources */,
 				9355BEF52CF4EEEA007B1A78 /* Koi_CalApp.swift in Sources */,
 				9355BEF62CF4EEEA007B1A78 /* SettingsView.swift in Sources */,
 				9308F2302D08C3A9009B2951 /* InfoCardView.swift in Sources */,
