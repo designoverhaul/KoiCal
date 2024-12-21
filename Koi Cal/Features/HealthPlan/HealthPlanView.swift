@@ -133,6 +133,12 @@ struct HealthPlanView: View {
     private func updateRecommendations() async {
         guard let temperature = weatherManager.currentTemperature else {
             print("❌ No temperature available for recommendations")
+            DispatchQueue.main.async {
+                self.feedingFrequency = "Error getting recommendation"
+                self.foodType = "Error getting recommendation"
+                self.pondReport = "Error getting recommendation"
+                self.isLoading = false
+            }
             return
         }
         
@@ -153,33 +159,26 @@ struct HealthPlanView: View {
         do {
             let (selectedGoals, selectedProblems) = getSelectedIssues()
             
-            // Debug print current measurements
-            print("\n🔍 Current Water Quality Measurements:")
-            print("Nitrate: \(waterQualityManager.measurements[.nitrate] ?? 0)")
-            print("Nitrite: \(waterQualityManager.measurements[.nitrite] ?? 0)")
-            print("pH: \(waterQualityManager.measurements[.pH] ?? 0)")
-            print("KH: \(waterQualityManager.measurements[.kh] ?? 0)")
-            print("GH: \(waterQualityManager.measurements[.gh] ?? 0)")
-            print("Fish Size: \(fishSize == FishSize.small.rawValue ? "Small" : fishSize == FishSize.medium.rawValue ? "Medium" : "Large")")
+            // Use a default location if none is set
+            let currentLocation = location.isEmpty ? "Unknown Location" : location
             
             let recommendations = try await xaiService.getRecommendation(
                 temperature: temperature,
                 fishAge: getAgeString(),
-                fishSize: fishSize == FishSize.small.rawValue ? "Small" : 
-                         fishSize == FishSize.medium.rawValue ? "Medium" : "Large",
-                improveColor: selectedGoals.contains("Improve color"),
-                growthAndBreeding: selectedGoals.contains("Growth and breeding"),
-                improvedBehavior: selectedGoals.contains("Improved behavior"),
-                sicknessDeath: selectedProblems.contains("Sickness or death"),
-                lowEnergy: selectedProblems.contains("Low energy"),
-                stuntedGrowth: selectedProblems.contains("Stunted growth"),
-                lackAppetite: selectedProblems.contains("Lack of appetite"),
-                obesityBloating: selectedProblems.contains("Obesity/bloating"),
-                constantHiding: selectedProblems.contains("Constant hiding"),
-                location: location,
+                fishSize: fishSize == FishSize.small.rawValue ? "Small" : fishSize == FishSize.medium.rawValue ? "Medium" : "Large",
+                improveColor: improveColor,
+                growthAndBreeding: growthAndBreeding,
+                improvedBehavior: improvedBehavior,
+                sicknessDeath: sicknessOrDeath,
+                lowEnergy: lowEnergy,
+                stuntedGrowth: stuntedGrowth,
+                lackAppetite: lackOfAppetite,
+                obesityBloating: obesity,
+                constantHiding: constantHiding,
+                location: currentLocation,
                 waterTest: waterTestString,
                 pondSize: pondVolume,
-                fishCount: fishCount.isEmpty ? "Not specified" : fishCount,
+                fishCount: fishCount,
                 feedingHistory: getFeedingHistory(),
                 waterClarity: waterClarity,
                 waterClarityText: getWaterClarityText(),

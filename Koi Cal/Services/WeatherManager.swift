@@ -42,8 +42,35 @@ class WeatherManager: ObservableObject {
     }
     
     func updateTemperature() async {
-        guard !pondLocation.isEmpty else {
-            errorMessage = "Please set your pond location"
+        // If location is empty, use a default temperature based on season
+        if pondLocation.isEmpty {
+            let calendar = Calendar.current
+            let month = calendar.component(.month, from: Date())
+            
+            // Default temperatures by season (in Fahrenheit)
+            let defaultTemp: Double
+            switch month {
+            case 12, 1, 2:  // Winter
+                defaultTemp = 45.0
+            case 3, 4, 5:   // Spring
+                defaultTemp = 65.0
+            case 6, 7, 8:   // Summer
+                defaultTemp = 85.0
+            case 9, 10, 11: // Fall
+                defaultTemp = 65.0
+            default:
+                defaultTemp = 65.0
+            }
+            
+            currentTemperature = defaultTemp
+            errorMessage = nil
+            
+            // Use default sunlight hours (4) if not set
+            let sunHours = Int(sunlightHours) ?? 4
+            currentTemperature = calculateWaterTemperature(
+                airTemp: defaultTemp,
+                sunlightHours: sunHours
+            )
             return
         }
         
@@ -60,18 +87,16 @@ class WeatherManager: ObservableObject {
             let temperature = weather.currentWeather.temperature
             currentTemperature = temperature.converted(to: .fahrenheit).value
             errorMessage = nil
+            
+            // Use default sunlight hours (4) if not set
+            let sunHours = Int(sunlightHours) ?? 4
+            currentTemperature = calculateWaterTemperature(
+                airTemp: currentTemperature ?? temperature.converted(to: .fahrenheit).value,
+                sunlightHours: sunHours
+            )
         } catch {
             currentTemperature = nil
             errorMessage = error.localizedDescription
-        }
-        
-        if let temp = currentTemperature, 
-           let sunHours = Int(sunlightHours) {
-            // Update to use new calculation
-            currentTemperature = calculateWaterTemperature(
-                airTemp: temp,
-                sunlightHours: sunHours
-            )
         }
     }
 } 
