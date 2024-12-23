@@ -43,6 +43,7 @@
 		93A3D1D72D177247005D17AB /* FishProblemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1D52D177247005D17AB /* FishProblemsView.swift */; };
 		93A3D1DA2D177831005D17AB /* FishInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1D92D177831005D17AB /* FishInformationView.swift */; };
 		93A3D1DE2D19A0C3005D17AB /* PondInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1DD2D19A0C3005D17AB /* PondInformationView.swift */; };
+		93A3D1E02D19B9EF005D17AB /* ColorEncouragementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1DF2D19B9EF005D17AB /* ColorEncouragementView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		93A3D1D52D177247005D17AB /* FishProblemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishProblemsView.swift; sourceTree = "<group>"; };
 		93A3D1D92D177831005D17AB /* FishInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishInformationView.swift; sourceTree = "<group>"; };
 		93A3D1DD2D19A0C3005D17AB /* PondInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PondInformationView.swift; sourceTree = "<group>"; };
+		93A3D1DF2D19B9EF005D17AB /* ColorEncouragementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEncouragementView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +310,7 @@
 			children = (
 				93A3D1D52D177247005D17AB /* FishProblemsView.swift */,
 				93A3D1D92D177831005D17AB /* FishInformationView.swift */,
+				93A3D1DF2D19B9EF005D17AB /* ColorEncouragementView.swift */,
 				93A3D1DD2D19A0C3005D17AB /* PondInformationView.swift */,
 			);
 			path = Onboarding;
@@ -471,6 +474,7 @@
 				9355BEF32CF4EEEA007B1A78 /* FallingPelletView.swift in Sources */,
 				9355BEF42CF4EEEA007B1A78 /* FeedingEntryView.swift in Sources */,
 				93A3D1DA2D177831005D17AB /* FishInformationView.swift in Sources */,
+				93A3D1E02D19B9EF005D17AB /* ColorEncouragementView.swift in Sources */,
 				9355BEF52CF4EEEA007B1A78 /* Koi_CalApp.swift in Sources */,
 				93A3D1DE2D19A0C3005D17AB /* PondInformationView.swift in Sources */,
 				9355BEF62CF4EEEA007B1A78 /* SettingsView.swift in Sources */,

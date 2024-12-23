@@ -86,7 +86,7 @@ struct FishProblemsView: View {
             }
             
             NavigationLink {
-                PondInformationView()
+                ColorEncouragementView()
             } label: {
                 Text("Next")
                     .font(.headline)
