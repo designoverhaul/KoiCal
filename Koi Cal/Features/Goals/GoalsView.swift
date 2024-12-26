@@ -11,7 +11,7 @@ struct GoalsView: View {
     
     // Problems multiple selection
     @AppStorage("sicknessOrDeath") private var sicknessOrDeath = false
-    @AppStorage("lowEnergy") private var lowEnergy = true
+    @AppStorage("lowEnergy") private var lowEnergy = false
     @AppStorage("stuntedGrowth") private var stuntedGrowth = false
     @AppStorage("lackOfAppetite") private var lackOfAppetite = false
     @AppStorage("obesity") private var obesity = false
@@ -20,10 +20,26 @@ struct GoalsView: View {
     // Water Clarity selection
     @AppStorage("waterClarity") private var selectedWaterClarity = 0  // 0: None, 1: Green, 2: Black/Dark, 3: Cloudy
     
+    @State private var showMaxConcernsAlert = false
+    
+    private var selectedConcernsCount: Int {
+        [sicknessOrDeath, lowEnergy, stuntedGrowth, lackOfAppetite, obesity, constantHiding]
+            .filter { $0 }
+            .count
+    }
+    
+    private func handleConcernToggle(_ isOn: Bool, for binding: Binding<Bool>) {
+        if isOn && selectedConcernsCount >= 2 {
+            showMaxConcernsAlert = true
+        } else {
+            binding.wrappedValue = isOn
+        }
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                Text("Get daily advice on each selections based on your unique fish and pond conditions.")
+                Text("Get full-picture advice for these issues based on your unique fish, climate, and pond conditions.")
                     .font(.subheadline)
                     .foregroundColor(.primary)
                     .padding(.horizontal, 20)
@@ -50,12 +66,30 @@ struct GoalsView: View {
                             .font(.headline)
                         
                         VStack(alignment: .leading, spacing: 8) {
-                            Toggle("Sickness or Death", isOn: $sicknessOrDeath)
-                            Toggle("Low Energy (normal in winter)", isOn: $lowEnergy)
-                            Toggle("Stunted Growth", isOn: $stuntedGrowth)
-                            Toggle("Lack of appetite", isOn: $lackOfAppetite)
-                            Toggle("Obesity or bloating", isOn: $obesity)
-                            Toggle("Constant Hiding", isOn: $constantHiding)
+                            Toggle("Sickness or Death", isOn: Binding(
+                                get: { sicknessOrDeath },
+                                set: { handleConcernToggle($0, for: $sicknessOrDeath) }
+                            ))
+                            Toggle("Low Energy (normal in winter)", isOn: Binding(
+                                get: { lowEnergy },
+                                set: { handleConcernToggle($0, for: $lowEnergy) }
+                            ))
+                            Toggle("Stunted Growth", isOn: Binding(
+                                get: { stuntedGrowth },
+                                set: { handleConcernToggle($0, for: $stuntedGrowth) }
+                            ))
+                            Toggle("Lack of appetite", isOn: Binding(
+                                get: { lackOfAppetite },
+                                set: { handleConcernToggle($0, for: $lackOfAppetite) }
+                            ))
+                            Toggle("Obesity or bloating", isOn: Binding(
+                                get: { obesity },
+                                set: { handleConcernToggle($0, for: $obesity) }
+                            ))
+                            Toggle("Constant Hiding", isOn: Binding(
+                                get: { constantHiding },
+                                set: { handleConcernToggle($0, for: $constantHiding) }
+                            ))
                         }
                     }
                     
@@ -95,7 +129,9 @@ struct GoalsView: View {
         }
         .navigationTitle("🎯 Goals")
         .navigationBarTitleDisplayMode(.large)
-       
+        .alert("Only two concerns can be selected at a time", isPresented: $showMaxConcernsAlert) {
+            Button("OK", role: .cancel) { }
+        }
     }
 }
 

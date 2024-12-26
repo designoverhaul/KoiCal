@@ -64,6 +64,20 @@ struct FeedingHistoryView: View {
                 // Food Image Button
                 feedingButton
                 
+                // Food Type Toggle
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("WHAT ARE YOU FEEDING")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    
+                    Picker("Food Type", selection: $feedingData.currentFoodType) {
+                        Text("High Protein").tag("High Protein")
+                        Text("Cool Season").tag("Cool Season")
+                    }
+                    .pickerStyle(.segmented)
+                }
+                .padding(.horizontal)
+                
                 // Calendar
                 CustomCalendarView(selectedDate: $selectedDate, feedingData: feedingData)
                     .padding(.horizontal)
@@ -98,13 +112,16 @@ struct FeedingHistoryView: View {
                 }
                 .frame(height: 80)
                 .onTapGesture {
-                    feedingData.toggleFeeding(for: selectedDate)
-                    hasSeenFeedTooltip = true
-                    let animationId = UUID()
-                    animations.append(animationId)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                        animations.removeAll { $0 == animationId }
+                    let currentCount = feedingData.getFeedingCount(for: selectedDate)
+                    if currentCount < 3 {
+                        feedingData.toggleFeeding(for: selectedDate)
+                        hasSeenFeedTooltip = true
+                        let animationId = UUID()
+                        animations.append(animationId)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                            animations.removeAll { $0 == animationId }
+                        }
                     }
                 }
             }

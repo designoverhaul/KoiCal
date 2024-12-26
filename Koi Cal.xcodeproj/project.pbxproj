@@ -44,6 +44,8 @@
 		93A3D1DA2D177831005D17AB /* FishInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1D92D177831005D17AB /* FishInformationView.swift */; };
 		93A3D1DE2D19A0C3005D17AB /* PondInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1DD2D19A0C3005D17AB /* PondInformationView.swift */; };
 		93A3D1E02D19B9EF005D17AB /* ColorEncouragementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1DF2D19B9EF005D17AB /* ColorEncouragementView.swift */; };
+		93A3D1E22D19DFB2005D17AB /* WatermelonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1E12D19DFB2005D17AB /* WatermelonView.swift */; };
+		93A3D1E42D1AE26C005D17AB /* tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 93A3D1E32D1AE26C005D17AB /* tick.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,8 @@
 		93A3D1D92D177831005D17AB /* FishInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishInformationView.swift; sourceTree = "<group>"; };
 		93A3D1DD2D19A0C3005D17AB /* PondInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PondInformationView.swift; sourceTree = "<group>"; };
 		93A3D1DF2D19B9EF005D17AB /* ColorEncouragementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEncouragementView.swift; sourceTree = "<group>"; };
+		93A3D1E12D19DFB2005D17AB /* WatermelonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatermelonView.swift; sourceTree = "<group>"; };
+		93A3D1E32D1AE26C005D17AB /* tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tick.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				937EB61B2CF8A5E5002C0B54 /* Two_Koi.lottie */,
+				93A3D1E32D1AE26C005D17AB /* tick.wav */,
 				9389E2152D04E34B001BAAE7 /* Assets.xcassets */,
 				936B80E32CE68B4E00F668CD /* Preview Content */,
 			);
@@ -311,6 +316,7 @@
 				93A3D1D52D177247005D17AB /* FishProblemsView.swift */,
 				93A3D1D92D177831005D17AB /* FishInformationView.swift */,
 				93A3D1DF2D19B9EF005D17AB /* ColorEncouragementView.swift */,
+				93A3D1E12D19DFB2005D17AB /* WatermelonView.swift */,
 				93A3D1DD2D19A0C3005D17AB /* PondInformationView.swift */,
 			);
 			path = Onboarding;
@@ -426,6 +432,7 @@
 				936B80E52CE68B4E00F668CD /* Preview Assets.xcassets in Resources */,
 				9389E2162D04E34B001BAAE7 /* Assets.xcassets in Resources */,
 				937EB61C2CF8A5E5002C0B54 /* Two_Koi.lottie in Resources */,
+				93A3D1E42D1AE26C005D17AB /* tick.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,6 +484,7 @@
 				93A3D1E02D19B9EF005D17AB /* ColorEncouragementView.swift in Sources */,
 				9355BEF52CF4EEEA007B1A78 /* Koi_CalApp.swift in Sources */,
 				93A3D1DE2D19A0C3005D17AB /* PondInformationView.swift in Sources */,
+				93A3D1E22D19DFB2005D17AB /* WatermelonView.swift in Sources */,
 				9355BEF62CF4EEEA007B1A78 /* SettingsView.swift in Sources */,
 				9308F2302D08C3A9009B2951 /* InfoCardView.swift in Sources */,
 				9355BEF72CF4EEEA007B1A78 /* FeedingData.swift in Sources */,

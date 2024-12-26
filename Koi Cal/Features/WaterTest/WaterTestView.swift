@@ -30,6 +30,7 @@ struct WaterTestView: View {
     @AppStorage("useCelsius") private var useCelsius = false
     @AppStorage("useMetric") private var useMetric = false
     @EnvironmentObject private var waterQualityManager: WaterQualityManager
+    @Environment(\.scenePhase) private var scenePhase
     
     var body: some View {
         ScrollView {
@@ -73,7 +74,6 @@ struct WaterTestView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
                 .padding(.bottom, 8)
-                
                 
                 VStack(alignment: .leading, spacing: 24) {
                     // Water Quality Measurements

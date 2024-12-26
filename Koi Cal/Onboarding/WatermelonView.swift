@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ColorEncouragementView: View {
+struct WatermelonView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -22,53 +22,36 @@ struct ColorEncouragementView: View {
                     .padding(.top, 20)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Text("Encourage Bright Colors")
+                    Text("Make your fish less fearful and more interactive")
                         .font(.title)
                         .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
+                        .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.horizontal, 20)
                         .padding(.top, 20)
                         .frame(maxWidth: .infinity, alignment: .center)
                     
-                    VStack(alignment: .center, spacing: 12) {
-                        Text("Use the right food at the right time")
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        Image("color")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .cornerRadius(10)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 180)
-                    }
-                    .padding(.horizontal, 20)
+                    Text("New foods and hand feeding can bring out their personality. ")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal, 20)
+                        .frame(maxWidth: .infinity, alignment: .center)
                     
-                    VStack(alignment: .center, spacing: 12) {
-                        Text("The wrong food and poor water quality can dull colors")
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        Image("noColor")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .cornerRadius(10)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 180)
-                    }
-                    .padding(.horizontal, 20)
+                    Image("watermelon")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
+                        .cornerRadius(10)
+                        .padding(.horizontal, 20)
                     
                     Spacer()
                         .frame(height: 100)
                 }
             }
-            .background(Color.white)
+            .background(.white)
             
             NavigationLink {
-                PondInformationView()
+                FishInformationView()
             } label: {
                 Text("Next")
                     .font(.headline)
@@ -80,8 +63,9 @@ struct ColorEncouragementView: View {
                     .padding(.horizontal, 20)
                     .padding(.bottom, 34)
             }
+            .background(Color.white.edgesIgnoringSafeArea(.bottom))
         }
-        .background(Color.white)
+        .background(.white)
         .edgesIgnoringSafeArea(.bottom)
         .toolbar(.hidden, for: .navigationBar)
     }
@@ -89,6 +73,6 @@ struct ColorEncouragementView: View {
 
 #Preview {
     NavigationStack {
-        ColorEncouragementView()
+        WatermelonView()
     }
 } 

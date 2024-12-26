@@ -413,13 +413,8 @@ struct HealthPlanView: View {
             // Only get temperature on initial load
             await weatherManager.updateTemperature()
             
-            // Only get initial recommendations if we don't have any yet
+            // Get initial recommendations if we don't have any yet
             if feedingFrequency == "Loading..." {
-                await updateRecommendations()
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .refreshHealthPlan)) { _ in
-            Task {
                 await updateRecommendations()
             }
         }

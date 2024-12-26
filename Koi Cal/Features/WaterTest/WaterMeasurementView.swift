@@ -1,8 +1,38 @@
 import SwiftUI
+import AVFoundation
 
 struct WaterMeasurementView: View {
     let type: MeasurementType
     @Binding var selectedValue: Int?
+    private let hapticFeedback = UIImpactFeedbackGenerator(style: .light)
+    private var audioPlayer: AVAudioPlayer?
+    
+    init(type: MeasurementType, selectedValue: Binding<Int?>) {
+        self.type = type
+        self._selectedValue = selectedValue
+        
+        // Set up audio session
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("Failed to set up audio session: \(error)")
+        }
+        
+        // Initialize audio player
+        if let soundURL = Bundle.main.url(forResource: "tick", withExtension: "wav") {
+            do {
+                try audioPlayer = AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.prepareToPlay()
+            } catch {
+                print("Error loading sound: \(error)")
+            }
+        }
+    }
+    
+    private func playTickSound() {
+        audioPlayer?.play()
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -70,11 +100,9 @@ struct WaterMeasurementView: View {
                             }
                         )
                         .onTapGesture {
-                            print("Before tap - selectedValue: \(String(describing: selectedValue))")
-                            print("Tapped index: \(index)")
-                            print("Value at index: \(type.values[index])")
+                            hapticFeedback.impactOccurred()
+                            playTickSound()
                             selectedValue = index
-                            print("After tap - selectedValue: \(String(describing: selectedValue))")
                         }
                 }
             }

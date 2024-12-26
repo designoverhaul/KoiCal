@@ -33,10 +33,26 @@ class FeedingData: ObservableObject {
             updateFedYesterday()
         }
     }
-    @Published var currentFoodType: String = "High Protein"
+    @Published var currentFoodType: String {
+        didSet {
+            // Make sure we only save valid food types
+            if currentFoodType != "High Protein" && currentFoodType != "Cool Season" {
+                currentFoodType = "High Protein"
+            }
+            UserDefaults.standard.set(currentFoodType, forKey: "currentFoodType")
+        }
+    }
     @Published private(set) var fedYesterday: Bool = false
     
     init() {
+        // Initialize currentFoodType from UserDefaults with validation
+        let savedFoodType = UserDefaults.standard.string(forKey: "currentFoodType") ?? "High Protein"
+        if savedFoodType != "High Protein" && savedFoodType != "Cool Season" {
+            self.currentFoodType = "High Protein"
+        } else {
+            self.currentFoodType = savedFoodType
+        }
+        
         loadFeedingData()
         updateFedYesterday()
     }

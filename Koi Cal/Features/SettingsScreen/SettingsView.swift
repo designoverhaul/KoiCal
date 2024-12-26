@@ -32,7 +32,7 @@ struct SettingsView: View {
     @AppStorage("obesity") private var obesity = false
     @AppStorage("constantHiding") private var constantHiding = false
     @AppStorage("waterClarity") private var waterClarity = 0
-    @AppStorage("selectedAgeGroup") private var selectedAgeGroup = "Mixed"
+    @AppStorage("selectedAgeGroup") private var selectedAgeGroup = "Adult"
     @EnvironmentObject var waterQualityManager: WaterQualityManager
     @State private var showMailError = false
     
@@ -41,8 +41,8 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            Section("Food") {
-                Picker("Current Food Type", selection: $feedingData.currentFoodType) {
+            Section("WHAT ARE YOU FEEDING") {
+                Picker("Currently", selection: $feedingData.currentFoodType) {
                     ForEach(foodTypes, id: \.self) { food in
                         Text(food).tag(food)
                     }
@@ -206,6 +206,20 @@ struct SettingsView: View {
                             .foregroundColor(Color(hex: "565656"))
                         Spacer()
                         Image(systemName: "envelope")
+                            .foregroundColor(Color(hex: "F18833"))
+                    }
+                }
+                
+                Button(action: {
+                    if let url = URL(string: "https://apps.apple.com/app/id123456789?action=write-review") {
+                        UIApplication.shared.open(url)
+                    }
+                }) {
+                    HStack {
+                        Text("Leave Review - Thank You")
+                            .foregroundColor(Color(hex: "565656"))
+                        Spacer()
+                        Image(systemName: "pencil.and.scribble")
                             .foregroundColor(Color(hex: "F18833"))
                     }
                 }

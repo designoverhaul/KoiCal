@@ -5,8 +5,9 @@ struct FishInformationView: View {
     
     @State private var currentFoodType = UserDefaults.standard.string(forKey: "currentFoodType") ?? "High Protein"
     @State private var fishSize = UserDefaults.standard.string(forKey: "fishSize") ?? FishSize.medium.rawValue
-    @State private var selectedAgeGroup = UserDefaults.standard.string(forKey: "selectedAgeGroup") ?? "Mixed"
+    @State private var selectedAgeGroup = UserDefaults.standard.string(forKey: "selectedAgeGroup") ?? "Adult"
     @State private var fishCount = UserDefaults.standard.string(forKey: "fishCount") ?? ""
+    @FocusState private var isFishCountFieldFocused: Bool
     
     private let foodTypes = ["High Protein", "Cool Season"]
     private let ageGroups = ["Juvenile", "Adult", "Mixed"]
@@ -106,6 +107,7 @@ struct FishInformationView: View {
                             TextField("Number of fish", text: $fishCount)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .keyboardType(.numberPad)
+                                .focused($isFishCountFieldFocused)
                                 .onChange(of: fishCount) { oldValue, newValue in
                                     let filtered = newValue.filter { $0.isNumber }
                                     if filtered != newValue {
@@ -155,6 +157,14 @@ struct FishInformationView: View {
         }
         .onChange(of: fishCount) { _, newValue in
             UserDefaults.standard.set(newValue, forKey: "fishCount")
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    isFishCountFieldFocused = false
+                }
+            }
         }
     }
 }
