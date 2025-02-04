@@ -1,17 +1,17 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @State private var selectedTab = 0
     @StateObject private var feedingData = FeedingData()
     @StateObject private var xaiService = XAIService()
     @StateObject private var weatherManager = WeatherManager()
     @StateObject private var waterQualityManager = WaterQualityManager()
+    @StateObject private var tabRouter = TabRouter()
     
     private let inactiveColor = Color(hex: "A1A1A1")
     private let activeColor = Color(hex: "F18833")
     
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView(selection: $tabRouter.selectedTab) {
             // Feeding History Tab
             NavigationView {
                 FeedingHistoryView()
@@ -22,7 +22,7 @@ struct MainTabView: View {
                     Text("Koi Cal")
                 } icon: {
                     Image(systemName: "calendar")
-                        .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
+                        .environment(\.symbolVariants, tabRouter.selectedTab == 0 ? .fill : .none)
                 }
             }
             .tag(0)
@@ -37,7 +37,7 @@ struct MainTabView: View {
                     Text("Goals")
                 } icon: {
                     Image(systemName: "fish")
-                        .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
+                        .environment(\.symbolVariants, tabRouter.selectedTab == 1 ? .fill : .none)
                 }
             }
             .tag(1)
@@ -48,13 +48,14 @@ struct MainTabView: View {
                 HealthPlanView()
                     .environmentObject(feedingData)
                     .environmentObject(waterQualityManager)
+                    .environmentObject(tabRouter)
             }
             .tabItem {
                 Label {
                     Text("Health Plan")
                 } icon: {
                     Image(systemName: "sparkles")
-                        .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
+                        .environment(\.symbolVariants, tabRouter.selectedTab == 2 ? .fill : .none)
                 }
             }
             .tag(2)
@@ -70,7 +71,7 @@ struct MainTabView: View {
                     Text("Water Test")
                 } icon: {
                     Image(systemName: "waterbottle")
-                        .environment(\.symbolVariants, selectedTab == 3 ? .fill : .none)
+                        .environment(\.symbolVariants, tabRouter.selectedTab == 3 ? .fill : .none)
                 }
             }
             .tag(3)
@@ -90,7 +91,7 @@ struct MainTabView: View {
                     Text("Settings")
                 } icon: {
                     Image(systemName: "gear")
-                        .environment(\.symbolVariants, selectedTab == 4 ? .fill : .none)
+                        .environment(\.symbolVariants, tabRouter.selectedTab == 4 ? .fill : .none)
                 }
             }
             .tag(4)
@@ -98,10 +99,11 @@ struct MainTabView: View {
         }
         .environmentObject(waterQualityManager)
         .environmentObject(feedingData)
+        .environmentObject(tabRouter)
         .tint(activeColor)
         .onAppear {
             print("📱 MainTabView appeared")
-            print("📱 Initial selected tab: \(selectedTab)")
+            print("📱 Initial selected tab: \(tabRouter.selectedTab)")
             
             // Set the inactive color for tab items
             let appearance = UITabBarAppearance()
@@ -110,8 +112,16 @@ struct MainTabView: View {
             UITabBar.appearance().standardAppearance = appearance
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }
-        .onChange(of: selectedTab) { oldValue, newValue in
+        .onChange(of: tabRouter.selectedTab) { oldValue, newValue in
             print("📱 Tab changed from \(oldValue) to \(newValue)")
         }
+    }
+}
+
+class TabRouter: ObservableObject {
+    @Published var selectedTab = 0
+    
+    func switchToSettings() {
+        selectedTab = 4  // Index of Settings tab
     }
 }

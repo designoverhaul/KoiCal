@@ -46,6 +46,7 @@ struct HealthPlanView: View {
     @State private var lastUpdateTime: Date?
     @State private var showFeedbackAlert = false
     @State private var showLocationAlert = false
+    @EnvironmentObject private var tabRouter: TabRouter
     
     init() {
         #if DEBUG
@@ -329,19 +330,20 @@ struct HealthPlanView: View {
                     }
                     .padding(.horizontal, 20)
                     
-                    // Water Section
+                    // Goals Section
                     VStack(alignment: .leading, spacing: 12) {
                         HStack(spacing: 4) {
-                            Image(systemName: "water.waves")
+                            Image(systemName: "cross.case.fill")
                                 .foregroundColor(Color(hex: "F18833"))
                                 .font(.title3)
                             
-                            Text("Water")
+                            Text("Goals")
                                 .font(.title3)
                                 .fontWeight(.semibold)
                                 .foregroundColor(.primary)
                         }
                         
+                        // Show water clarity if selected
                         if waterClarity > 0 {
                             InfoCardView(
                                 title: getWaterClarityTitle(),
@@ -349,36 +351,12 @@ struct HealthPlanView: View {
                                 showSparkle: true
                             )
                         }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 20)
-                    
-                    // Fish Concerns Section
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "cross.case.fill")
-                                .foregroundColor(Color(hex: "F18833"))
-                                .font(.title3)
-                            
-                            Text("Fish Concerns")
-                                .font(.title3)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.primary)
-                        }
                         
-                        if !sicknessOrDeath && !lowEnergy && !stuntedGrowth && 
-                           !lackOfAppetite && !obesity && !constantHiding {
-                            InfoCardView(
-                                title: "",
-                                content: "None 👍",
-                                showSparkle: false
-                            )
-                        }
-                        
+                        // Show fish concerns if any are selected
                         if sicknessOrDeath {
                             InfoCardView(
                                 title: "Sickness or Death",
-                                content: concernRecommendations["Sickness or death"] ?? "Loading...",
+                                content: isLoading ? "Loading..." : (concernRecommendations["Sickness or death"] ?? ""),
                                 showSparkle: true
                             )
                         }
@@ -422,9 +400,20 @@ struct HealthPlanView: View {
                                 showSparkle: true
                             )
                         }
+                        
+                        // Show "None" if no goals or concerns are selected
+                        if !sicknessOrDeath && !lowEnergy && !stuntedGrowth && 
+                           !lackOfAppetite && !obesity && !constantHiding && waterClarity == 0 {
+                            InfoCardView(
+                                title: "",
+                                content: "None 👍",
+                                showSparkle: false
+                            )
+                        }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
+                    
                     // Bottom padding
                     Spacer()
                         .frame(height: 100)
@@ -441,12 +430,7 @@ struct HealthPlanView: View {
         }
         .alert("Pond Location Required", isPresented: $showLocationAlert) {
             Button("Settings") {
-                // Navigate to settings
-                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                   let window = windowScene.windows.first,
-                   let tabBarController = window.rootViewController as? UITabBarController {
-                    tabBarController.selectedIndex = 4  // Switch to Settings tab
-                }
+                tabRouter.switchToSettings()
             }
             Button("Cancel", role: .cancel) { }
         } message: {
