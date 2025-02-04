@@ -108,7 +108,7 @@ class XAIService: ObservableObject {
                 
                 Provide these recommendations in the exact format shown, keeping responses brief and focused:
                 
-                FOOD TYPE: [One or two sentences. Never recommend high protein in Dec or Jan. Check feeding history for overfeeding.]
+                FOOD TYPE: [One or two sentences. Never recommend high protein in Nov-Feb. Check feeding history for overfeeding.]
                 
                 FEEDING FREQUENCY: [One sentence about feeding frequency considering location, date, and temperature]
                 
@@ -137,7 +137,7 @@ class XAIService: ObservableObject {
             messages: messages,
             model: "grok-beta",
             temperature: 0.6,
-            max_tokens: 400
+            max_tokens: 4 OK what is it00
         )
         
         var urlRequest = URLRequest(url: URL(string: XAIConfig.apiURL)!)

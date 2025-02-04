@@ -330,14 +330,14 @@ struct HealthPlanView: View {
                     }
                     .padding(.horizontal, 20)
                     
-                    // Goals Section
+                    // Concerns Section
                     VStack(alignment: .leading, spacing: 12) {
                         HStack(spacing: 4) {
                             Image(systemName: "cross.case.fill")
                                 .foregroundColor(Color(hex: "F18833"))
                                 .font(.title3)
                             
-                            Text("Goals")
+                            Text("Concerns")
                                 .font(.title3)
                                 .fontWeight(.semibold)
                                 .foregroundColor(.primary)
@@ -372,7 +372,7 @@ struct HealthPlanView: View {
                         if stuntedGrowth {
                             InfoCardView(
                                 title: "Stunted Growth",
-                                content: concernRecommendations["Stunted growth"] ?? "Loading...",
+                                content: isLoading ? "Loading..." : (concernRecommendations["Stunted growth"] ?? ""),
                                 showSparkle: true
                             )
                         }
@@ -380,7 +380,7 @@ struct HealthPlanView: View {
                         if lackOfAppetite {
                             InfoCardView(
                                 title: "Lack of Appetite",
-                                content: concernRecommendations["Lack of appetite"] ?? "Loading...",
+                                content: isLoading ? "Loading..." : (concernRecommendations["Lack of appetite"] ?? ""),
                                 showSparkle: true
                             )
                         }
@@ -396,12 +396,12 @@ struct HealthPlanView: View {
                         if constantHiding {
                             InfoCardView(
                                 title: "Constant Hiding",
-                                content: concernRecommendations["Constant hiding"] ?? "Loading...",
+                                content: isLoading ? "Loading..." : (concernRecommendations["Constant hiding"] ?? ""),
                                 showSparkle: true
                             )
                         }
                         
-                        // Show "None" if no goals or concerns are selected
+                        // Show "None" if no concerns are selected
                         if !sicknessOrDeath && !lowEnergy && !stuntedGrowth && 
                            !lackOfAppetite && !obesity && !constantHiding && waterClarity == 0 {
                             InfoCardView(

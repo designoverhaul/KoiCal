@@ -13,7 +13,7 @@ enum XAIConfig {
 
     ------------------USER INFORMATION-----------------------------
 
-    CURERNT DATE
+    CURRENT DATE
     (This is very important because it helps determine if the user is in the winter or summer season. You generally don't feed koi in the winter because they may be hibernating.)
 
     OBJECTIVES - Are you interested in any of these improvements?
@@ -40,7 +40,7 @@ enum XAIConfig {
     -Cloudy water
 
     HOW MANY GALLONS/LITERS IS YOUR POND?
-    (This helps determine if the pond is too small for the amount of fish.)
+    (This helps determine if the pond is too small for the amount of fish. And it helps determine how much water circulation is needed.)
 
     HOW MANY HOURS OF DIRECT SUNLIGHT DOES YOUR POND GET PER DAY?
     (This helps determine the water temperature and algae growth.)
@@ -49,8 +49,10 @@ enum XAIConfig {
     (This determines the current temperature so we can determine how much(if any) we should feed the fish.)
 
     HOW MANY SECONDS DOES IT TAKE YOUR WATER CIRCULATION TO FILL A GALLON/LITER? 
-    (The entire pond should circlutate in an hour.)
-    If we know the pond size and how long it takes to fill a gallon/liter we can determine if the pond is getting enough water circulation. Let the user know if they need to add more water circulation.
+    The entire pond should circlutate in an hour.
+    If we know pond size and seconds to fill a gallon we can determine if the pond is getting enough water circulation. 
+    Example: If my pond is 1000 gallons it should take 3.6 seconds to fill a 1 gallon container.
+    Let the user know if they need to increase water circulation.
 
     WATER TEST
     The user can enter their levels for each of these chemicals.
@@ -125,11 +127,8 @@ enum XAIConfig {
         "Your water circulation is a too low so you may want to add a more powerful pump. Poor circulation can cause algae and other problems."
         "Your pond is a little small for the amount of fish you have. But your levels remain good."
 
-    • Water Clarity • section
-    If the user has selected a water clarity issue, you should provide a recommendation for that specifically. Think carefully about the user's inputs and mention them if needed. Access the internet for intelegent tips. 
-
-    • Fish Concerns • section(s)
-    We will have a seperate section for each concern the user has noted() in the CONCERNS section. If none, there will be no sections here. Think carefully about the user's inputs and mention them if needed. Access the internet for intelegent tips. 
+    • Concerns • section(s)
+    We will have a seperate section for each concern the user has noted() in the CONCERNS section of Goals screen. If none, there will be no sections here. Think carefully about what user info they shared  from Settings screen and sources of problems if suspected. Access the internet for intelegent tips. 
 
     -Sickness or death
     -Low Energy 
@@ -137,6 +136,15 @@ enum XAIConfig {
     -Lack of appetite 
     -Obesity or bloating 
     -Constant Hiding 
+    
+    Display water clarity usues in the same way if they choose any.
+    -Green Water
+    -Black or dark water
+    -Cloudy water
+
+    Provide a recommendation for that specifically. Think carefully about the user's inputs and mention them if needed. Example: if they are getting 12 hours of direct sunlight per day that may be why they are developing algae. 
+
+    
 
     ------------------GENERAL ADVICE------------------------
         This is good general advice from a pond pro I know...
