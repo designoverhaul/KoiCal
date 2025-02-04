@@ -54,7 +54,8 @@ class XAIService: ObservableObject {
         feedingHistory: String,
         waterClarity: Int,
         waterClarityText: String,
-        useMetric: Bool
+        useMetric: Bool,
+        circulationTime: String
     ) async throws -> Recommendations {
         print("\n🚀 === Starting XAI Request ===")
         print("Received waterTest string:")
@@ -100,6 +101,7 @@ class XAIService: ObservableObject {
                 \(waterTest)
                 Pond Size: \(pondSize) \(useMetric ? "liters" : "gallons")
                 Fish Count: \(fishCount)
+                Circulation Rate: \(circulationTime) seconds per \(useMetric ? "liter" : "gallon")
                 Feeding History: \(feedingHistory)
                 \(goalsSection)
                 \(problemsSection)
@@ -135,7 +137,7 @@ class XAIService: ObservableObject {
             messages: messages,
             model: "grok-beta",
             temperature: 0.6,
-            max_tokens: 300
+            max_tokens: 400
         )
         
         var urlRequest = URLRequest(url: URL(string: XAIConfig.apiURL)!)

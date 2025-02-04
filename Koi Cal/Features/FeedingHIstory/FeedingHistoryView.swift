@@ -65,10 +65,12 @@ struct FeedingHistoryView: View {
                 feedingButton
                 
                 // Food Type Toggle
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("WHAT ARE YOU FEEDING")
+                VStack(alignment: .center, spacing: 4) {
+                    Text("Track feeding to safely transition seasons, and inform AI of your water and fish treatment.")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
                     
                     Picker("Food Type", selection: $feedingData.currentFoodType) {
                         Text("High Protein").tag("High Protein")

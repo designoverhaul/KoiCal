@@ -13,7 +13,6 @@
 		932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620E2D0354560003DCCD /* WaterMeasurementView.swift */; };
 		934336D92D00C12400A3689F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934336D82D00C12400A3689F /* MainTabView.swift */; };
 		9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */; };
-		9355BEEE2CF4EEEA007B1A78 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */; };
 		9355BEEF2CF4EEEA007B1A78 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */; };
 		9355BEF02CF4EEEA007B1A78 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */; };
 		9355BEF32CF4EEEA007B1A78 /* FallingPelletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */; };
@@ -77,7 +76,6 @@
 		9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingData.swift; sourceTree = "<group>"; };
 		9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingEntryView.swift; sourceTree = "<group>"; };
 		9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalApp.swift; sourceTree = "<group>"; };
-		9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9355BEFB2CF4F019007B1A78 /* XAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIService.swift; sourceTree = "<group>"; };
@@ -233,7 +231,6 @@
 			children = (
 				9389E21A2D04E7AF001BAAE7 /* XAIConfig.swift */,
 				9355BEFB2CF4F019007B1A78 /* XAIService.swift */,
-				9355BEE72CF4EEEA007B1A78 /* LocationManager.swift */,
 				9355BF002CF4F042007B1A78 /* WeatherManager.swift */,
 				9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */,
 			);
@@ -473,7 +470,6 @@
 				9389E2232D04FDD8001BAAE7 /* WaterTestView.swift in Sources */,
 				932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */,
 				9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */,
-				9355BEEE2CF4EEEA007B1A78 /* LocationManager.swift in Sources */,
 				9355BEEF2CF4EEEA007B1A78 /* SettingsManager.swift in Sources */,
 				9387B50E2D02265900F6B3B9 /* HealthPlanView.swift in Sources */,
 				9355BEF02CF4EEEA007B1A78 /* Color+Hex.swift in Sources */,

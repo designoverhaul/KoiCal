@@ -2,7 +2,6 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedTab = 0
-    @StateObject private var locationManager = LocationManager()
     @StateObject private var feedingData = FeedingData()
     @StateObject private var xaiService = XAIService()
     @StateObject private var weatherManager = WeatherManager()
@@ -82,8 +81,7 @@ struct MainTabView: View {
                 SettingsView(
                     feedingData: feedingData,
                     xaiService: xaiService,
-                    weatherManager: weatherManager,
-                    locationManager: locationManager
+                    weatherManager: weatherManager
                 )
                 .environmentObject(waterQualityManager)
             }

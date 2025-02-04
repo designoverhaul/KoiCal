@@ -10,9 +10,9 @@ struct HealthPlanView: View {
     @StateObject private var weatherManager = WeatherManager()
     @EnvironmentObject private var feedingData: FeedingData
     @EnvironmentObject private var waterQualityManager: WaterQualityManager
-    @State private var feedingFrequency = "Loading..."
-    @State private var foodType = "Loading..."
-    @State private var pondReport = "Loading..."
+    @State private var feedingFrequency = ""
+    @State private var foodType = ""
+    @State private var pondReport = ""
     @AppStorage("fishSize") private var fishSize = FishSize.medium.rawValue
     @AppStorage("fishCount") private var fishCount = ""
     @AppStorage("selectedAge") private var selectedAge = 1
@@ -44,6 +44,8 @@ struct HealthPlanView: View {
     @State private var concernRecommendations: [String: String] = [:]
     @State private var isLoading = false
     @State private var lastUpdateTime: Date?
+    @State private var showFeedbackAlert = false
+    @State private var showLocationAlert = false
     
     init() {
         #if DEBUG
@@ -182,7 +184,8 @@ struct HealthPlanView: View {
                 feedingHistory: getFeedingHistory(),
                 waterClarity: waterClarity,
                 waterClarityText: getWaterClarityText(),
-                useMetric: useMetric
+                useMetric: useMetric,
+                circulationTime: circulationTime
             )
             
             DispatchQueue.main.async {
@@ -231,9 +234,13 @@ struct HealthPlanView: View {
             VStack(alignment: .leading, spacing: 16) {
                 // Generate Health Plan Button
                 Button {
-                    Task {
-                        print("🔄 Generating new health plan...")
-                        await updateRecommendations()
+                    if location.isEmpty {
+                        showLocationAlert = true
+                    } else {
+                        Task {
+                            await updateRecommendations()  // Start generating plan immediately
+                        }
+                        showFeedbackAlert = true  // Show feedback alert while plan generates
                     }
                 } label: {
                     HStack {
@@ -258,6 +265,25 @@ struct HealthPlanView: View {
                 }
                 .padding(.horizontal, 20)
                 .disabled(isLoading)
+                .alert("Enjoying the app so far?", isPresented: $showFeedbackAlert) {
+                    Button("Suggest improvement") {
+                        let emailTo = "aaronheine@gmail.com"
+                        let subject = "Koi Cal Feedback"
+                        let urlString = "mailto:\(emailTo)?subject=\(subject)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                        
+                        if let url = URL(string: urlString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                    
+                    Button("Leave 👍 review. Thanks!") {
+                        if let url = URL(string: "https://apps.apple.com/app/koi-cal/id6738632755?action=write-review") {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                    
+                    Button("Close", role: .cancel) { }
+                }
                 
                 // Timestamp
                 if let lastUpdate = lastUpdateTime {
@@ -285,13 +311,19 @@ struct HealthPlanView: View {
                         
                         InfoCardView(
                             title: "Food Type",
-                            content: foodType,
+                            content: isLoading ? "Loading..." : foodType,
                             showSparkle: true
                         )
                         
                         InfoCardView(
                             title: "Feeding Frequency",
-                            content: feedingFrequency,
+                            content: isLoading ? "Loading..." : feedingFrequency,
+                            showSparkle: true
+                        )
+                        
+                        InfoCardView(
+                            title: "Pond Report",
+                            content: isLoading ? "Loading..." : pondReport,
                             showSparkle: true
                         )
                     }
@@ -310,16 +342,10 @@ struct HealthPlanView: View {
                                 .foregroundColor(.primary)
                         }
                         
-                        InfoCardView(
-                            title: "Pond Report",
-                            content: pondReport,
-                            showSparkle: true
-                        )
-                        
                         if waterClarity > 0 {
                             InfoCardView(
                                 title: getWaterClarityTitle(),
-                                content: concernRecommendations[getWaterClarityText()] ?? "Loading...",
+                                content: isLoading ? "Loading..." : (concernRecommendations[getWaterClarityText()] ?? ""),
                                 showSparkle: true
                             )
                         }
@@ -360,7 +386,7 @@ struct HealthPlanView: View {
                         if lowEnergy {
                             InfoCardView(
                                 title: "Low Energy",
-                                content: concernRecommendations["Low energy"] ?? "Loading...",
+                                content: isLoading ? "Loading..." : (concernRecommendations["Low energy"] ?? ""),
                                 showSparkle: true
                             )
                         }
@@ -384,7 +410,7 @@ struct HealthPlanView: View {
                         if obesity {
                             InfoCardView(
                                 title: "Obesity or Bloating",
-                                content: concernRecommendations["Obesity/bloating"] ?? "Loading...",
+                                content: isLoading ? "Loading..." : (concernRecommendations["Obesity/bloating"] ?? ""),
                                 showSparkle: true
                             )
                         }
@@ -412,11 +438,19 @@ struct HealthPlanView: View {
         .task {
             // Only get temperature on initial load
             await weatherManager.updateTemperature()
-            
-            // Get initial recommendations if we don't have any yet
-            if feedingFrequency == "Loading..." {
-                await updateRecommendations()
+        }
+        .alert("Pond Location Required", isPresented: $showLocationAlert) {
+            Button("Settings") {
+                // Navigate to settings
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let window = windowScene.windows.first,
+                   let tabBarController = window.rootViewController as? UITabBarController {
+                    tabBarController.selectedIndex = 4  // Switch to Settings tab
+                }
             }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Please set your pond location in Settings to generate a plan.")
         }
     }
 }

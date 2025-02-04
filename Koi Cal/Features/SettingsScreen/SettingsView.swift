@@ -6,7 +6,6 @@ struct SettingsView: View {
     @ObservedObject var feedingData: FeedingData
     @ObservedObject var xaiService: XAIService
     @ObservedObject var weatherManager: WeatherManager
-    @ObservedObject var locationManager: LocationManager
     @StateObject private var searchCompleter = LocationSearchCompleter()
     @AppStorage("pondVolume") private var pondVolume = ""
     @AppStorage("sunlightHours") private var sunlightHours = ""
@@ -41,10 +40,12 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            Section("WHAT ARE YOU FEEDING") {
-                Picker("Currently", selection: $feedingData.currentFoodType) {
-                    ForEach(foodTypes, id: \.self) { food in
-                        Text(food).tag(food)
+            Section {
+                VStack {
+                    Picker("Currently feeding", selection: $feedingData.currentFoodType) {
+                        ForEach(foodTypes, id: \.self) { food in
+                            Text(food).tag(food)
+                        }
                     }
                 }
             }
@@ -85,7 +86,7 @@ struct SettingsView: View {
             
             Section("Pond Information") {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Where is your pond located?")
+                    Text("What is your pond location? (Required*)")
                         .font(.system(size: 16))
                         .foregroundColor(Color(hex: "565656"))
                     
@@ -162,7 +163,7 @@ struct SettingsView: View {
                         .keyboardType(.numberPad)
                         .focused($isSunlightFieldFocused)
                     
-                    Text("How many seconds does it take your water circulation to fill a \(circulationLabel)?")
+                    Text("How many seconds does it take to fill a \(circulationLabel)?")
                         .font(.system(size: 16))
                         .foregroundColor(Color(hex: "565656"))
                     
@@ -170,12 +171,6 @@ struct SettingsView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.numberPad)
                         .focused($isCirculationFieldFocused)
-                        .onChange(of: circulationTime) { oldValue, newValue in
-                            let filtered = newValue.filter { $0.isNumber }
-                            if filtered != newValue {
-                                circulationTime = filtered
-                            }
-                        }
                 }
             }
             
@@ -211,7 +206,7 @@ struct SettingsView: View {
                 }
                 
                 Button(action: {
-                    if let url = URL(string: "https://apps.apple.com/app/id123456789?action=write-review") {
+                    if let url = URL(string: "https://apps.apple.com/app/koi-cal/id6738632755?action=write-review") {
                         UIApplication.shared.open(url)
                     }
                 }) {
@@ -297,14 +292,15 @@ struct SettingsView: View {
                         lackAppetite: lackOfAppetite,
                         obesityBloating: obesity,
                         constantHiding: constantHiding,
-                        location: locationManager.cityName,
+                        location: savedLocation,
                         waterTest: waterTest,
                         pondSize: pondVolume,
                         fishCount: fishCount,
                         feedingHistory: getFeedingHistory(),
                         waterClarity: waterClarity,
                         waterClarityText: getWaterClarityText(),
-                        useMetric: useMetric
+                        useMetric: useMetric,
+                        circulationTime: circulationTime
                     )
                 } catch {
                     print("❌ Failed to update recommendation: \(error)")
@@ -342,9 +338,9 @@ struct SettingsView: View {
     
     private func getWaterClarityText() -> String {
         switch waterClarity {
-        case 1: return "�� Green Water"
-        case 2: return "⚫ Black or dark water"
-        case 3: return "☁️ Cloudy water"
+        case 1: return "Green Water"
+        case 2: return "Black or dark water"
+        case 3: return "Cloudy water"
         default: return ""
         }
     }
@@ -383,8 +379,7 @@ struct SettingsView: View {
         SettingsView(
             feedingData: FeedingData(),
             xaiService: XAIService(),
-            weatherManager: WeatherManager(),
-            locationManager: LocationManager()
+            weatherManager: WeatherManager()
         )
         .environmentObject(WaterQualityManager())
     }

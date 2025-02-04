@@ -9,16 +9,14 @@ class WeatherManager: ObservableObject {
     @Published var errorMessage: String?
     @AppStorage("location") private var pondLocation = ""
     @AppStorage("sunlightHours") private var sunlightHours = ""
-    private let weatherService = WeatherService()
-    private let geocoder = CLGeocoder()
     
-    func calculateWaterTemperature(airTemp: Double, sunlightHours: Int) -> Double {
+    func calculateWaterTemperature(airTemp: Double, sunlightHours: Double) -> Double {
         // Base difference between air and water (typically 4°F cooler)
         let baseWaterTemp = airTemp - 4
         
         // Adjust for sunlight exposure
         let sunlightAdjustment: Double
-        switch sunlightHours {
+        switch Int(sunlightHours) {
         case 0...2:  // Low sun exposure
             sunlightAdjustment = -2
         case 3...5:  // Moderate sun exposure
@@ -42,56 +40,27 @@ class WeatherManager: ObservableObject {
     }
     
     func updateTemperature() async {
-        // If location is empty, use a default temperature based on season
-        if pondLocation.isEmpty {
-            let calendar = Calendar.current
-            let month = calendar.component(.month, from: Date())
-            
-            // Default temperatures by season (in Fahrenheit)
-            let defaultTemp: Double
-            switch month {
-            case 12, 1, 2:  // Winter
-                defaultTemp = 45.0
-            case 3, 4, 5:   // Spring
-                defaultTemp = 65.0
-            case 6, 7, 8:   // Summer
-                defaultTemp = 85.0
-            case 9, 10, 11: // Fall
-                defaultTemp = 65.0
-            default:
-                defaultTemp = 65.0
-            }
-            
-            currentTemperature = defaultTemp
-            errorMessage = nil
-            
-            // Use default sunlight hours (4) if not set
-            let sunHours = Int(sunlightHours) ?? 4
-            currentTemperature = calculateWaterTemperature(
-                airTemp: defaultTemp,
-                sunlightHours: sunHours
-            )
+        guard !pondLocation.isEmpty else {
+            errorMessage = "Please enter a location"
             return
         }
         
         do {
-            // Convert address to coordinates
-            let placemarks = try await geocoder.geocodeAddressString(pondLocation)
-            guard let location = placemarks.first?.location else {
+            let geocoder = CLGeocoder()
+            let locations = try await geocoder.geocodeAddressString(pondLocation)
+            
+            guard let location = locations.first?.location else {
                 errorMessage = "Could not find location"
                 return
             }
             
-            // Get weather for coordinates
-            let weather = try await weatherService.weather(for: location)
+            let weather = try await WeatherService.shared.weather(for: location)
             let temperature = weather.currentWeather.temperature
-            currentTemperature = temperature.converted(to: .fahrenheit).value
-            errorMessage = nil
             
-            // Use default sunlight hours (4) if not set
-            let sunHours = Int(sunlightHours) ?? 4
+            let sunHours = Double(sunlightHours) ?? 0
+            
             currentTemperature = calculateWaterTemperature(
-                airTemp: currentTemperature ?? temperature.converted(to: .fahrenheit).value,
+                airTemp: temperature.converted(to: .fahrenheit).value,
                 sunlightHours: sunHours
             )
         } catch {
