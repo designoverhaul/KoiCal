@@ -31,6 +31,7 @@ struct WaterTestView: View {
     @AppStorage("useMetric") private var useMetric = false
     @EnvironmentObject private var waterQualityManager: WaterQualityManager
     @Environment(\.scenePhase) private var scenePhase
+    @AppStorage("salinityPercent") private var salinityPercent: Double = 0.0
     
     var body: some View {
         ScrollView {
@@ -79,6 +80,24 @@ struct WaterTestView: View {
                     // Water Quality Measurements
                     WaterQualityView()
                     
+                    // Salinity Section
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Salinity")
+                            .font(.headline)
+                        Text("A safe range is generally between 0.0% to 0.3%")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        HStack {
+                            Slider(value: $salinityPercent, in: 0.0...0.8, step: 0.01) {
+                                Text("Salinity")
+                            }
+                            Text("\(salinityPercent, specifier: "%.2f")%")
+                                .frame(width: 50, alignment: .trailing)
+                        }
+                    }
+                    .padding(.top)
+                    .padding(.leading, 16)
+
                     // Bottom padding
                     Spacer()
                         .frame(height: 100)

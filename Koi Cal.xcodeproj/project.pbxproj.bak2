@@ -1,0 +1,844 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9308F2302D08C3A9009B2951 /* InfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9308F22F2D08C3A9009B2951 /* InfoCardView.swift */; };
+		9308F23E2D09D710009B2951 /* GoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9308F23D2D09D710009B2951 /* GoalsView.swift */; };
+		932362102D0354560003DCCD /* WaterQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620F2D0354560003DCCD /* WaterQualityView.swift */; };
+		932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620E2D0354560003DCCD /* WaterMeasurementView.swift */; };
+		934336D92D00C12400A3689F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934336D82D00C12400A3689F /* MainTabView.swift */; };
+		9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */; };
+		9355BEEF2CF4EEEA007B1A78 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */; };
+		9355BEF02CF4EEEA007B1A78 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */; };
+		9355BEF32CF4EEEA007B1A78 /* FallingPelletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */; };
+		9355BEF42CF4EEEA007B1A78 /* FeedingEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */; };
+		9355BEF52CF4EEEA007B1A78 /* Koi_CalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */; };
+		9355BEF62CF4EEEA007B1A78 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */; };
+		9355BEF72CF4EEEA007B1A78 /* FeedingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */; };
+		9355BEFC2CF4F019007B1A78 /* XAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BEFB2CF4F019007B1A78 /* XAIService.swift */; };
+		9355BF022CF4F042007B1A78 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9355BF002CF4F042007B1A78 /* WeatherManager.swift */; };
+		936B80E52CE68B4E00F668CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 936B80E42CE68B4E00F668CD /* Preview Assets.xcassets */; };
+		936B80EF2CE68B4E00F668CD /* Koi_CalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80EE2CE68B4E00F668CD /* Koi_CalTests.swift */; };
+		936B80F92CE68B4E00F668CD /* Koi_CalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80F82CE68B4E00F668CD /* Koi_CalUITests.swift */; };
+		936B80FB2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B80FA2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift */; };
+		937CE53B2D145C1400DB1EC6 /* AppShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CE53A2D145C1400DB1EC6 /* AppShortcuts.swift */; };
+		937EB6152CF89C8C002C0B54 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 937EB6142CF89C8C002C0B54 /* Lottie */; };
+		937EB6172CF89CFF002C0B54 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937EB6162CF89CFF002C0B54 /* SplashScreenView.swift */; };
+		937EB61C2CF8A5E5002C0B54 /* Two_Koi.lottie in Resources */ = {isa = PBXBuildFile; fileRef = 937EB61B2CF8A5E5002C0B54 /* Two_Koi.lottie */; };
+		9387B50E2D02265900F6B3B9 /* HealthPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387B50D2D02265900F6B3B9 /* HealthPlanView.swift */; };
+		9387B5102D022E1E00F6B3B9 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9387B50F2D022E1E00F6B3B9 /* HeaderView.swift */; };
+		9389E2102D04E187001BAAE7 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E20F2D04E187001BAAE7 /* Types.swift */; };
+		9389E2162D04E34B001BAAE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9389E2152D04E34B001BAAE7 /* Assets.xcassets */; };
+		9389E21B2D04E7AF001BAAE7 /* XAIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E21A2D04E7AF001BAAE7 /* XAIConfig.swift */; };
+		9389E21D2D04E85D001BAAE7 /* FeedingHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E21C2D04E846001BAAE7 /* FeedingHistoryView.swift */; };
+		9389E2232D04FDD8001BAAE7 /* WaterTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9389E2222D04FDD1001BAAE7 /* WaterTestView.swift */; };
+		939605492D0C7EFA00AEEA5D /* MeasurementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939605482D0C7EFA00AEEA5D /* MeasurementType.swift */; };
+		9396054B2D0C818500AEEA5D /* WaterQualityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396054A2D0C818500AEEA5D /* WaterQualityManager.swift */; };
+		93A3D1D72D177247005D17AB /* FishProblemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1D52D177247005D17AB /* FishProblemsView.swift */; };
+		93A3D1DA2D177831005D17AB /* FishInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1D92D177831005D17AB /* FishInformationView.swift */; };
+		93A3D1DE2D19A0C3005D17AB /* PondInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1DD2D19A0C3005D17AB /* PondInformationView.swift */; };
+		93A3D1E02D19B9EF005D17AB /* ColorEncouragementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1DF2D19B9EF005D17AB /* ColorEncouragementView.swift */; };
+		93A3D1E22D19DFB2005D17AB /* WatermelonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D1E12D19DFB2005D17AB /* WatermelonView.swift */; };
+		93A3D1E42D1AE26C005D17AB /* tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 93A3D1E32D1AE26C005D17AB /* tick.wav */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		936B80EB2CE68B4E00F668CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 936B80D22CE68B4D00F668CD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 936B80D92CE68B4D00F668CD;
+			remoteInfo = "Koi Cal";
+		};
+		936B80F52CE68B4E00F668CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 936B80D22CE68B4D00F668CD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 936B80D92CE68B4D00F668CD;
+			remoteInfo = "Koi Cal";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9308F22F2D08C3A9009B2951 /* InfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardView.swift; sourceTree = "<group>"; };
+		9308F23D2D09D710009B2951 /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
+		9323620E2D0354560003DCCD /* WaterMeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeasurementView.swift; sourceTree = "<group>"; };
+		9323620F2D0354560003DCCD /* WaterQualityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterQualityView.swift; sourceTree = "<group>"; };
+		934336D82D00C12400A3689F /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		934DAB142D7787BF00A3C013 /* Koi Cal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Koi Cal.entitlements"; sourceTree = "<group>"; };
+		9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarView.swift; sourceTree = "<group>"; };
+		9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallingPelletView.swift; sourceTree = "<group>"; };
+		9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingData.swift; sourceTree = "<group>"; };
+		9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingEntryView.swift; sourceTree = "<group>"; };
+		9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalApp.swift; sourceTree = "<group>"; };
+		9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		9355BEFB2CF4F019007B1A78 /* XAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIService.swift; sourceTree = "<group>"; };
+		9355BEFF2CF4F042007B1A78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9355BF002CF4F042007B1A78 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		936B80DA2CE68B4D00F668CD /* Koi Cal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Koi Cal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		936B80E42CE68B4E00F668CD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		936B80EA2CE68B4E00F668CD /* Koi CalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Koi CalTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		936B80EE2CE68B4E00F668CD /* Koi_CalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalTests.swift; sourceTree = "<group>"; };
+		936B80F42CE68B4E00F668CD /* Koi CalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Koi CalUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		936B80F82CE68B4E00F668CD /* Koi_CalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalUITests.swift; sourceTree = "<group>"; };
+		936B80FA2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koi_CalUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		937CE53A2D145C1400DB1EC6 /* AppShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShortcuts.swift; sourceTree = "<group>"; };
+		937EB6162CF89CFF002C0B54 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		937EB61B2CF8A5E5002C0B54 /* Two_Koi.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = Two_Koi.lottie; sourceTree = "<group>"; };
+		9387B50D2D02265900F6B3B9 /* HealthPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthPlanView.swift; sourceTree = "<group>"; };
+		9387B50F2D022E1E00F6B3B9 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		9389E20F2D04E187001BAAE7 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		9389E2152D04E34B001BAAE7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9389E21A2D04E7AF001BAAE7 /* XAIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAIConfig.swift; sourceTree = "<group>"; };
+		9389E21C2D04E846001BAAE7 /* FeedingHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingHistoryView.swift; sourceTree = "<group>"; };
+		9389E2222D04FDD1001BAAE7 /* WaterTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTestView.swift; sourceTree = "<group>"; };
+		939605482D0C7EFA00AEEA5D /* MeasurementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementType.swift; sourceTree = "<group>"; };
+		9396054A2D0C818500AEEA5D /* WaterQualityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterQualityManager.swift; sourceTree = "<group>"; };
+		93A3D1D52D177247005D17AB /* FishProblemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishProblemsView.swift; sourceTree = "<group>"; };
+		93A3D1D92D177831005D17AB /* FishInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishInformationView.swift; sourceTree = "<group>"; };
+		93A3D1DD2D19A0C3005D17AB /* PondInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PondInformationView.swift; sourceTree = "<group>"; };
+		93A3D1DF2D19B9EF005D17AB /* ColorEncouragementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEncouragementView.swift; sourceTree = "<group>"; };
+		93A3D1E12D19DFB2005D17AB /* WatermelonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatermelonView.swift; sourceTree = "<group>"; };
+		93A3D1E32D1AE26C005D17AB /* tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tick.wav; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		936B80D72CE68B4D00F668CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				937EB6152CF89C8C002C0B54 /* Lottie in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80E72CE68B4E00F668CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80F12CE68B4E00F668CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9308F23A2D09CFF6009B2951 /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9355BEE92CF4EEEA007B1A78 /* SettingsView.swift */,
+			);
+			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
+		936B80D12CE68B4D00F668CD = {
+			isa = PBXGroup;
+			children = (
+				934DAB142D7787BF00A3C013 /* Koi Cal.entitlements */,
+				936B80DC2CE68B4D00F668CD /* Koi Cal */,
+				936B80ED2CE68B4E00F668CD /* Koi CalTests */,
+				936B80F72CE68B4E00F668CD /* Koi CalUITests */,
+				936B80DB2CE68B4D00F668CD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		936B80DB2CE68B4D00F668CD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				936B80DA2CE68B4D00F668CD /* Koi Cal.app */,
+				936B80EA2CE68B4E00F668CD /* Koi CalTests.xctest */,
+				936B80F42CE68B4E00F668CD /* Koi CalUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		936B80DC2CE68B4D00F668CD /* Koi Cal */ = {
+			isa = PBXGroup;
+			children = (
+				9389E2052D04DE37001BAAE7 /* App */,
+				9389E2092D04DE5D001BAAE7 /* Components */,
+				9389E2062D04DE40001BAAE7 /* Features */,
+				9389E2082D04DE54001BAAE7 /* Models */,
+				9389E20A2D04DE69001BAAE7 /* Resources */,
+				9389E2072D04DE4B001BAAE7 /* Services */,
+				93A3D1CE2D172E38005D17AB /* Onboarding */,
+			);
+			path = "Koi Cal";
+			sourceTree = "<group>";
+		};
+		936B80E32CE68B4E00F668CD /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				936B80E42CE68B4E00F668CD /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		936B80ED2CE68B4E00F668CD /* Koi CalTests */ = {
+			isa = PBXGroup;
+			children = (
+				936B80EE2CE68B4E00F668CD /* Koi_CalTests.swift */,
+			);
+			path = "Koi CalTests";
+			sourceTree = "<group>";
+		};
+		936B80F72CE68B4E00F668CD /* Koi CalUITests */ = {
+			isa = PBXGroup;
+			children = (
+				936B80F82CE68B4E00F668CD /* Koi_CalUITests.swift */,
+				936B80FA2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift */,
+			);
+			path = "Koi CalUITests";
+			sourceTree = "<group>";
+		};
+		9389E2052D04DE37001BAAE7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				934336D82D00C12400A3689F /* MainTabView.swift */,
+				9355BEE52CF4EEEA007B1A78 /* Koi_CalApp.swift */,
+				937CE53A2D145C1400DB1EC6 /* AppShortcuts.swift */,
+				9355BEFF2CF4F042007B1A78 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		9389E2062D04DE40001BAAE7 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				9389E20D2D04DF69001BAAE7 /* FeedingHIstory */,
+				9389E20B2D04DF3D001BAAE7 /* Goals */,
+				9389E20E2D04DF73001BAAE7 /* HealthPlan */,
+				9308F23A2D09CFF6009B2951 /* SettingsScreen */,
+				9389E20C2D04DF53001BAAE7 /* WaterTest */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		9389E2072D04DE4B001BAAE7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9389E21A2D04E7AF001BAAE7 /* XAIConfig.swift */,
+				9355BEFB2CF4F019007B1A78 /* XAIService.swift */,
+				9355BF002CF4F042007B1A78 /* WeatherManager.swift */,
+				9355BEE82CF4EEEA007B1A78 /* SettingsManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9389E2082D04DE54001BAAE7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9355BEE02CF4EEEA007B1A78 /* FeedingData.swift */,
+				939605482D0C7EFA00AEEA5D /* MeasurementType.swift */,
+				9389E20F2D04E187001BAAE7 /* Types.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9389E2092D04DE5D001BAAE7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9355BEDC2CF4EEEA007B1A78 /* Color+Hex.swift */,
+				9355BEDE2CF4EEEA007B1A78 /* CustomCalendarView.swift */,
+				9387B50F2D022E1E00F6B3B9 /* HeaderView.swift */,
+				937EB6162CF89CFF002C0B54 /* SplashScreenView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9389E20A2D04DE69001BAAE7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				937EB61B2CF8A5E5002C0B54 /* Two_Koi.lottie */,
+				93A3D1E32D1AE26C005D17AB /* tick.wav */,
+				9389E2152D04E34B001BAAE7 /* Assets.xcassets */,
+				936B80E32CE68B4E00F668CD /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9389E20B2D04DF3D001BAAE7 /* Goals */ = {
+			isa = PBXGroup;
+			children = (
+				9308F23D2D09D710009B2951 /* GoalsView.swift */,
+			);
+			path = Goals;
+			sourceTree = "<group>";
+		};
+		9389E20C2D04DF53001BAAE7 /* WaterTest */ = {
+			isa = PBXGroup;
+			children = (
+				9323620E2D0354560003DCCD /* WaterMeasurementView.swift */,
+				9396054A2D0C818500AEEA5D /* WaterQualityManager.swift */,
+				9389E2222D04FDD1001BAAE7 /* WaterTestView.swift */,
+				9323620F2D0354560003DCCD /* WaterQualityView.swift */,
+			);
+			path = WaterTest;
+			sourceTree = "<group>";
+		};
+		9389E20D2D04DF69001BAAE7 /* FeedingHIstory */ = {
+			isa = PBXGroup;
+			children = (
+				9355BEDF2CF4EEEA007B1A78 /* FallingPelletView.swift */,
+				9389E21C2D04E846001BAAE7 /* FeedingHistoryView.swift */,
+				9355BEE12CF4EEEA007B1A78 /* FeedingEntryView.swift */,
+			);
+			path = FeedingHIstory;
+			sourceTree = "<group>";
+		};
+		9389E20E2D04DF73001BAAE7 /* HealthPlan */ = {
+			isa = PBXGroup;
+			children = (
+				9387B50D2D02265900F6B3B9 /* HealthPlanView.swift */,
+				9308F22F2D08C3A9009B2951 /* InfoCardView.swift */,
+			);
+			path = HealthPlan;
+			sourceTree = "<group>";
+		};
+		93A3D1CE2D172E38005D17AB /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				93A3D1D52D177247005D17AB /* FishProblemsView.swift */,
+				93A3D1D92D177831005D17AB /* FishInformationView.swift */,
+				93A3D1DF2D19B9EF005D17AB /* ColorEncouragementView.swift */,
+				93A3D1E12D19DFB2005D17AB /* WatermelonView.swift */,
+				93A3D1DD2D19A0C3005D17AB /* PondInformationView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		936B80D92CE68B4D00F668CD /* Koi Cal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 936B80FE2CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi Cal" */;
+			buildPhases = (
+				936B80D62CE68B4D00F668CD /* Sources */,
+				936B80D72CE68B4D00F668CD /* Frameworks */,
+				936B80D82CE68B4D00F668CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Koi Cal";
+			productName = "Koi Cal";
+			productReference = 936B80DA2CE68B4D00F668CD /* Koi Cal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		936B80E92CE68B4E00F668CD /* Koi CalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 936B81012CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi CalTests" */;
+			buildPhases = (
+				936B80E62CE68B4E00F668CD /* Sources */,
+				936B80E72CE68B4E00F668CD /* Frameworks */,
+				936B80E82CE68B4E00F668CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				936B80EC2CE68B4E00F668CD /* PBXTargetDependency */,
+			);
+			name = "Koi CalTests";
+			productName = "Koi CalTests";
+			productReference = 936B80EA2CE68B4E00F668CD /* Koi CalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		936B80F32CE68B4E00F668CD /* Koi CalUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 936B81042CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi CalUITests" */;
+			buildPhases = (
+				936B80F02CE68B4E00F668CD /* Sources */,
+				936B80F12CE68B4E00F668CD /* Frameworks */,
+				936B80F22CE68B4E00F668CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				936B80F62CE68B4E00F668CD /* PBXTargetDependency */,
+			);
+			name = "Koi CalUITests";
+			productName = "Koi CalUITests";
+			productReference = 936B80F42CE68B4E00F668CD /* Koi CalUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		936B80D22CE68B4D00F668CD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1610;
+				TargetAttributes = {
+					936B80D92CE68B4D00F668CD = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					936B80E92CE68B4E00F668CD = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 936B80D92CE68B4D00F668CD;
+					};
+					936B80F32CE68B4E00F668CD = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 936B80D92CE68B4D00F668CD;
+					};
+				};
+			};
+			buildConfigurationList = 936B80D52CE68B4D00F668CD /* Build configuration list for PBXProject "Koi Cal" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 936B80D12CE68B4D00F668CD;
+			packageReferences = (
+				937EB6132CF89C8C002C0B54 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
+			productRefGroup = 936B80DB2CE68B4D00F668CD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				936B80D92CE68B4D00F668CD /* Koi Cal */,
+				936B80E92CE68B4E00F668CD /* Koi CalTests */,
+				936B80F32CE68B4E00F668CD /* Koi CalUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		936B80D82CE68B4D00F668CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				936B80E52CE68B4E00F668CD /* Preview Assets.xcassets in Resources */,
+				9389E2162D04E34B001BAAE7 /* Assets.xcassets in Resources */,
+				937EB61C2CF8A5E5002C0B54 /* Two_Koi.lottie in Resources */,
+				93A3D1E42D1AE26C005D17AB /* tick.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80E82CE68B4E00F668CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80F22CE68B4E00F668CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		936B80D62CE68B4D00F668CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93A3D1D72D177247005D17AB /* FishProblemsView.swift in Sources */,
+				9389E21B2D04E7AF001BAAE7 /* XAIConfig.swift in Sources */,
+				9355BEFC2CF4F019007B1A78 /* XAIService.swift in Sources */,
+				9355BF022CF4F042007B1A78 /* WeatherManager.swift in Sources */,
+				937CE53B2D145C1400DB1EC6 /* AppShortcuts.swift in Sources */,
+				9308F23E2D09D710009B2951 /* GoalsView.swift in Sources */,
+				937EB6172CF89CFF002C0B54 /* SplashScreenView.swift in Sources */,
+				9389E2102D04E187001BAAE7 /* Types.swift in Sources */,
+				934336D92D00C12400A3689F /* MainTabView.swift in Sources */,
+				939605492D0C7EFA00AEEA5D /* MeasurementType.swift in Sources */,
+				9396054B2D0C818500AEEA5D /* WaterQualityManager.swift in Sources */,
+				9387B5102D022E1E00F6B3B9 /* HeaderView.swift in Sources */,
+				932362102D0354560003DCCD /* WaterQualityView.swift in Sources */,
+				934DAB172D7787BF00A3C013 /* AppImports.swift in Sources */,
+				934DAB182D7787BF00A3C013 /* Imports.swift in Sources */,
+				934DAB192D7787BF00A3C013 /* OnboardingView.swift in Sources */,
+				934DAB1A2D7787BF00A3C013 /* UserPreferences.swift in Sources */,
+				9389E2232D04FDD8001BAAE7 /* WaterTestView.swift in Sources */,
+				932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */,
+				9355BEED2CF4EEEA007B1A78 /* CustomCalendarView.swift in Sources */,
+				9355BEEF2CF4EEEA007B1A78 /* SettingsManager.swift in Sources */,
+				9387B50E2D02265900F6B3B9 /* HealthPlanView.swift in Sources */,
+				9355BEF02CF4EEEA007B1A78 /* Color+Hex.swift in Sources */,
+				9389E21D2D04E85D001BAAE7 /* FeedingHistoryView.swift in Sources */,
+				9355BEF32CF4EEEA007B1A78 /* FallingPelletView.swift in Sources */,
+				9355BEF42CF4EEEA007B1A78 /* FeedingEntryView.swift in Sources */,
+				93A3D1DA2D177831005D17AB /* FishInformationView.swift in Sources */,
+				93A3D1E02D19B9EF005D17AB /* ColorEncouragementView.swift in Sources */,
+				9355BEF52CF4EEEA007B1A78 /* Koi_CalApp.swift in Sources */,
+				93A3D1DE2D19A0C3005D17AB /* PondInformationView.swift in Sources */,
+				93A3D1E22D19DFB2005D17AB /* WatermelonView.swift in Sources */,
+				9355BEF62CF4EEEA007B1A78 /* SettingsView.swift in Sources */,
+				9308F2302D08C3A9009B2951 /* InfoCardView.swift in Sources */,
+				9355BEF72CF4EEEA007B1A78 /* FeedingData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80E62CE68B4E00F668CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				936B80EF2CE68B4E00F668CD /* Koi_CalTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		936B80F02CE68B4E00F668CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				936B80F92CE68B4E00F668CD /* Koi_CalUITests.swift in Sources */,
+				936B80FB2CE68B4E00F668CD /* Koi_CalUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		936B80EC2CE68B4E00F668CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 936B80D92CE68B4D00F668CD /* Koi Cal */;
+			targetProxy = 936B80EB2CE68B4E00F668CD /* PBXContainerItemProxy */;
+		};
+		936B80F62CE68B4E00F668CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 936B80D92CE68B4D00F668CD /* Koi Cal */;
+			targetProxy = 936B80F52CE68B4E00F668CD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		936B80FC2CE68B4E00F668CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		936B80FD2CE68B4E00F668CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		936B80FF2CE68B4E00F668CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Koi Cal/koical.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Koi Cal/Preview Content\"";
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Koi Calendar";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Koi Cal needs your location to provide accurate temperature data for your pond";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koical;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		936B81002CE68B4E00F668CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Koi Cal/Preview Content\"";
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Koi Calendar";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Koi Cal needs your location to provide accurate temperature data for your pond";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koical;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		936B81022CE68B4E00F668CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koicalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Koi Cal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Koi Cal";
+			};
+			name = Debug;
+		};
+		936B81032CE68B4E00F668CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koicalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Koi Cal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Koi Cal";
+			};
+			name = Release;
+		};
+		936B81052CE68B4E00F668CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koicalUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Koi Cal";
+			};
+			name = Debug;
+		};
+		936B81062CE68B4E00F668CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Z26HLRJ65;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koicalUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Koi Cal";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		936B80D52CE68B4D00F668CD /* Build configuration list for PBXProject "Koi Cal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				936B80FC2CE68B4E00F668CD /* Debug */,
+				936B80FD2CE68B4E00F668CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		936B80FE2CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi Cal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				936B80FF2CE68B4E00F668CD /* Debug */,
+				936B81002CE68B4E00F668CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		936B81012CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi CalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				936B81022CE68B4E00F668CD /* Debug */,
+				936B81032CE68B4E00F668CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		936B81042CE68B4E00F668CD /* Build configuration list for PBXNativeTarget "Koi CalUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				936B81052CE68B4E00F668CD /* Debug */,
+				936B81062CE68B4E00F668CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		937EB6132CF89C8C002C0B54 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		937EB6142CF89C8C002C0B54 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 937EB6132CF89C8C002C0B54 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 936B80D22CE68B4D00F668CD /* Project object */;
+}

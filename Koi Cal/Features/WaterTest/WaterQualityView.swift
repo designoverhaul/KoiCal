@@ -45,7 +45,6 @@ struct WaterQualityView: View {
                     )
                 }
             }
-            .padding(.horizontal, 16)
             .frame(maxWidth: .infinity)
         }
     }

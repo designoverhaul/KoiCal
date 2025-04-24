@@ -16,6 +16,7 @@ struct GoalsView: View {
     @AppStorage("lackOfAppetite") private var lackOfAppetite = false
     @AppStorage("obesity") private var obesity = false
     @AppStorage("constantHiding") private var constantHiding = false
+    @AppStorage("flukes") private var flukes = false
     
     // Water Clarity selection
     @AppStorage("waterClarity") private var selectedWaterClarity = 0  // 0: None, 1: Green, 2: Black/Dark, 3: Cloudy
@@ -23,7 +24,7 @@ struct GoalsView: View {
     @State private var showMaxConcernsAlert = false
     
     private var selectedConcernsCount: Int {
-        [sicknessOrDeath, lowEnergy, stuntedGrowth, lackOfAppetite, obesity, constantHiding]
+        [sicknessOrDeath, lowEnergy, stuntedGrowth, lackOfAppetite, obesity, constantHiding, flukes]
             .filter { $0 }
             .count
     }
@@ -90,18 +91,22 @@ struct GoalsView: View {
                                 get: { constantHiding },
                                 set: { handleConcernToggle($0, for: $constantHiding) }
                             ))
+                            Toggle("Flukes", isOn: Binding(
+                                get: { flukes },
+                                set: { handleConcernToggle($0, for: $flukes) }
+                            ))
                         }
                     }
                     
                     // Water Clarity Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Water Clarity Issues")
+                        Text("Water Issues")
                             .font(.title3)
                             .fontWeight(.semibold)
                             .foregroundColor(.primary)
                         
                         VStack(alignment: .leading, spacing: 8) {
-                            ForEach(0..<4) { index in
+                            ForEach(0..<5) { index in
                                 Button {
                                     selectedWaterClarity = index
                                 } label: {
@@ -111,7 +116,8 @@ struct GoalsView: View {
                                         Text(index == 0 ? "None" :
                                                 index == 1 ? "Green water" :
                                                 index == 2 ? "Black or dark water" :
-                                                "Cloudy water")
+                                                index == 3 ? "Cloudy water" :
+                                                "Algae")
                                             .foregroundColor(.primary)
                                     }
                                 }

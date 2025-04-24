@@ -47,6 +47,7 @@ class XAIService: ObservableObject {
         lackAppetite: Bool,
         obesityBloating: Bool,
         constantHiding: Bool,
+        flukes: Bool,
         location: String,
         waterTest: String,
         pondSize: String,
@@ -58,6 +59,12 @@ class XAIService: ObservableObject {
         circulationTime: String
     ) async throws -> Recommendations {
         print("\n🚀 === Starting XAI Request ===")
+        // Read salinity from AppStorage - Note: This service ideally shouldn't directly access AppStorage.
+        // A better approach would be to pass salinity as a parameter like other values.
+        // For now, we'll read it here for simplicity based on the current pattern.
+        let salinityPercent = UserDefaults.standard.double(forKey: "salinityPercent") // Reads 0.0 if not set
+        let salinityString = String(format: "%.2f%%", salinityPercent)
+
         print("Received waterTest string:")
         print(waterTest)
         
@@ -72,6 +79,7 @@ class XAIService: ObservableObject {
         if lackAppetite { selectedConcerns.append("Lack of appetite") }
         if obesityBloating { selectedConcerns.append("Obesity/bloating") }
         if constantHiding { selectedConcerns.append("Constant hiding") }
+        if flukes { selectedConcerns.append("Flukes") }
 
         var activeGoals: [String] = []
         if improveColor { activeGoals.append("Improve Color") }
@@ -102,6 +110,7 @@ class XAIService: ObservableObject {
                 Pond Size: \(pondSize) \(useMetric ? "liters" : "gallons")
                 Fish Count: \(fishCount)
                 Circulation Rate: \(circulationTime) seconds per \(useMetric ? "liter" : "gallon")
+                Salinity: \(salinityString)
                 Feeding History: \(feedingHistory)
                 \(goalsSection)
                 \(problemsSection)
@@ -137,7 +146,7 @@ class XAIService: ObservableObject {
             messages: messages,
             model: "grok-beta",
             temperature: 0.6,
-            max_tokens: 4 OK what is it00
+            max_tokens: 500
         )
         
         var urlRequest = URLRequest(url: URL(string: XAIConfig.apiURL)!)

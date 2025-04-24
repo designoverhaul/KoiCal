@@ -36,6 +36,8 @@ struct HealthPlanView: View {
     @AppStorage("pH") private var pH = 8.0
     @AppStorage("kh") private var kh = 40.0
     @AppStorage("selectedAgeGroup") private var selectedAgeGroup = "Mixed"
+    @AppStorage("flukes") private var flukes = false
+    @AppStorage("salinityPercent") private var salinityPercent: Double = 0.0 // Set default to 0.0
     
     #if DEBUG
     private static var hasLogged = false
@@ -95,6 +97,7 @@ struct HealthPlanView: View {
         case 1: return "🟢 Green Water"
         case 2: return "⚫ Black or dark water"
         case 3: return "☁️ Cloudy water"
+        case 4: return "🌿 Algae"
         default: return ""
         }
     }
@@ -104,6 +107,7 @@ struct HealthPlanView: View {
         case 1: return "Green Water 🟢"
         case 2: return "Black or Dark Water "
         case 3: return "Cloudy Water ☁️"
+        case 4: return "Algae 🌿"
         default: return ""
         }
     }
@@ -178,6 +182,7 @@ struct HealthPlanView: View {
                 lackAppetite: lackOfAppetite,
                 obesityBloating: obesity,
                 constantHiding: constantHiding,
+                flukes: flukes,
                 location: currentLocation,
                 waterTest: waterTestString,
                 pondSize: pondVolume,
@@ -220,6 +225,9 @@ struct HealthPlanView: View {
     private func getWaterTestString() -> String {
         let measurements = waterQualityManager.measurements
         
+        // Add Salinity to the string
+        let salinityString = String(format: "%.2f", salinityPercent)
+        
         return """
             Water Test:
             \(measurements.keys.contains(.nitrate) ? "Nitrate: \(Int(measurements[.nitrate]!)) mg/L" : "Nitrate: No Entry")
@@ -227,6 +235,7 @@ struct HealthPlanView: View {
             \(measurements.keys.contains(.pH) ? "pH: \(String(format: "%.1f", measurements[.pH]!))" : "pH: No Entry")
             \(measurements.keys.contains(.kh) ? "KH: \(Int(measurements[.kh]!)) ppm" : "KH: No Entry")
             \(measurements.keys.contains(.gh) ? "GH: \(Int(measurements[.gh]!)) ppm" : "GH: No Entry")
+            Salinity: \(salinityString)% 
             """
     }
     
@@ -347,7 +356,7 @@ struct HealthPlanView: View {
                         if waterClarity > 0 {
                             InfoCardView(
                                 title: getWaterClarityTitle(),
-                                content: isLoading ? "Loading..." : (concernRecommendations[getWaterClarityText()] ?? ""),
+                                content: isLoading ? "Loading..." : (concernRecommendations[getWaterClarityText()] ?? "Waiting for AI analysis..."),
                                 showSparkle: true
                             )
                         }

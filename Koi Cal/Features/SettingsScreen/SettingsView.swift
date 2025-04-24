@@ -32,6 +32,7 @@ struct SettingsView: View {
     @AppStorage("constantHiding") private var constantHiding = false
     @AppStorage("waterClarity") private var waterClarity = 0
     @AppStorage("selectedAgeGroup") private var selectedAgeGroup = "Adult"
+    @AppStorage("flukes") private var flukes = false
     @EnvironmentObject var waterQualityManager: WaterQualityManager
     @State private var showMailError = false
     
@@ -153,7 +154,8 @@ struct SettingsView: View {
                                 pondVolume = number.formatted(.number)
                             }
                         }
-                    
+
+                    // Restore Sunlight Hours field
                     Text("How many hours of direct sunlight does your pond get per day?")
                         .font(.system(size: 16))
                         .foregroundColor(Color(hex: "565656"))
@@ -162,7 +164,8 @@ struct SettingsView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.numberPad)
                         .focused($isSunlightFieldFocused)
-                    
+
+                    // Restore Circulation Time field
                     Text("How many seconds does it take to fill a \(circulationLabel)?")
                         .font(.system(size: 16))
                         .foregroundColor(Color(hex: "565656"))
@@ -292,6 +295,7 @@ struct SettingsView: View {
                         lackAppetite: lackOfAppetite,
                         obesityBloating: obesity,
                         constantHiding: constantHiding,
+                        flukes: flukes,
                         location: savedLocation,
                         waterTest: waterTest,
                         pondSize: pondVolume,
