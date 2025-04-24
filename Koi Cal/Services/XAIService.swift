@@ -110,7 +110,15 @@ class XAIService: ObservableObject {
                 Pond Size: \(pondSize) \(useMetric ? "liters" : "gallons")
                 Fish Count: \(fishCount)
                 Circulation Rate: \(circulationTime) seconds per \(useMetric ? "liter" : "gallon")
-                Salinity: \(salinityString)
+                Salinity: \(salinityString) (safe range for koi is 0.0-0.3%)
+                
+                // Add detailed circulation calculation instructions
+                CIRCULATION CALCULATION INSTRUCTIONS:
+                The entire pond should circulate in an hour. 
+                Calculate if circulation is adequate based on pond size and seconds to fill a gallon/liter.
+                Example: A 1000 gallon pond should take 3.6 seconds to fill a 1 gallon container (3600 seconds ÷ 1000 gallons = 3.6 seconds per gallon).
+                Include in the pond report whether circulation is adequate or needs to be increased.
+                
                 Feeding History: \(feedingHistory)
                 \(goalsSection)
                 \(problemsSection)

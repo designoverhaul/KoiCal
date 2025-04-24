@@ -410,9 +410,17 @@ struct HealthPlanView: View {
                             )
                         }
                         
+                        if flukes {
+                            InfoCardView(
+                                title: "Flukes",
+                                content: isLoading ? "Loading..." : (concernRecommendations["Flukes"] ?? ""),
+                                showSparkle: true
+                            )
+                        }
+                        
                         // Show "None" if no concerns are selected
                         if !sicknessOrDeath && !lowEnergy && !stuntedGrowth && 
-                           !lackOfAppetite && !obesity && !constantHiding && waterClarity == 0 {
+                           !lackOfAppetite && !obesity && !constantHiding && !flukes && waterClarity == 0 {
                             InfoCardView(
                                 title: "",
                                 content: "None 👍",

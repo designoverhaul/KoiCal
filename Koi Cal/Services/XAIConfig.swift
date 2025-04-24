@@ -31,6 +31,7 @@ enum XAIConfig {
     -Lack of appetite Yes/No
     -Obesity or bloating Yes/No
     -Constant Hiding Yes/No
+    -Flukes Yes/No
 
     ARE YOU HAVING WATER CLARITY ISSUES?
     -None
@@ -49,9 +50,9 @@ enum XAIConfig {
     (This determines the current temperature so we can determine how much(if any) we should feed the fish.)
 
     HOW MANY SECONDS DOES IT TAKE YOUR WATER CIRCULATION TO FILL A GALLON/LITER? 
-    The entire pond should circlutate in an hour.
-    If we know pond size and seconds to fill a gallon we can determine if the pond is getting enough water circulation. 
-    Example: If my pond is 1000 gallons it should take 3.6 seconds to fill a 1 gallon container.
+    The entire pond should circulate in an hour.
+    Calculate if circulation is adequate based on pond size and seconds to fill a gallon/liter.
+    Example: A 1000 gallon pond should take 3.6 seconds to fill a 1 gallon container (3600 seconds ÷ 1000 gallons = 3.6 seconds per gallon).
     Let the user know if they need to increase water circulation.
 
     WATER TEST
@@ -60,6 +61,7 @@ enum XAIConfig {
     -Nitrite (ppm): 0-0.5 safe, >1 action needed
     -pH: 7-8 ideal, <6.5 or >8.5 action needed
     -Carbonate Hardness (KH): 80-120 ideal, <40 or >180 action needed
+    -Salinity (%): 0.0-0.3% safe range for koi. Higher levels may be used temporarily for treating specific parasites or health issues.
 
     HOW MANY FISH ARE IN YOUR POND?
     (This determines if the pond is too small for the amount of fish. Make sure the pond is large enough and getting enough water circulation.)
@@ -136,11 +138,13 @@ enum XAIConfig {
     -Lack of appetite 
     -Obesity or bloating 
     -Constant Hiding 
+    -Flukes
     
     Display water clarity usues in the same way if they choose any.
     -Green Water
     -Black or dark water
     -Cloudy water
+    -Algae
 
     Provide a recommendation for that specifically. Think carefully about the user's inputs and mention them if needed. Example: if they are getting 12 hours of direct sunlight per day that may be why they are developing algae. 
 
