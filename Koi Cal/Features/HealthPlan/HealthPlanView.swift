@@ -356,7 +356,7 @@ struct HealthPlanView: View {
                         if waterClarity > 0 {
                             InfoCardView(
                                 title: getWaterClarityTitle(),
-                                content: isLoading ? "Loading..." : (concernRecommendations[getWaterClarityText()] ?? "Waiting for AI analysis..."),
+                                content: isLoading ? "Loading..." : (concernRecommendations[getWaterClarityText()] ?? ""),
                                 showSparkle: true
                             )
                         }
