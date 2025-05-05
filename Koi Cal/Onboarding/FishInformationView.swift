@@ -2,6 +2,7 @@ import SwiftUI
 
 struct FishInformationView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var userPreferences: UserPreferences
     
     @State private var currentFoodType = UserDefaults.standard.string(forKey: "currentFoodType") ?? "High Protein"
     @State private var fishSize = UserDefaults.standard.string(forKey: "fishSize") ?? FishSize.medium.rawValue
@@ -141,6 +142,10 @@ struct FishInformationView: View {
                     .padding(.horizontal, 20)
                     .padding(.bottom, 34)
             }
+            .simultaneousGesture(TapGesture().onEnded { 
+                print("🏁 Onboarding finished, setting flag.")
+                userPreferences.hasCompletedOnboarding = true
+            })
             .background(Color.white.edgesIgnoringSafeArea(.bottom))
         }
         .background(.white)
@@ -172,5 +177,6 @@ struct FishInformationView: View {
 #Preview {
     NavigationStack {
         FishInformationView()
+            .environmentObject(UserPreferences())
     }
 } 

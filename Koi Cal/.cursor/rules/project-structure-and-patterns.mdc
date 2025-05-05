@@ -3,3 +3,27 @@ description:
 globs:
 alwaysApply: false
 ---
+# Koi Cal Project Structure and Patterns
+
+This document outlines the key conventions and structure for the Koi Cal SwiftUI project.
+
+## Directory Structure
+
+- **`App/`**: Core application setup. Main view is likely [App/MainTabView.swift](mdc:App/MainTabView.swift). App entry point: [App/Koi_CalApp.swift](mdc:App/Koi_CalApp.swift) (or potentially [KoiCalApp.swift](mdc:KoiCalApp.swift) if it's the primary). Global imports might be in [App/AppImports.swift](mdc:App/AppImports.swift).
+- **`Components/`**: Reusable SwiftUI views (e.g., [Components/CustomCalendarView.swift](mdc:Components/CustomCalendarView.swift)) and extensions (e.g., [Components/Color+Hex.swift](mdc:Components/Color+Hex.swift)).
+- **`Features/`**: Feature-specific modules, each in its own subdirectory (e.g., `Features/FeedingHistory/`, `Features/HealthPlan/`). Views within these directories should follow the established patterns.
+- **`Models/`**: Data structures (structs like `FeedingEntry` in [Models/FeedingData.swift](mdc:Models/FeedingData.swift)) and observable state managers (classes conforming to `ObservableObject`, like [Models/FeedingData.swift](mdc:Models/FeedingData.swift)).
+- **`Services/`**: Classes handling external interactions (e.g., [Services/WeatherManager.swift](mdc:Services/WeatherManager.swift), [Services/XAIService.swift](mdc:Services/XAIService.swift)) or complex business logic.
+- **`Resources/`**: Static assets (images, etc.).
+- **`Onboarding/`**: Views specific to the user onboarding flow (e.g., [OnboardingView.swift](mdc:OnboardingView.swift)).
+
+## Key Patterns & Conventions
+
+- **State Management**: Use `ObservableObject` for shared state (like [Models/FeedingData.swift](mdc:Models/FeedingData.swift), [Services/WaterQualityManager.swift](mdc:Services/WaterQualityManager.swift)). Inject via `@StateObject` / `@EnvironmentObject`. Use `@State` for local view state.
+- **Persistence**: Currently uses `UserDefaults` for simple data (see [Models/FeedingData.swift](mdc:Models/FeedingData.swift)). Consider alternatives like Core Data/SwiftData if data complexity increases.
+- **Networking**: Use `URLSession` with `async/await` within `Service` classes (see [Services/XAIService.swift](mdc:Services/XAIService.swift)). Use `Codable` for request/response models.
+- **SwiftUI Views**: Build small, reusable components. Use `NavigationView` within tabs. Prefer standard components.
+- **Concurrency**: Use `@MainActor` for UI-related classes/updates. Use `async/await` for background tasks.
+- **Error Handling**: Implement proper error handling, especially for networking and data operations.
+- **Logging**: Use `print` statements for debugging, similar to existing logs in [Models/FeedingData.swift](mdc:Models/FeedingData.swift) and [Services/XAIService.swift](mdc:Services/XAIService.swift).
+- **File Referencing**: When discussing files in prompts or rules, use the format `[path/to/file.swift](mdc:path/to/file.swift)`.

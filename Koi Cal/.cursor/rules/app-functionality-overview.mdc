@@ -3,3 +3,19 @@ description:
 globs:
 alwaysApply: false
 ---
+# Koi Cal App Functionality Overview
+
+This document describes the main purpose and features of the Koi Cal application.
+
+## Core Purpose
+
+Koi Cal appears to be a mobile application designed to help koi pond owners manage the health and feeding of their koi fish. It provides tools for tracking feedings, monitoring water quality, setting goals, and receiving AI-driven recommendations.
+
+## Key Features
+
+- **Feeding Tracking:** Users can log daily feedings, specifying the food type. The app maintains a history of feedings ([Models/FeedingData.swift](mdc:Models/FeedingData.swift)) viewable in a calendar format ([Components/CustomCalendarView.swift](mdc:Components/CustomCalendarView.swift)) within the Feeding History tab ([Features/FeedingHistory/](mdc:Features/FeedingHistory/)).
+- **Water Testing:** Allows users to input water quality test results ([Features/WaterTest/](mdc:Features/WaterTest/), managed by [Services/WaterQualityManager.swift](mdc:Services/WaterQualityManager.swift)).
+- **Health Plan & AI Recommendations:** Provides a health plan section ([Features/HealthPlan/](mdc:Features/HealthPlan/)) that likely integrates various data points. It uses an AI service ([Services/XAIService.swift](mdc:Services/XAIService.swift)) to generate recommendations for feeding frequency, food type, and address specific user concerns based on fish details, pond conditions, water tests, location ([Services/LocationSearchCompleter.swift](mdc:Services/LocationSearchCompleter.swift)), and weather ([Services/WeatherManager.swift](mdc:Services/WeatherManager.swift)).
+- **Goals:** Users can set goals related to koi health, such as improving color or growth ([Features/Goals/](mdc:Features/Goals/)).
+- **Settings:** Configuration options for the app, potentially including fish/pond details, location, units (metric/imperial), and food types ([Features/Settings/](mdc:Features/Settings/), possibly managed by [Services/SettingsManager.swift](mdc:Services/SettingsManager.swift) and [Models/UserPreferences.swift](mdc:Models/UserPreferences.swift)).
+- **Main Interface:** The app uses a tabbed interface ([App/MainTabView.swift](mdc:App/MainTabView.swift)) to navigate between these core features.

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		9308F2302D08C3A9009B2951 /* InfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9308F22F2D08C3A9009B2951 /* InfoCardView.swift */; };
 		9308F23E2D09D710009B2951 /* GoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9308F23D2D09D710009B2951 /* GoalsView.swift */; };
+		931350EE2DC9007F00B414B0 /* SuperwallKit in Frameworks */ = {isa = PBXBuildFile; productRef = 931350ED2DC9007F00B414B0 /* SuperwallKit */; };
+		931350F12DC908C800B414B0 /* AppImports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931350EF2DC908C800B414B0 /* AppImports.swift */; };
+		931350F42DC9094100B414B0 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931350F32DC9094100B414B0 /* UserPreferences.swift */; };
+		931350F62DC9445F00B414B0 /* Koi Pond & Fish Health AI.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 931350F52DC9445F00B414B0 /* Koi Pond & Fish Health AI.storekit */; };
 		932362102D0354560003DCCD /* WaterQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620F2D0354560003DCCD /* WaterQualityView.swift */; };
 		932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9323620E2D0354560003DCCD /* WaterMeasurementView.swift */; };
 		934336D92D00C12400A3689F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934336D82D00C12400A3689F /* MainTabView.swift */; };
@@ -67,6 +71,9 @@
 /* Begin PBXFileReference section */
 		9308F22F2D08C3A9009B2951 /* InfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardView.swift; sourceTree = "<group>"; };
 		9308F23D2D09D710009B2951 /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
+		931350EF2DC908C800B414B0 /* AppImports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImports.swift; sourceTree = "<group>"; };
+		931350F32DC9094100B414B0 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		931350F52DC9445F00B414B0 /* Koi Pond & Fish Health AI.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Koi Pond & Fish Health AI.storekit"; sourceTree = "<group>"; };
 		9323620E2D0354560003DCCD /* WaterMeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMeasurementView.swift; sourceTree = "<group>"; };
 		9323620F2D0354560003DCCD /* WaterQualityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterQualityView.swift; sourceTree = "<group>"; };
 		934336D82D00C12400A3689F /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -115,6 +122,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				937EB6152CF89C8C002C0B54 /* Lottie in Frameworks */,
+				931350EE2DC9007F00B414B0 /* SuperwallKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +154,7 @@
 		936B80D12CE68B4D00F668CD = {
 			isa = PBXGroup;
 			children = (
+				931350F52DC9445F00B414B0 /* Koi Pond & Fish Health AI.storekit */,
 				936B80DC2CE68B4D00F668CD /* Koi Cal */,
 				936B80ED2CE68B4E00F668CD /* Koi CalTests */,
 				936B80F72CE68B4E00F668CD /* Koi CalUITests */,
@@ -173,6 +182,8 @@
 				9389E20A2D04DE69001BAAE7 /* Resources */,
 				9389E2072D04DE4B001BAAE7 /* Services */,
 				93A3D1CE2D172E38005D17AB /* Onboarding */,
+				931350EF2DC908C800B414B0 /* AppImports.swift */,
+				931350F32DC9094100B414B0 /* UserPreferences.swift */,
 			);
 			path = "Koi Cal";
 			sourceTree = "<group>";
@@ -409,6 +420,7 @@
 			mainGroup = 936B80D12CE68B4D00F668CD;
 			packageReferences = (
 				937EB6132CF89C8C002C0B54 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				931350EC2DC9007F00B414B0 /* XCRemoteSwiftPackageReference "Superwall-iOS" */,
 			);
 			productRefGroup = 936B80DB2CE68B4D00F668CD /* Products */;
 			projectDirPath = "";
@@ -429,6 +441,7 @@
 				936B80E52CE68B4E00F668CD /* Preview Assets.xcassets in Resources */,
 				9389E2162D04E34B001BAAE7 /* Assets.xcassets in Resources */,
 				937EB61C2CF8A5E5002C0B54 /* Two_Koi.lottie in Resources */,
+				931350F62DC9445F00B414B0 /* Koi Pond & Fish Health AI.storekit in Resources */,
 				93A3D1E42D1AE26C005D17AB /* tick.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,6 +468,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93A3D1D72D177247005D17AB /* FishProblemsView.swift in Sources */,
+				931350F42DC9094100B414B0 /* UserPreferences.swift in Sources */,
 				9389E21B2D04E7AF001BAAE7 /* XAIConfig.swift in Sources */,
 				9355BEFC2CF4F019007B1A78 /* XAIService.swift in Sources */,
 				9355BF022CF4F042007B1A78 /* WeatherManager.swift in Sources */,
@@ -466,6 +480,7 @@
 				939605492D0C7EFA00AEEA5D /* MeasurementType.swift in Sources */,
 				9396054B2D0C818500AEEA5D /* WaterQualityManager.swift in Sources */,
 				9387B5102D022E1E00F6B3B9 /* HeaderView.swift in Sources */,
+				931350F12DC908C800B414B0 /* AppImports.swift in Sources */,
 				932362102D0354560003DCCD /* WaterQualityView.swift in Sources */,
 				9389E2232D04FDD8001BAAE7 /* WaterTestView.swift in Sources */,
 				932362112D0354560003DCCD /* WaterMeasurementView.swift in Sources */,
@@ -646,7 +661,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Koi Cal/koical.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "1 with God given ass but I could play guitar";
 				DEVELOPMENT_ASSET_PATHS = "\"Koi Cal/Preview Content\"";
 				DEVELOPMENT_TEAM = 8Z26HLRJ65;
 				ENABLE_PREVIEWS = YES;
@@ -663,7 +678,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koical;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -678,7 +693,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "1 with God given ass but I could play guitar";
 				DEVELOPMENT_ASSET_PATHS = "\"Koi Cal/Preview Content\"";
 				DEVELOPMENT_TEAM = 8Z26HLRJ65;
 				ENABLE_PREVIEWS = YES;
@@ -695,7 +710,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.designoverhaul.koical;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -818,6 +833,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		931350EC2DC9007F00B414B0 /* XCRemoteSwiftPackageReference "Superwall-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/superwall/Superwall-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.5;
+			};
+		};
 		937EB6132CF89C8C002C0B54 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
@@ -829,6 +852,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		931350ED2DC9007F00B414B0 /* SuperwallKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 931350EC2DC9007F00B414B0 /* XCRemoteSwiftPackageReference "Superwall-iOS" */;
+			productName = SuperwallKit;
+		};
 		937EB6142CF89C8C002C0B54 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 937EB6132CF89C8C002C0B54 /* XCRemoteSwiftPackageReference "lottie-ios" */;

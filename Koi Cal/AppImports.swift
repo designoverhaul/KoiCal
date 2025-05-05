@@ -5,5 +5,5 @@ import SwiftUI
 // It's a workaround for import issues in the project
 
 // Re-export UserPreferences
-@_exported import struct Koi_Cal.UserPreferences
-@_exported import struct Koi_Cal.OnboardingView 
+// @_exported import struct Koi_Cal.UserPreferences
+// @_exported import struct Koi_Cal.OnboardingView 

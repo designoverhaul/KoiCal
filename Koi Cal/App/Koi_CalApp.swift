@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import SuperwallKit
 
 @main
 struct Koi_CalApp: App {
     @State private var showingSplash = true
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    @StateObject private var userPreferences = UserPreferences()
     
     init() {
+        // Add Superwall configuration here
+        Superwall.configure(apiKey: "pk_ce201405ed3e27217bc6307aab879346944b1d334b5d6b61")
         // Force portrait orientation
         AppDelegate.orientationLock = .portrait
     }
@@ -22,6 +26,7 @@ struct Koi_CalApp: App {
             ZStack {
                 MainTabView()
                     .preferredColorScheme(.light)
+                    .environmentObject(userPreferences)
                 
                 if showingSplash {
                     SplashScreenView(isPresented: $showingSplash)

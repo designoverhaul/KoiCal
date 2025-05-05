@@ -1,5 +1,6 @@
 import SwiftUI
 import Lottie
+import SuperwallKit
 
 extension Notification.Name {
     static let refreshHealthPlan = Notification.Name("refreshHealthPlan")
@@ -10,6 +11,7 @@ struct HealthPlanView: View {
     @StateObject private var weatherManager = WeatherManager()
     @EnvironmentObject private var feedingData: FeedingData
     @EnvironmentObject private var waterQualityManager: WaterQualityManager
+    @EnvironmentObject private var userPreferences: UserPreferences
     @State private var feedingFrequency = ""
     @State private var foodType = ""
     @State private var pondReport = ""
@@ -38,6 +40,7 @@ struct HealthPlanView: View {
     @AppStorage("selectedAgeGroup") private var selectedAgeGroup = "Mixed"
     @AppStorage("flukes") private var flukes = false
     @AppStorage("salinityPercent") private var salinityPercent: Double = 0.0 // Set default to 0.0
+    @AppStorage("hasShownFirstPlanPaywall") private var hasShownFirstPlanPaywall = false
     
     #if DEBUG
     private static var hasLogged = false
@@ -244,13 +247,24 @@ struct HealthPlanView: View {
             VStack(alignment: .leading, spacing: 16) {
                 // Generate Health Plan Button
                 Button {
-                    if location.isEmpty {
-                        showLocationAlert = true
-                    } else {
-                        Task {
-                            await updateRecommendations()  // Start generating plan immediately
+                    // Check the actual subscription status case using 'if case'
+                    if case .active = Superwall.shared.subscriptionStatus {
+                        // User is subscribed, proceed to generate plan
+                        if location.isEmpty {
+                            showLocationAlert = true
+                        } else {
+                            Task {
+                                await updateRecommendations()  // Start generating plan immediately
+                            }
+                            // Consider removing the feedback alert here if the paywall handles user flow
+                            // showFeedbackAlert = true 
                         }
-                        showFeedbackAlert = true  // Show feedback alert while plan generates
+                    } else {
+                        // User is not subscribed, show the paywall
+                        print("🧱 User not subscribed. Triggering Superwall placement: KoiPlacementTrigger")
+                        Superwall.shared.register(placement: "KoiPlacementTrigger") {
+                             // Optional: Handle paywall presentation state if needed, e.g., dismiss loading indicators
+                        }
                     }
                 } label: {
                     HStack {
@@ -381,9 +395,13 @@ struct HealthPlanView: View {
                         if stuntedGrowth {
                             InfoCardView(
                                 title: "Stunted Growth",
-                                content: isLoading ? "Loading..." : (concernRecommendations["Stunted growth"] ?? ""),
+                                content: isLoading ? "Loading..." : (concernRecommendations["Stunted growth"] ?? "No specific advice available."),
                                 showSparkle: true
                             )
+                            .onAppear {
+                                print("🔍 All concern keys: \(concernRecommendations.keys)")
+                                print("🔍 Stunted growth value: \(concernRecommendations["Stunted growth"] ?? "NOT FOUND")")
+                            }
                         }
                         
                         if lackOfAppetite {
@@ -461,5 +479,6 @@ struct HealthPlanView: View {
         HealthPlanView()
             .environmentObject(WaterQualityManager())
             .environmentObject(FeedingData())
+            .environmentObject(UserPreferences())
     }
 } 
