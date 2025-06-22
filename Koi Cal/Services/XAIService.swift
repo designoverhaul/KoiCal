@@ -152,7 +152,7 @@ class XAIService: ObservableObject {
         
         let request = ChatRequest(
             messages: messages,
-            model: "grok-beta",
+            model: "grok-3",
             temperature: 0.6,
             max_tokens: 500
         )

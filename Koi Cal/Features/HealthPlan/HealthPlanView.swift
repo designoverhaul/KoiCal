@@ -247,12 +247,26 @@ struct HealthPlanView: View {
             VStack(alignment: .leading, spacing: 16) {
                 // Generate Health Plan Button
                 Button {
-                    // Check the actual subscription status case using 'if case'
-                    if case .active = Superwall.shared.subscriptionStatus {
-                        // User is subscribed, proceed to generate plan
+                    // Check if this is the first time or user is subscribed
+                    let isSubscribed: Bool
+                    switch Superwall.shared.subscriptionStatus {
+                    case .active:
+                        isSubscribed = true
+                    default:
+                        isSubscribed = false
+                    }
+                    
+                    if !hasShownFirstPlanPaywall || isSubscribed {
+                        // First time or user is subscribed, proceed to generate plan
                         if location.isEmpty {
                             showLocationAlert = true
                         } else {
+                            // If this is the first free plan, mark it as used
+                            if !hasShownFirstPlanPaywall {
+                                hasShownFirstPlanPaywall = true
+                                print("🆓 User generating first free plan")
+                            }
+                            
                             Task {
                                 await updateRecommendations()  // Start generating plan immediately
                             }
@@ -260,7 +274,7 @@ struct HealthPlanView: View {
                             // showFeedbackAlert = true 
                         }
                     } else {
-                        // User is not subscribed, show the paywall
+                        // Not first time and user is not subscribed, show the paywall
                         print("🧱 User not subscribed. Triggering Superwall placement: KoiPlacementTrigger")
                         Superwall.shared.register(placement: "KoiPlacementTrigger") {
                              // Optional: Handle paywall presentation state if needed, e.g., dismiss loading indicators
@@ -307,6 +321,16 @@ struct HealthPlanView: View {
                     }
                     
                     Button("Close", role: .cancel) { }
+                }
+                
+                // Free plan indicator
+                if !hasShownFirstPlanPaywall, case .inactive = Superwall.shared.subscriptionStatus {
+                    Text("🎁 First plan is free!")
+                        .font(.subheadline)
+                        .foregroundColor(Color(hex: "F18833"))
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.top, 4)
+                        .padding(.bottom, 8)
                 }
                 
                 // Timestamp
@@ -448,6 +472,66 @@ struct HealthPlanView: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
+                    
+                    // Generate Health Plan Button (Bottom)
+                    Button {
+                        // Check if this is the first time or user is subscribed
+                        let isSubscribed: Bool
+                        switch Superwall.shared.subscriptionStatus {
+                        case .active:
+                            isSubscribed = true
+                        default:
+                            isSubscribed = false
+                        }
+                        
+                        if !hasShownFirstPlanPaywall || isSubscribed {
+                            // First time or user is subscribed, proceed to generate plan
+                            if location.isEmpty {
+                                showLocationAlert = true
+                            } else {
+                                // If this is the first free plan, mark it as used
+                                if !hasShownFirstPlanPaywall {
+                                    hasShownFirstPlanPaywall = true
+                                    print("🆓 User generating first free plan")
+                                }
+                                
+                                Task {
+                                    await updateRecommendations()  // Start generating plan immediately
+                                }
+                                // Consider removing the feedback alert here if the paywall handles user flow
+                                // showFeedbackAlert = true 
+                            }
+                        } else {
+                            // Not first time and user is not subscribed, show the paywall
+                            print("🧱 User not subscribed. Triggering Superwall placement: KoiPlacementTrigger")
+                            Superwall.shared.register(placement: "KoiPlacementTrigger") {
+                                 // Optional: Handle paywall presentation state if needed, e.g., dismiss loading indicators
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            Text(isLoading ? "Thinking..." : "Get New Plan")
+                            if isLoading {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: Color(hex: "F18833")))
+                                    .scaleEffect(0.8)
+                                    .padding(.leading, 4)
+                            }
+                        }
+                        .font(.headline)
+                        .foregroundColor(Color(hex: "F18833"))
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color(hex: "FFEDDA"))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color(hex: "F18833"), lineWidth: 1)
+                        )
+                        .cornerRadius(10)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 30)
+                    .disabled(isLoading)
                     
                     // Bottom padding
                     Spacer()

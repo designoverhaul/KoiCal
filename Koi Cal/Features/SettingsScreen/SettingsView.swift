@@ -221,6 +221,13 @@ struct SettingsView: View {
                             .foregroundColor(Color(hex: "F18833"))
                     }
                 }
+                
+                // Terms of Use Link
+                Link("Terms of Use (EULA)", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                    .font(.system(size: 14)) // Adjusted font size
+                    .foregroundColor(.gray) // Make it less prominent
+                    .frame(maxWidth: .infinity, alignment: .center) // Center it
+                    .padding(.top, 5) // Add a little space above it
             }
             .alert("Email Not Available", isPresented: $showMailError) {
                 Button("OK", role: .cancel) { }
